@@ -1,0 +1,134 @@
+﻿
+.books-page {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Разрешаем перенос элементов на новую строку */
+    padding-top: 20px; /* Верхний отступ от header */
+}
+
+.books-content {
+    flex: 1; /* Элемент занимает всю доступную область */
+    padding: 20px;
+}
+
+/* Общие стили для контейнера карточек книг */
+.book-container {
+    display: flex; /* Используем Flexbox для контейнера */
+    flex-wrap: wrap; /* Разрешаем перенос элементов на новую строку */
+    justify-content: flex-start; /* Выравнивание элементов в начале строки */
+    gap: 20px; /* Расстояние между элементами */
+    padding: 20px; /* Внутренние отступы контейнера */
+    font-family: Arial, sans-serif; /* Шрифт текста */
+    color: black; /* Цвет текста для всех дочерних элементов */
+}
+
+/* Стили для отдельной карточки книги */
+.book {
+    background-color: #f9f9f9; /* Фоновый цвет карточки */
+    border: 1px solid #ddd; /* Граница карточки */
+    border-radius: 5px; /* Закругленные углы карточки */
+    overflow: hidden; /* Скрываем переполнение */
+    width: 250px; /* Ширина карточки */
+    height: 350px; /* Высота карточки */
+    text-align: center; /* Выравнивание текста по центру */
+    padding: 15px; /* Внутренние отступы карточки */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Тень карточки */
+}
+
+/* Стили для контейнера изображения книги */
+.book-image-container {
+    position: relative; /* Для абсолютного позиционирования изображения */
+    width: 100%; /* Ширина контейнера изображения */
+    padding-bottom: 100%; /* Соотношение сторон 1:1 (квадратное изображение) */
+    overflow: hidden; /* Скрываем переполнение */
+}
+
+/* Стили для изображения книги */
+.book-image {
+    position: absolute; /* Абсолютное позиционирование изображения */
+    top: 0; /* Привязываем к верхнему краю */
+    left: 0; /* Привязываем к левому краю */
+    width: 100%; /* Ширина изображения */
+    height: 100%; /* Высота изображения */
+    object-fit: cover; /* Масштабируем изображение, сохраняя соотношение сторон */
+}
+
+/* Стили для заголовка книги */
+.book-title {
+    font-size: 24px; /* Размер шрифта заголовка */
+    margin: 5px 0; /* Отступы заголовка */
+}
+
+/* Стили для автора книги */
+.book-author {
+    color: #555; /* Цвет текста автора */
+    font-size: 16px; /* Размер шрифта автора */
+    margin-block-start: 10px; /* Верхний отступ автора */
+    margin-bottom: 5px; /* Нижний отступ автора */
+}
+
+/* Стили для информации о книге (рейтинг и количество комментариев) */
+.book-info {
+    display: flex; /* Используем Flexbox для контейнера информации о книге */
+    justify-content: space-between; /* Размещаем элементы по краям контейнера */
+    font-size: 14px; /* Размер шрифта информации о книге */
+    color: #777; /* Цвет текста информации о книге */
+}
+
+/* Стили для сообщения "Упс, ничего не найдено" */
+.not-found-message {
+    text-align: center; /* Выравнивание текста по центру */
+    margin-top: 50px; /* Верхний отступ от header */
+    font-size: 32px; /* Размер шрифта */
+    color: #555; /* Цвет текста */
+}
+
+/* Стили для блока поиска и фильтров */
+.books-sidebar {
+    width: 300px; /* Ширина блока поиска и фильтров */
+    height: 250px; /* Высота блока поиска и фильтров */
+    padding: 20px;
+    background-color: #f2f2f2;
+    border-left: 1px solid #ddd;
+    position: sticky;
+    top: 0;
+    right: 0; /* Прижимаем блок к правому краю */
+}
+
+.search-filter {
+    margin-bottom: 20px;
+}
+
+    .search-filter h3 {
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+
+    .search-filter label {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    .search-filter select {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+        font-size: 14px;
+    }
+
+    .search-filter button {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+        .search-filter button:hover {
+            background-color: #0056b3;
+        }
+
+

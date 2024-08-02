@@ -1,0 +1,140 @@
+﻿.book-container {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    margin: 20px auto;
+
+    background-color: #f9f9f9; /* Светлый серый фон */
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    color: #333;
+}
+
+.book-details {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start; /* Выравнивание элементов по верхнему краю */
+    margin-bottom: 20px;
+    background-color: #fff; /* Белый фон */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.book-info {
+    flex: 1;
+    margin-right: 20px;
+}
+
+    .book-info h1 {
+        font-size: 2em;
+        margin-top: 20px;
+        margin-bottom: 10px;
+        color: #333; /* Цвет текста заголовка */
+    }
+
+    .book-info p {
+        margin: 15px 0;
+        line-height: 1.5;
+    }
+
+.book-image {
+    max-width: 300px;
+    margin-top: 0px;
+    flex: 0 0 250px;
+    align-self: flex-end;
+    margin-right: 20px;
+}
+
+    .book-image img {
+        width: auto;
+        height: 300px;
+        border-radius: 8px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    }
+
+.book-description {
+    margin-top: 0px;
+    background-color: #fff; /* Белый фон */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    overflow-wrap: break-word;
+}
+
+    .book-description p {
+        margin: 10px 0;
+    }
+
+.download-links {
+    margin-top: 20px;
+    background-color: #f0f0f0; /* Фон блока с ссылками на скачивание */
+    padding: 10px;
+    border-radius: 8px;
+}
+
+    .download-links p {
+        margin-bottom: 10px;
+        margin-top: 0px;
+        font-weight: bold; /* Жирный шрифт для заголовка "Скачать" */
+    }
+
+    .download-links a {
+        display: block;
+        margin-top: 5px;
+        padding: 8px 10px;
+        border: 1px solid #007BFF;
+        border-radius: 4px;
+        color: #007BFF;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+    }
+
+        .download-links a:hover {
+            background-color: #007BFF;
+            color: #fff;
+        }
+
+.comments {
+    border-top: 1px solid #ccc;
+    padding-top: 20px;
+    margin-top: 20px;
+    background-color: #fff; /* Белый фон для комментариев */
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    overflow-wrap: break-word; /* Перенос текста */
+}
+
+    .comments h2 {
+        font-size: 1.5em;
+        margin-bottom: 10px;
+        margin-top: 0px;
+        color: #333; /* Цвет текста заголовка */
+        margin-left: 5px;
+    }
+
+.comment {
+    margin-bottom: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f9f9f9; /* Светлый фон для комментария */
+}
+
+    .comment p {
+        margin: 5px 0;
+    }
+
+    .comment strong {
+        font-weight: bold;
+    }
+
+.not-found-message {
+    text-align: center; /* Выравнивание текста по центру */
+    margin-top: 50px; /* Верхний отступ от header */
+    font-size: 32px; /* Размер шрифта */
+    color: #000; /* Цвет текста */
+}

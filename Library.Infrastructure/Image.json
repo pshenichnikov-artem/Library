@@ -1,0 +1,50 @@
+[
+  {
+    "ImageID": "6b35adff-bdb4-4b69-b935-08d5dfd2d64c",
+    "ImagePath": "images/john_doe_avatar.jpg"
+  },
+  {
+    "ImageID": "26a64d72-91e0-44fa-8e1a-7f55570d1168",
+    "ImagePath": "images/jane_smith_avatar.jpg"
+  },
+  {
+    "ImageID": "7f3c63f2-7cc7-4c7b-85b7-44b1c70f6262",
+    "ImagePath": "images/emily_jones_avatar.jpg"
+  },
+  {
+    "ImageID": "d16d704b-9a29-4a0b-9c70-bcd9b2c26f37",
+    "ImagePath": "images/michael_brown_avatar.jpg"
+  },
+  {
+    "ImageID": "bd44fabc-e840-4e3b-81da-2a3cb3b6e4d8",
+    "ImagePath": "images/sarah_johnson_avatar.jpg"
+  },
+  {
+    "ImageID": "8ab07e4c-5af6-4f59-8c3f-233b23c1ff13",
+    "ImagePath": "images/david_wilson_avatar.jpg"
+  },
+  {
+    "ImageID": "c9e4c891-909e-43a2-9a75-8973b907b4d7",
+    "ImagePath": "images/linda_taylor_avatar.jpg"
+  },
+  {
+    "ImageID": "b6bb833a-3eec-4df1-9784-fd9d621d5f5c",
+    "ImagePath": "images/learning_csharp_cover.jpg"
+  },
+  {
+    "ImageID": "fb1e6b58-4b34-4c4c-878b-0f4b83f3d8b7",
+    "ImagePath": "images/advanced_aspnet_core_cover.jpg"
+  },
+  {
+    "ImageID": "6a7c7d5f-4c8e-4a4d-878b-2d2b7e8f5b7e",
+    "ImagePath": "images/introduction_to_algorithms_cover.jpg"
+  },
+  {
+    "ImageID": "7b8c7d5e-5c6d-4c4c-878a-3f3d7e6e4c3d",
+    "ImagePath": "images/machine_learning_basics_cover.jpg"
+  },
+  {
+    "ImageID": "8a7b7d5e-6c5d-4c4d-878b-3e3b7e5e4b6d",
+    "ImagePath": "images/data_science_for_beginners_cover.jpg"
+  }
+]

@@ -1,0 +1,42 @@
+[
+  {
+    "BookID": "2a3a2e4f-94be-4d5e-935a-e24e45bc08e5",
+    "Title": "Learning C#",
+    "Description": "A comprehensive guide to C# programming.",
+    "Genre": "Programming",
+    "PublicationDate": "2020-05-15",
+    "CoverImageID": "b6bb833a-3eec-4df1-9784-fd9d621d5f5c"
+  },
+  {
+    "BookID": "5a2e08e1-2c3a-4a2b-a8de-4e4a2d2b7b6c",
+    "Title": "Advanced ASP.NET Core",
+    "Description": "Deep dive into ASP.NET Core framework.",
+    "Genre": "Programming",
+    "PublicationDate": "2021-08-20",
+    "CoverImageID": "fb1e6b58-4b34-4c4c-878b-0f4b83f3d8b7"
+  },
+  {
+    "BookID": "6a7b9c1e-9c7b-4e4d-9a8b-2d2b8c4a6c2e",
+    "Title": "Introduction to Algorithms",
+    "Description": "An extensive resource on algorithms and data structures.",
+    "Genre": "Computer Science",
+    "PublicationDate": "2019-03-10",
+    "CoverImageID": "6a7c7d5f-4c8e-4a4d-878b-2d2b7e8f5b7e"
+  },
+  {
+    "BookID": "4c5d3e7f-9b8d-4a4d-9a6c-3e4a2b7b5d4c",
+    "Title": "Machine Learning Basics",
+    "Description": "Understanding the fundamentals of machine learning.",
+    "Genre": "Artificial Intelligence",
+    "PublicationDate": "2022-01-15",
+    "CoverImageID": "7b8c7d5e-5c6d-4c4c-878a-3f3d7e6e4c3d"
+  },
+  {
+    "BookID": "9a8b7c6d-4a4d-4e4c-9b6c-2d3e4b6b5d4e",
+    "Title": "Data Science for Beginners",
+    "Description": "An introduction to the field of data science.",
+    "Genre": "Data Science",
+    "PublicationDate": "2018-11-05",
+    "CoverImageID": "8a7b7d5e-6c5d-4c4d-878b-3e3b7e5e4b6d"
+  }
+]

@@ -1,0 +1,56 @@
+﻿@model BookResponse
+
+@section Head {
+    <link rel="stylesheet" href="~/css/bookDetails.css" />
+}
+
+@if (Model != null)
+{
+    <div class="book-container">
+        <div class="book-details">
+            <div class="book-info">
+                <h1>@Model.Title</h1>
+                <p><strong>Жанр:</strong> @Model.Genre</p>
+                <p>
+                    <strong>Авторы:</strong> @Model.Author
+                </p>
+                <p><strong>Дата публикации:</strong> @Model.PublicationDate</p>
+            </div>
+            <div class="book-image">
+                <img src="@ViewBag.Image">
+            </div>
+        </div>
+
+        <div class="book-description">
+            <p><strong>Описание:</strong></p>
+            <p>@Model.Description</p>
+        </div>
+
+        <div class="download-links">
+            <p><strong>Скачать:</strong></p>
+            @if (Model.BookFileDocx != null)
+            {
+                <a href="download/@Model.BookFileDocx" download>Скачать DOCX</a>
+            }
+            @if (Model.BookFilePdf != null)
+            {
+                <a href="download/@Model.BookFilePdf" download>Скачать PDF</a>
+            }
+        </div>
+
+        @*<section class="comments">
+            <h2>Комментарии</h2>
+            @foreach (var comment in Model.Comments)
+            {
+                <div class="comment">
+                    <p><strong>@comment.User.FirstName @comment.User.LastName</strong></p>
+                    <p>@comment.Content</p>
+                </div>
+            }
+    </section>*@
+    </div>
+}
+else
+{
+    <p class="not-found-message">Упс, ничего не найдено</p>
+}

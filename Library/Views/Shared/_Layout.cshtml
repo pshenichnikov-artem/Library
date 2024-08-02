@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>@(ViewBag.Title != null ? ViewBag.Title : "Library")</title>
+	<link href="~/css/header.css" rel="stylesheet" />
+	@RenderSection("Head", false)
+</head>
+<body>
+	<header>
+		<div class="container">
+			<div class="header-left">
+				<a href="/" class="logo">Library</a>
+			</div>
+			<div class="header-right">
+				<a href="/">Главная</a>
+				<a href="/books">Каталог</a>
+				<form action="/books" method="get" class="search-form">
+					<input type="text" name="bookTitle" placeholder="Найти книгу">
+					<button type="submit">Поиск</button>
+				</form>
+				@if (User.Identity.IsAuthenticated)
+				{
+					<a href="/user/profile">Мой аккаунт</a>
+					<a href="/account/logout">Выйти</a>
+				}
+				else
+				{
+					<a href="/account/login" id="login-link">Войти</a>
+					<a href="/account/registration">Зарегистрироваться</a>
+				}
+			</div>
+		</div>
+	</header>
+
+	<div class="content">
+		@RenderBody()
+	</div>
+
+	<footer>
+		<div class="footer-container">
+			<div class="footer-column">
+				<p class="footer-title">Контакты:</p>
+				<ul>
+					<li>Email: <a href="mailto:info@library.com">info@library.com</a></li>
+					<li>Телеграмм: <a href="https://t.me/library">t.me/</a></li>
+					<li>ВКонтакте: <a href="https://vk.com/library">vk.com/library</a></li>
+					<li>Телефон: <a href="tel:+123456789">+1 (234) 567-89</a></li>
+				</ul>
+			</div>
+			<div class="footer-column">
+				<p class="footer-title">Информация о сайте:</p>
+				<ul>
+					<li><a href="/about">О сайте</a></li>
+					<li><a href="/rules">Правила сайта</a></li>
+					<li><a href="/privacy">Политика конфиденциальности</a></li>
+				</ul>
+			</div>
+			<div class="footer-column">
+				<p class="footer-title">Техническая поддержка:</p>
+				<ul>
+					<li>Почта поддержки для пользователей:</li>
+					<li><a href="mailto:support@library.com">support@library.com</a></li>
+				</ul>
+			</div>
+		</div>
+	</footer>
+
+	@RenderSection("Script", false)
+
+</body>
+</html>
