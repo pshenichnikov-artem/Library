@@ -1,0 +1,29 @@
+﻿@model LoginDTO
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@section Head {
+    <link rel="stylesheet" href="~/css/login.css" />
+}
+
+<div class="login-form" id="login-form">
+    <h2>Вход</h2>
+    <form asp-action="Login" method="post">
+        <label for="email">Почта:</label>
+        <input type="email" id="email" name="Email" value="@Model?.Email" required>
+
+        <label for="password">Пароль:</label>
+        <input type="password" id="password" name="Password" required>
+
+        <button type="submit">Войти</button>
+    </form>
+
+    <div class="text-danger">
+        @if (ViewBag.Errors != null)
+        {
+            foreach (var error in ViewBag.Errors)
+            {
+                <p>@error</p>
+            }
+        }
+    </div>
+</div>

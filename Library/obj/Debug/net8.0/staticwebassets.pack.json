@@ -1,0 +1,41 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\studies\\Asp.Net_Core\\Library\\Library\\wwwroot\\css\\book.css",
+      "PackagePath": "staticwebassets\\css\\book.css"
+    },
+    {
+      "Id": "C:\\studies\\Asp.Net_Core\\Library\\Library\\wwwroot\\css\\bookDetails.css",
+      "PackagePath": "staticwebassets\\css\\bookDetails.css"
+    },
+    {
+      "Id": "C:\\studies\\Asp.Net_Core\\Library\\Library\\wwwroot\\css\\header.css",
+      "PackagePath": "staticwebassets\\css\\header.css"
+    },
+    {
+      "Id": "C:\\studies\\Asp.Net_Core\\Library\\Library\\wwwroot\\css\\login.css",
+      "PackagePath": "staticwebassets\\css\\login.css"
+    },
+    {
+      "Id": "C:\\studies\\Asp.Net_Core\\Library\\Library\\wwwroot\\css\\registration.css",
+      "PackagePath": "staticwebassets\\css\\registration.css"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.Library.UI.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.Library.UI.props",
+      "PackagePath": "build\\Library.UI.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.Library.UI.props",
+      "PackagePath": "buildMultiTargeting\\Library.UI.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.Library.UI.props",
+      "PackagePath": "buildTransitive\\Library.UI.props"
+    }
+  ],
+  "ElementsToRemove": []
+}
