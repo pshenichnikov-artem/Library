@@ -46,13 +46,13 @@ header {
             text-decoration: underline;
         }
 
-.search-form {
+.search-form-header {
     display: flex;
     align-items: center;
     margin-left: 20px;
 }
 
-    .search-form input[type="text"] {
+    .search-form-header input[type="text"] {
         padding: 12px; /* Увеличенный padding для поля ввода */
         font-size: 22px; /* Увеличенный размер текста в поле ввода */
         border: 1px solid #ccc;
@@ -61,7 +61,7 @@ header {
         width: 300px; /* Увеличенная ширина поля ввода */
     }
 
-    .search-form button {
+    .search-form-header button {
         padding: 12px 22px; /* Увеличенный padding для кнопки */
         font-size: 22px; /* Увеличенный размер текста кнопки */
         background-color: #4CAF50;
@@ -71,7 +71,7 @@ header {
         cursor: pointer;
     }
 
-        .search-form button:hover {
+        .search-form-header button:hover {
             background-color: #45a049;
         }
 

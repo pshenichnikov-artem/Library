@@ -4,6 +4,7 @@ using Library.Core.Domain.RepositrotyContracts;
 using Library.Core.DTO;
 using Library.Core.Enums;
 using Library.Core.ServiceContracts;
+using Microsoft.AspNetCore.Hosting;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -21,12 +22,15 @@ namespace Library.Core.Services
             _mapper = mapper;
         }
 
-        public virtual async Task<BookResponse> AddBook(BookAddRequest bookAddRequest, Guid? imageID = null)
+        public virtual async Task<BookResponse> AddBook(BookAddRequest bookAddRequest, string ownerEmail, Guid? imageID = null)
         {
             if(bookAddRequest == null)
             {
                 throw new ArgumentNullException(nameof(bookAddRequest));
             }
+
+            if(string.IsNullOrWhiteSpace(ownerEmail))
+                throw new ArgumentNullException(nameof(ownerEmail));
 
             ValidationContext validationContext = new ValidationContext(bookAddRequest);
             List<ValidationResult> validationResults = new List<ValidationResult>();
@@ -39,6 +43,7 @@ namespace Library.Core.Services
 
             Book book = _mapper.Map<Book>(bookAddRequest);
             book.BookID = Guid.NewGuid();
+            book.OwnerBookEmail = ownerEmail;
             if(imageID != null)
                 book.CoverImageID = imageID.Value;
             await _bookRepository.AddBookAsync(book);
@@ -46,18 +51,19 @@ namespace Library.Core.Services
             return _mapper.Map<BookResponse>(book);
         }
 
-        public async Task<bool> DeleteBookByID(Guid? bookID)
+        public async Task<BookResponse?> DeleteBookByID(Guid? bookID)
         {
             if (bookID == null)
             {
                 throw new ArgumentNullException(nameof(bookID));
             }
 
-            Book? person = await _bookRepository.GetBookByIDAsync(bookID.Value);
-            if (person == null)
-                return false;
+            Book? book = await _bookRepository.GetBookByIDAsync(bookID.Value);
+            if (book == null)
+                return null;
 
-            return await _bookRepository.DeleteBookByIDAsync(bookID.Value);
+            await _bookRepository.DeleteBookByIDAsync(bookID.Value);
+            return _mapper.Map<BookResponse>(book);
         }
 
         public virtual async Task<List<BookResponse>> GetAllBooks()
@@ -91,7 +97,7 @@ namespace Library.Core.Services
                 nameof(Book.PublicationDate) => b => b.PublicationDate.Value.ToString("yyyy-MM-dd"),
                 nameof(Book.Genre) => b => b.Genre,
                 nameof(Book.Author) => b => b.Author,
-                _ => null
+                _ =>  b => $"{b.Title} {b.Description} {(b.PublicationDate.HasValue ? b.PublicationDate.Value.ToString("yyyy-MM-dd") : string.Empty)} {b.Genre} {b.Author}"
             };
 
             if (getProperty == null)
@@ -122,40 +128,79 @@ namespace Library.Core.Services
 
             if(sortOrder == SortOrderOptions.ASC)
             {
-               return books.OrderBy(b => getProperty(b)).ToList();
+               return books.OrderByDescending(getProperty).ToList();
             }
             else
             {
-                return books.OrderByDescending(b => getProperty(b)).ToList();
+                return books.OrderBy(getProperty).ToList();
             }
         }
 
-        public async Task<BookResponse> UpdateBook(Book? bookRequest)//todo сделать BookUpdateRequest
-            //todo файл, //todo картинка
-        {
-            if (bookRequest == null)
-                throw new ArgumentNullException(nameof(bookRequest));
+        //public async Task<BookResponse> UpdateBook(Guid bookID, BookAddRequest bookAddRequest, string ownerEmail)
+        //{
+        //    if (bookAddRequest == null)
+        //        throw new ArgumentNullException(nameof(bookAddRequest));
 
-            ValidationContext validationContext = new ValidationContext(bookRequest);
-            List<ValidationResult> validationResults = new List<ValidationResult>();
+        //    // Проверка валидности запроса
+        //    ValidationContext validationContext = new ValidationContext(bookAddRequest);
+        //    List<ValidationResult> validationResults = new List<ValidationResult>();
+        //    bool isValid = Validator.TryValidateObject(bookAddRequest, validationContext, validationResults, true);
+        //    if (!isValid)
+        //        throw new ArgumentException(validationResults.FirstOrDefault()?.ErrorMessage);
 
-            bool isValid = Validator.TryValidateObject(bookRequest, validationContext, validationResults, true);
-            if (!isValid)
-            {
-                throw new ArgumentException(validationResults.FirstOrDefault()?.ErrorMessage);
-            }
+        //    // Получение существующей книги
+        //    Book existingBook = await _bookRepository.GetBookByIDAsync(bookID);
+        //    if (existingBook == null)
+        //        throw new InvalidOperationException("Book not found");
 
-            //get matching person object to update
-            Book? matchingPerson = await _bookRepository.GetBookByIDAsync(bookRequest.BookID);
-            if (matchingPerson == null)
-            {
-                throw new InvalidDataException("Given person id doesn't exist");
-            }
+        //    if (existingBook.OwnerBookEmail != ownerEmail)
+        //        throw new UnauthorizedAccessException("You are not authorized to update this book.");
 
-            //TODO изменить поля
+        //    // Обработка нового изображения
+        //    if (bookAddRequest.ImageFile != null)
+        //    { 
+        //        var newImage = await _b.AddImageFile(bookAddRequest.ImageFile);
+        //        existingBook.CoverImageID = newImage.ImageID;
+        //    }
 
-            await _bookRepository.UpdateBookAsync(matchingPerson);
-            return _mapper.Map<BookResponse>(matchingPerson);
-        }
+        //    // Обработка нового PDF файла
+        //    if (bookAddRequest.PdfFile != null)
+        //    {
+        //        var pdfFile = await _bookFileServices.AddBookFile(existingBook.BookID, bookAddRequest.PdfFile);
+        //        existingBook.PdfFileID = pdfFile.BookFileID;
+        //    }
+
+        //    // Обработка нового DOCX файла
+        //    if (bookAddRequest.DocxFile != null)
+        //    {
+        //        var docxFile = await _bookFileServices.AddBookFile(existingBook.BookID, bookAddRequest.DocxFile);
+        //        existingBook.DocxFileID = docxFile.BookFileID;
+        //    }
+
+        //    // Обновление информации о книге
+        //    existingBook.Title = bookAddRequest.Title;
+        //    existingBook.Description = bookAddRequest.Description;
+        //    existingBook.Genre = bookAddRequest.Genre;
+        //    existingBook.PublicationDate = DateTime.Parse(bookAddRequest.PublicationDate);
+        //    existingBook.Author = bookAddRequest.Author;
+
+        //    // Удаление старых файлов, если они существуют и не были заменены
+        //    if (bookAddRequest.DocxFile == null && existingBook.DocxFileID != null)
+        //    {
+        //        await _bookFileServices.DeleteBookFileByBookID(existingBook.BookID);
+        //        existingBook.DocxFileID = null;
+        //    }
+
+        //    if (bookAddRequest.PdfFile == null && existingBook.PdfFileID != null)
+        //    {
+        //        await _bookFileServices.DeleteBookFileByBookID(existingBook.BookID);
+        //        existingBook.PdfFileID = null;
+        //    }
+
+        //    await _bookRepository.UpdateBookAsync(existingBook);
+
+        //    return _mapper.Map<BookResponse>(existingBook);
+        //}
+
     }
 }

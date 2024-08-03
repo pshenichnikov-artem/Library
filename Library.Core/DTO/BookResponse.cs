@@ -13,5 +13,6 @@ namespace Library.Core.DTO
         public Guid? BookFileDocx { get; set; }
         public Guid? BookFilePdf { get; set; }
         public Guid? CoverImageID { get; set; }
+        public string? OwnerBookEmail { get; set; }
     }
 }

@@ -16,8 +16,15 @@
                 </p>
                 <p><strong>Дата публикации:</strong> @Model.PublicationDate</p>
             </div>
+
+            @if (Model.OwnerBookEmail == ViewBag.OwnerEmail) {
+                <div class="book-actions">
+                    <a class="update-button" href="@(Model.BookID + "/update")">Изменить</a>
+                <a class="delete-button" href="@(Model.BookID + "/delete")">Удалить</a>
+            </div>
+            }
             <div class="book-image">
-                <img src="@ViewBag.Image">
+                <img src="data:image/jpeg;base64,@ViewBag.Base64Image">
             </div>
         </div>
 
@@ -39,14 +46,14 @@
         </div>
 
         @*<section class="comments">
-            <h2>Комментарии</h2>
-            @foreach (var comment in Model.Comments)
-            {
-                <div class="comment">
-                    <p><strong>@comment.User.FirstName @comment.User.LastName</strong></p>
-                    <p>@comment.Content</p>
-                </div>
-            }
+    <h2>Комментарии</h2>
+    @foreach (var comment in Model.Comments)
+    {
+    <div class="comment">
+    <p><strong>@comment.User.FirstName @comment.User.LastName</strong></p>
+    <p>@comment.Content</p>
+    </div>
+    }
     </section>*@
     </div>
 }

@@ -1,0 +1,53 @@
+﻿@model BookResponse
+
+@section Head {
+    <link rel="stylesheet" href="~/css/bookForm.css" />
+}
+
+<div class="form-wrapper">
+    <form method="post" action="#" enctype="multipart/form-data" class="book-form">
+        <h2>Редактировать книгу</h2>
+        @if (ViewBag.Errors != null)
+        {
+            <div class="form-errors">
+                @foreach (var error in ViewBag.Errors)
+                {
+                    <p>@error</p>
+                }
+            </div>
+        }
+        <div class="form-group">
+            <label for="title">Название книги:</label>
+            <input type="text" class="form-control" id="title" value="@Model?.Title" name="Title">
+        </div>
+        <div class="form-group">
+            <label for="authorFirstName">Автор:</label>
+            <input type="text" class="form-control" id="authorFirstName" value="@Model?.Author" name="Author">
+        </div>
+        <div class="form-group">
+            <label for="genre">Жанр:</label>
+            <input type="text" class="form-control" id="genre" value="@Model?.Genre" name="Genre">
+        </div>
+        <div class="form-group">
+            <label for="publicationDate">Дата публикации:</label>
+            <input type="date" class="form-control" id="publicationDate" value="@Model?.PublicationDate" name="PublicationDate">
+        </div>
+        <div class="form-group">
+            <label for="description">Описание:</label>
+            <textarea class="form-control" id="description" name="Description">@Model?.Description</textarea>
+        </div>
+        <div class="form-group">
+            <label for="picture">Картинка:</label>
+            <input type="file" class="form-control-file" id="picture" name="BookImage">
+        </div>
+        <div class="form-group">
+            <label for="pdfFiles">Файл PDF:</label>
+            <input type="file" class="form-control-file" id="pdfFiles" name="PdfFile" multiple>
+        </div>
+        <div class="form-group">
+            <label for="docxFiles">Файл DOCX:</label>
+            <input type="file" class="form-control-file" id="docxFiles" name="DocxFile" multiple>
+        </div>
+        <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+    </form>
+</div>

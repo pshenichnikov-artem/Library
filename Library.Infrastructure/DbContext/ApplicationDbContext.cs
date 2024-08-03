@@ -23,6 +23,12 @@ namespace Library.Infrastructure.DbContext
             modelBuilder.Entity<BookFile>().ToTable("BookFiles");
             modelBuilder.Entity<Image>().ToTable("Images");
 
+            modelBuilder.Entity<Book>()
+            .HasOne(b => b.Cover) 
+            .WithMany() 
+            .HasForeignKey(b => b.CoverImageID)
+            .OnDelete(DeleteBehavior.SetNull);
+
             string bookJson = File.ReadAllText("C:/studies/Asp.Net_Core/Library/Library.Infrastructure/Book.json");
             List<Book> books = JsonSerializer.Deserialize<List<Book>>(bookJson);
             foreach (var book in books)

@@ -37,40 +37,36 @@
     <div class="books-sidebar">
         <div class="search-filter">
             <h3>Поиск</h3>
-            <form method="get" action="@Url.Action("Index", "Books")">
-                <label for="genre">Жанр:</label>
-                <select name="genre-filter" id="genre-filter">
+            <form method="get" action="books">
+                <label for="searchBy">Поиск по:</label>
+                <select name="searchBy" id="searchBy">
                     <option value="">Все</option>
-                    <option value="biography">Биография</option>
-                    <option value="mystery">Детектив</option>
-                    <option value="drama">Драма</option>
-                    <option value="historical">Исторический</option>
-                    <option value="classic">Классика</option>
-                    <option value="crime">Криминал</option>
-                    <option value="science">Наука</option>
-                    <option value="sci-fi">Научная фантастика</option>
-                    <option value="poetry">Поэзия</option>
-                    <option value="adventure">Приключения</option>
-                    <option value="romance">Романтика</option>
-                    <option value="contemporary">Современная литература</option>
-                    <option value="fantasy">Фэнтези</option>
-                    <option value="fantasy-adventure">Фэнтези-приключения</option>
-                    <option value="fantasy-romance">Фэнтези-романтика</option>
-                    <option value="thriller">Триллер</option>
-                    <option value="horror">Ужасы</option>
-                    <option value="humor">Юмор</option>
+                    <option value="Title" @(ViewData["SearchBy"]?.ToString() == "Title" ? "selected" : "")>Название</option>
+                    <option value="Description" @(ViewData["SearchBy"]?.ToString() == "Description" ? "selected" : "")>Описание</option>
+                    <option value="PublicationDate" @(ViewData["SearchBy"]?.ToString() == "PublicationDate" ? "selected" : "")>Дата публикации</option>
+                    <option value="Genre" @(ViewData["SearchBy"]?.ToString() == "Genre" ? "selected" : "")>Жанр</option>
+                    <option value="Author" @(ViewData["SearchBy"]?.ToString() == "Author" ? "selected" : "")>Автор</option>
                 </select>
-                <label for="sort-filter">Сортировать по:</label>
-                <select name="orderBy" id="sort-filter">
-                    <option value="1">Рейтинг (по убыванию)</option>
-                    <option value="2">Рейтинг (по возрастанию)</option>
-                    <option value="3">Количество комментариев (по убыванию)</option>
-                    <option value="4">Количество комментариев (по возрастанию)</option>
-                    <option value="5">Название книги(по убыванию)</option>
-                    <option value="6">Название книги(по возрастанию)</option>
-                    <option value="7">Имя автора(по убыванию)</option>
-                    <option value="8">Имя автора(по возрастанию)</option>
+
+                <label for="searchString">Поиск:</label>
+                <input type="text" id="searchString" name="searchString" placeholder="Введите текст для поиска"
+                       value="@ViewData["SearchString"]">
+
+                <label for="sortBy">Сортировать по:</label>
+                <select name="sortBy" id="sortBy">
+                    <option value="Title" @(ViewData["SortBy"]?.ToString() == "Title" ? "selected" : "")>Название книги</option>
+                    <option value="Description" @(ViewData["SortBy"]?.ToString() == "Description" ? "selected" : "")>Описание</option>
+                    <option value="PublicationDate" @(ViewData["SortBy"]?.ToString() == "PublicationDate" ? "selected" : "")>Дата публикации</option>
+                    <option value="Genre" @(ViewData["SortBy"]?.ToString() == "Genre" ? "selected" : "")>Жанр</option>
+                    <option value="Author" @(ViewData["SortBy"]?.ToString() == "Author" ? "selected" : "")>Имя автора</option>
                 </select>
+
+                <label for="sortOrder">Порядок сортировки:</label>
+                <select name="orderBy" id="sortOrder">
+                    <option value="ASC" @(ViewData["SortOrder"]?.ToString() == "ASC" ? "selected" : "")>По возрастанию</option>
+                    <option value="DESC" @(ViewData["SortOrder"]?.ToString() == "DESC" ? "selected" : "")>По убыванию</option>
+                </select>
+
                 <button type="submit">Применить фильтры</button>
             </form>
         </div>

@@ -20,6 +20,24 @@ namespace Library.Infrastructure.Repositiries
             _db = db;
         }
 
+        public async Task<bool> AddBookFileAsync(BookFile bookFile)
+        {
+            await _db.BookFiles.AddAsync(bookFile);
+            return (await _db.SaveChangesAsync()) > 0;
+        }
+
+        public async Task<bool> AddImageAsync(Image bookFile)
+        {
+            await _db.Images.AddAsync(bookFile);
+            return (await _db.SaveChangesAsync()) > 0;
+        }
+
+        public async Task<bool> DeleteBookFileByID(BookFile[] bookFiles)
+        {
+            _db.BookFiles.RemoveRange(bookFiles);
+            return await _db.SaveChangesAsync() > 0;
+        }
+
         public async Task<List<BookFile>> GetFileByBookID(Guid bookID)
         {
             return await _db.BookFiles

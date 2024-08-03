@@ -445,3 +445,4 @@ C:\studies\Asp.Net_Core\Library\Library\obj\Debug\net8.0\Library.UI.pdb
 C:\studies\Asp.Net_Core\Library\Library\obj\Debug\net8.0\Library.UI.genruntimeconfig.cache
 C:\studies\Asp.Net_Core\Library\Library\obj\Debug\net8.0\ref\Library.UI.dll
 C:\studies\Asp.Net_Core\Library\Library\bin\Debug\net8.0\Rotativa.AspNetCore.dll
+C:\studies\Asp.Net_Core\Library\Library\obj\Debug\net8.0\Library.UI.sourcelink.json

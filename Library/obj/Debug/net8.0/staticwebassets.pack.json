@@ -9,6 +9,10 @@
       "PackagePath": "staticwebassets\\css\\bookDetails.css"
     },
     {
+      "Id": "C:\\studies\\Asp.Net_Core\\Library\\Library\\wwwroot\\css\\bookForm.css",
+      "PackagePath": "staticwebassets\\css\\bookForm.css"
+    },
+    {
       "Id": "C:\\studies\\Asp.Net_Core\\Library\\Library\\wwwroot\\css\\header.css",
       "PackagePath": "staticwebassets\\css\\header.css"
     },

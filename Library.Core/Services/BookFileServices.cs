@@ -3,6 +3,7 @@ using Library.Core.Domain.RepositrotyContracts;
 using Library.Core.ServiceContracts;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using System.Net;
 
 namespace Library.Core.Services
 {
@@ -18,9 +19,9 @@ namespace Library.Core.Services
 
         public async Task<BookFile?> AddBookFile(Guid? bookID, IFormFile? file)
         {
-            if(bookID == null)
+            if (bookID == null)
                 throw new ArgumentNullException(nameof(bookID));
-            if(file == null)
+            if (file == null)
                 throw new ArgumentNullException(nameof(file));
             if (file == null || file.Length == 0)
                 throw new ArgumentNullException("File can't be blank");
@@ -28,7 +29,7 @@ namespace Library.Core.Services
             string ext = Path.GetExtension(file.FileName).ToLowerInvariant();
             if (ext != ".docx" && ext != ".pdf")
                 throw new InvalidDataException("Error extension file");
-            
+
             BookFile bookFile = new BookFile()
             {
                 BookID = bookID.Value,
@@ -37,13 +38,14 @@ namespace Library.Core.Services
                 FilePath = $"files/{Guid.NewGuid()}_{file.FileName}"
             };
 
-            string fullPath = _webHostEnvironment.ContentRootPath + "Content/" + bookFile.FilePath;
+            string fullPath = _webHostEnvironment.ContentRootPath + "/Content/" + bookFile.FilePath;
 
             using (var stream = new FileStream(fullPath, FileMode.Create))
             {
                 await file.CopyToAsync(stream);
             }
 
+            await _bookFileRepository.AddBookFileAsync(bookFile);
             return bookFile;
         }
 
@@ -71,7 +73,7 @@ namespace Library.Core.Services
             return fileList;
         }
 
-        public async Task<Image?> GetImageByBookID(Guid? imageID)
+        public async Task<Image?> GetImageByID(Guid? imageID)
         {
             if (imageID == null)
                 return null;
@@ -83,9 +85,56 @@ namespace Library.Core.Services
             return image;
         }
 
-        public Task<Image> AddImageFile(IFormFile file)
+        public async Task<Image> AddImageFile(IFormFile file)
         {
-            throw new NotImplementedException();
+            if (file == null || file.Length == 0)
+                throw new ArgumentNullException("File can't be blank");
+
+            string ext = Path.GetExtension(file.FileName).ToLowerInvariant();
+            if (ext != ".jpg" && ext != ".png")
+                throw new InvalidDataException("Error extension file");
+
+            Image imageFile = new Image()
+            {
+                ImageID = Guid.NewGuid(),
+                ImagePath = $"images/{Guid.NewGuid()}_{file.FileName}"
+            };
+
+            string fullPath = _webHostEnvironment.ContentRootPath + "/Content/" + imageFile.ImagePath;
+
+            using (var stream = new FileStream(fullPath, FileMode.Create))
+            {
+                await file.CopyToAsync(stream);
+            }
+
+            await _bookFileRepository.AddImageAsync(imageFile);
+            return imageFile;
+        }
+
+        public async Task<bool> DeleteBookFileByBookID(Guid? bookID)
+        {
+            if (bookID == null)
+                throw new ArgumentNullException(nameof(bookID));
+
+            var bookFiles = await _bookFileRepository.GetFileByBookID(bookID.Value);
+            if (bookFiles == null)
+                return true;
+
+            var task = _bookFileRepository.DeleteBookFileByID(bookFiles.ToArray());
+
+            var path = Directory.GetCurrentDirectory() + "/Content/";
+            foreach (var bookFile in bookFiles)
+            {
+                string fullPath = path + bookFile.FilePath;
+                if (File.Exists(fullPath))
+                {
+                    File.Delete(fullPath);
+                }
+            }
+
+            await task;
+
+            return true;
         }
     }
 }

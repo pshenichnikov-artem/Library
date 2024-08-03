@@ -1,8 +1,12 @@
 ﻿using Library.Core.Domain.Entities;
 using Library.Core.DTO;
+using Library.Core.Enums;
 using Library.Core.ServiceContracts;
 using Library.Core.Services;
+using Microsoft.AspNetCore.Components.Server.Circuits;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
+using System.Security.Claims;
 
 namespace Library.UI.Controllers
 {
@@ -19,9 +23,16 @@ namespace Library.UI.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Catalog()
+        public async Task<IActionResult> Catalog([FromQuery] string? searchBy, [FromQuery] string? searchString, [FromQuery] string? sortBy = "Title", [FromQuery] SortOrderOptions orderBy = SortOrderOptions.DESC)
         {
-            var books = await _bookServices.GetAllBooks();
+            var books = await _bookServices.GetFilteredBook(searchBy, searchString);
+            books = await _bookServices.GetSortedBook(books, sortBy, orderBy);
+
+            ViewData["SearchBy"] = searchBy;
+            ViewData["SearchString"] = searchString;
+            ViewData["SortBy"] = sortBy;
+            ViewData["SortOrder"] = orderBy.ToString();
+
             return View("BooksCatalog", books);
         }
 
@@ -40,8 +51,12 @@ namespace Library.UI.Controllers
                 book.BookFilePdf = fileList.FirstOrDefault(f => f.FileType == "pdf")?.BookFileID;
             }
 
-            ViewBag.Image = book.CoverImageID;
+            Image? image = await _bookFileServices.GetImageByID(book.CoverImageID);
 
+            if(image != null)
+                ViewBag.Base64Image = Convert.ToBase64String(System.IO.File.ReadAllBytes(Directory.GetCurrentDirectory() + "/Content/" + image.ImagePath));
+
+            ViewBag.OwnerEmail = User.FindFirstValue(ClaimTypes.Email);
             return View("Book", book);
         }
 
@@ -54,33 +69,102 @@ namespace Library.UI.Controllers
 
         [Route("add")]
         [HttpPost]
-        public async Task<IActionResult> AddBook(BookAddRequest bookAddRequest, IFormFile docxFile, IFormFile pdfFile, IFormFile bookImage)
+        public async Task<IActionResult> AddBook(BookAddRequest bookAddRequest)
         {
-            if (ModelState.IsValid == false)
+            if (!ModelState.IsValid)
             {
                 ViewBag.Errors = ModelState.Values.SelectMany(temp => temp.Errors).Select(temp => temp.ErrorMessage);
                 return View("Add", bookAddRequest);
             }
-            //todo картинка
-            bool docxIsValid = docxFile != null && docxFile.Length > 0 && Path.GetExtension(docxFile.FileName).ToLowerInvariant() == ".docx";
-            bool pdfIsValid = pdfFile != null && pdfFile.Length > 0 && Path.GetExtension(pdfFile.FileName).ToLowerInvariant() == ".pdf";
-            if (!docxIsValid && !pdfIsValid)
+
+            Guid? imageID = null;
+            if (bookAddRequest.ImageFile != null)
             {
-                ModelState.AddModelError("File", "Please upload at least one file: DOCX or PDF.");
-                ViewBag.Errors = ModelState.Values.SelectMany(temp => temp.Errors).Select(temp => temp.ErrorMessage);
-                return View("Add", bookAddRequest);
+                imageID = (await _bookFileServices.AddImageFile(bookAddRequest.ImageFile)).ImageID;
             }
 
-            BookResponse bookResponse = await _bookServices.AddBook(bookAddRequest);
-            if(docxIsValid)
-                await _bookFileServices.AddBookFile(bookResponse.BookID, docxFile);
-            if (pdfIsValid)
-                await _bookFileServices.AddBookFile(bookResponse.BookID, pdfFile);
+            string ownerEmail = User.FindFirstValue(ClaimTypes.Email);
+            BookResponse bookResponse = await _bookServices.AddBook(bookAddRequest, ownerEmail, imageID);
 
-            return Redirect($"books/{bookResponse.BookID}");
+            if (bookAddRequest.DocxFile != null)
+                await _bookFileServices.AddBookFile(bookResponse.BookID, bookAddRequest.DocxFile);
+            if (bookAddRequest.PdfFile != null)
+                await _bookFileServices.AddBookFile(bookResponse.BookID, bookAddRequest.PdfFile);
+
+            return Redirect($"{bookResponse.BookID}");
         }
 
-        //update
+
+        [Route("{bookID}/update")]
+        [HttpGet]
+        public async Task<IActionResult> Update(Guid? bookID)
+        {
+            if (bookID == null)
+                return BadRequest("Book ID is required.");
+
+            var book = await _bookServices.GetBookByBookID(bookID.Value);
+            if (book == null)
+                return NotFound("Book not found.");
+
+            var userEmail = User.FindFirstValue(ClaimTypes.Email);
+
+            if (userEmail != book.OwnerBookEmail)
+            {
+                return Forbid("You are not authorized to update this book.");
+            }
+
+            var bookFile = await _bookFileServices.GetFileByBookID(book.BookID);
+
+            ViewBag.BookImagePath = _bookFileServices.GetImageByID(book.CoverImageID);
+            if (bookFile != null)
+            {
+                ViewBag.PdfFilePath = bookFile.FirstOrDefault(bf => bf.FileType == "pdf");
+                ViewBag.DocxFilePath = bookFile.FirstOrDefault(bf => bf.FileType == "docx");
+            }
+
+            return View(book);
+        }
+
+        [Route("{bookid}/update")]
+        [HttpPost]
+        public async Task<IActionResult> Update(BookAddRequest bookAddRequest, [FromQuery] Guid bookID)
+        {
+            var book = await _bookServices.GetBookByBookID(bookID);
+            if (book == null)
+                return NotFound("Book not found.");
+
+            var userEmail = User.FindFirstValue(ClaimTypes.Email);
+            if (userEmail != book.OwnerBookEmail)
+            {
+                return Forbid("You are not authorized to update this book.");
+            }
+
+            return Redirect($"/{book.BookID}");
+        }
+
+        [Route("{bookid}/delete")]
+        [HttpGet]
+        public async Task<IActionResult> Delete(Guid? bookID)
+        {
+            if (bookID == null)
+                return BadRequest("Book ID is required.");
+
+            var book = await _bookServices.GetBookByBookID(bookID.Value);
+            if (book == null)
+                return NotFound("Book not found.");
+
+            var userEmail = User.FindFirstValue(ClaimTypes.Email);
+
+            if (userEmail != book.OwnerBookEmail)
+            {
+                return Forbid("You are not authorized to update this book.");
+            }
+
+            await _bookFileServices.DeleteBookFileByBookID(book.BookID);
+            BookResponse? bookResponse = await _bookServices.DeleteBookByID(book.BookID);   
+
+            return Redirect("/"); ;
+        }
 
 
         [Route("download/{id}")]

@@ -15,7 +15,11 @@ namespace Library.Core.Automapper
                 .ForMember(dest => dest.BookFile, opt => opt.Ignore());
 
             // Настройка преобразования от Book к BookResponse
-            CreateMap<Book, BookResponse>();
+            CreateMap<Book, BookResponse>()
+            .ForMember(dest => dest.PublicationDate,
+                       opt => opt.MapFrom(src => src.PublicationDate.HasValue
+                                                  ? src.PublicationDate.Value.ToString("yyyy-MM-dd")
+                                                  : null));
         }
     }
 }

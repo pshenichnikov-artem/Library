@@ -16,13 +16,13 @@
 			<div class="header-right">
 				<a href="/">Главная</a>
 				<a href="/books">Каталог</a>
-				<form action="/books" method="get" class="search-form">
+				<a href="books/add">Добавить книгу</a>
+				<form action="/books" method="get" class="search-form-header">
 					<input type="text" name="bookTitle" placeholder="Найти книгу">
 					<button type="submit">Поиск</button>
 				</form>
 				@if (User.Identity.IsAuthenticated)
 				{
-					<a href="/user/profile">Мой аккаунт</a>
 					<a href="/account/logout">Выйти</a>
 				}
 				else

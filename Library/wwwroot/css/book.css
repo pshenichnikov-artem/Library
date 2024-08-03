@@ -131,4 +131,17 @@
             background-color: #0056b3;
         }
 
+    .search-filter input[type="text"] {
+        width: 100%; /* Ширина поля ввода 100% от ширины контейнера */
+        padding: 10px; /* Внутренние отступы */
+        margin-bottom: 15px; /* Отступ снизу */
+        border: 1px solid #ccc; /* Цвет границы */
+        border-radius: 4px; /* Закругленные углы */
+        box-sizing: border-box; /* Учет границ и отступов в ширине элемента */
+        font-size: 16px; /* Размер шрифта */
+        color: #333; /* Цвет текста */
+    }
 
+        .search-filter input[type="text"]::placeholder {
+            color: #aaa;
+        }

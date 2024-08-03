@@ -14,7 +14,8 @@ namespace Library.Core.Domain.Entities
         public DateTime? PublicationDate { get; set; }
         public string? Author { get; set; }
         public IEnumerable<BookFile> BookFile { get; set; }
-        public Guid CoverImageID { get; set; }
+        public Guid? CoverImageID { get; set; }
         public Image Cover {  get; set; }
+        public string? OwnerBookEmail { get; set; }
     }
 }

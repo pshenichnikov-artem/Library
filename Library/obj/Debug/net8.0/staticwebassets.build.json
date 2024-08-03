@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "bs5nrSLc6KL3JWemp1BIHEFDNWPnSdha3U4vhjNkIo8=",
+  "Hash": "uTDZ2cP/+4Ri7PxMnjpb1ny3Zv+g+qhXp/SAPSttwqQ=",
   "Source": "Library.UI",
   "BasePath": "_content/Library.UI",
   "Mode": "Default",
@@ -53,6 +53,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\bookDetails.css"
+    },
+    {
+      "Identity": "C:\\studies\\Asp.Net_Core\\Library\\Library\\wwwroot\\css\\bookForm.css",
+      "SourceId": "Library.UI",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\studies\\Asp.Net_Core\\Library\\Library\\wwwroot\\",
+      "BasePath": "_content/Library.UI",
+      "RelativePath": "css/bookForm.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\bookForm.css"
     },
     {
       "Identity": "C:\\studies\\Asp.Net_Core\\Library\\Library\\wwwroot\\css\\header.css",

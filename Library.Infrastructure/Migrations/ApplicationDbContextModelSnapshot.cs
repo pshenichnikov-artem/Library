@@ -31,13 +31,16 @@ namespace Library.Infrastructure.Migrations
                     b.Property<string>("Author")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("CoverImageID")
+                    b.Property<Guid?>("CoverImageID")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Genre")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OwnerBookEmail")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("PublicationDate")
@@ -479,8 +482,7 @@ namespace Library.Infrastructure.Migrations
                     b.HasOne("Library.Core.Domain.Entities.Image", "Cover")
                         .WithMany()
                         .HasForeignKey("CoverImageID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("Cover");
                 });
