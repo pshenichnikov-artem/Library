@@ -3,6 +3,8 @@
 using Library.Core.DTO.Author;
 using Library.Core.DTO.Book.BookFile;
 using Library.Core.DTO.Book.BookImage;
+using Library.Core.DTO.Comment;
+using Library.Core.DTO.Rating;
 
 namespace Library.Core.DTO.Book
 {

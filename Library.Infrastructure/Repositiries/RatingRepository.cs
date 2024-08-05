@@ -14,17 +14,10 @@ namespace Library.Infrastructure.Repositiries
             _db = db;
         }
 
-        public async Task<Rating?> GetByIdAsync(Guid ratingId)
-        {
-            return await _db.Ratings
-                .Include(r => r.Book) // Include book to retrieve related book information
-                .FirstOrDefaultAsync(r => r.RatingID == ratingId);
-        }
-
         public async Task<IEnumerable<Rating>> GetAllAsync()
         {
             return await _db.Ratings
-                .Include(r => r.Book) // Include book to retrieve related book information
+                .Include(r => r.User) // Include book to retrieve related book information
                 .ToListAsync();
         }
 
@@ -40,16 +33,8 @@ namespace Library.Infrastructure.Repositiries
             return await SaveChangesAsync();
         }
 
-        public async Task<bool> DeleteAsync(Guid ratingId)
+        public async Task<bool> DeleteAsync(Rating rating)
         {
-            var rating = await _db.Ratings
-                .FirstOrDefaultAsync(r => r.RatingID == ratingId);
-
-            if (rating == null)
-            {
-                return false;
-            }
-
             _db.Ratings.Remove(rating);
             return await SaveChangesAsync();
         }
@@ -65,6 +50,32 @@ namespace Library.Infrastructure.Repositiries
             {
                 return false;
             }
+        }
+
+        public async Task<List<Rating>> GetByUserIdAsync(Guid userID)
+        {
+            return await _db.Ratings
+                .Include(r => r.User)
+                .Include(r => r.Book)
+                .Where(r => r.UserID == userID)
+                .ToListAsync();
+        }
+
+        public async Task<List<Rating>> GetByBookIdAsync(Guid bookID)
+        {
+            return await _db.Ratings
+                .Include(r => r.User)
+                .Include(r => r.Book)
+                .Where(r => r.BookID == bookID)
+                .ToListAsync();
+        }
+
+        public async Task<Rating?> GetByUserIdAndBookIdAsync(Guid userID, Guid bookID)
+        {
+            return await _db.Ratings
+                .Include(r => r.User)
+                .Include(r => r.Book)
+                .FirstOrDefaultAsync(r => r.UserID == userID && r.BookID == bookID);
         }
     }
 

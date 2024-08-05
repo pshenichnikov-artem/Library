@@ -14,22 +14,23 @@ namespace Library.UI.Controllers
             _authorService = authorService;
         }
 
-        public IActionResult Authors()
+        [HttpGet]
+        public async Task<IActionResult> AuthorCatalog()
         {
-            return View();
+            var authors = await _authorService.GetAllAuthorsAsync();
+            return View(authors);
         }
 
         [Route("add")]
         [HttpGet]
         public IActionResult AddAuthor()
         {
-
             return View();
         }
 
         [Route("add")]
         [HttpPost]
-        public async Task<IActionResult> AddAuthor(AuthorAddRequest authorAddRequest)
+        public async Task<IActionResult> AddAuthor(AuthorAddRequest? authorAddRequest)
         {
             if (ModelState.IsValid == false)
             {
@@ -53,6 +54,43 @@ namespace Library.UI.Controllers
                 return NotFound();
             
             return View(author);
+        }
+
+        [Route("{authorID}/update")]
+        [HttpGet]
+        public async Task<IActionResult> UpdateAuthor(Guid? authorID)
+        {
+            if (authorID == null)
+                return BadRequest();
+
+            var author = await _authorService.GetAuthorByIdAsync(authorID.Value);
+            if (author == null)
+                return NotFound();
+
+            ViewBag.Biography = author.Biography;
+           // ViewBag.Image = "authorImages/" + author?.AuthorImages?.First().FileName;
+
+            return View();
+        }
+
+        [Route("{authorID}/update")]
+        [HttpPost]
+        public async Task<IActionResult> UpdateAuthor(AuthorUpdateRequest? authorUpdateRequest, Guid? authorID)
+        {
+            if (ModelState.IsValid == false)
+            {
+                ViewBag.Errors = ModelState.Values.SelectMany(temp => temp.Errors).Select(temp => temp.ErrorMessage);
+                ViewBag.Biography = authorUpdateRequest?.Biography;
+               // ViewBag.Image = authorUpdateRequest?.Image?.FileName;
+                return View();
+            }
+
+            if (authorID == null)
+                return BadRequest();
+
+            var author = await _authorService.UpdateAuthorAsync(authorUpdateRequest, authorID.Value);
+
+            return Redirect($"/authors/{author.AuthorID}");
         }
 
         [Route("{authorID}/delete")]

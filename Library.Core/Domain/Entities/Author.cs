@@ -19,8 +19,8 @@ namespace Library.Core.Domain.Entities
         [Required]
         public DateTime DateOfBirth { get; set; }
 
-        [StringLength(100)]
-        public string Description { get; set; }
+        [StringLength(1000)]
+        public string? Description { get; set; }
 
         public ICollection<BookAuthor> BookAuthors { get; set; } = new List<BookAuthor>();
         public ICollection<Book> Books { get; set; } = new List<Book>();

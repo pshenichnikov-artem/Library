@@ -65,6 +65,7 @@ namespace Library.Core.Services
 
             var author = new Author
             {
+                AuthorID = Guid.NewGuid(),
                 FirstName = authorAddRequest.FirstName,
                 LastName = authorAddRequest.LastName,
                 Description = authorAddRequest.Biography,
@@ -80,28 +81,25 @@ namespace Library.Core.Services
             return _mapper.Map<AuthorResponse>(author);
         }
 
-        public async Task<AuthorResponse?> UpdateAuthorAsync(AuthorUpdateRequest? authorUpdateRequest)
+        public async Task<AuthorResponse?> UpdateAuthorAsync(AuthorUpdateRequest? authorUpdateRequest, Guid? authorID)
         {
             if (authorUpdateRequest == null)
             {
                 throw new ArgumentNullException(nameof(authorUpdateRequest), "Author update request cannot be null.");
             }
 
-            if (authorUpdateRequest.AuthorID == null)
+            if (authorID == null)
             {
-                throw new ArgumentNullException(nameof(AuthorUpdateRequest.AuthorID), "Author ID cannot be null.");
+                throw new ArgumentNullException(nameof(authorID), "Author ID cannot be null.");
             }
 
-            var existingAuthor = await _authorRepository.GetByIdAsync(authorUpdateRequest.AuthorID);
+            var existingAuthor = await _authorRepository.GetByIdAsync(authorID.Value);
             if (existingAuthor == null)
             {
-                throw new KeyNotFoundException($"Author with ID {authorUpdateRequest.AuthorID} not found.");
+                throw new KeyNotFoundException($"Author with ID {authorID} not found.");
             }
 
-            existingAuthor.FirstName = authorUpdateRequest.FirstName ?? existingAuthor.FirstName;
-            existingAuthor.LastName = authorUpdateRequest.LastName ?? existingAuthor.LastName;
-            existingAuthor.Description = authorUpdateRequest.Biography ?? existingAuthor.Description;
-            existingAuthor.DateOfBirth = authorUpdateRequest.DateOfBirth ?? existingAuthor.DateOfBirth;
+            existingAuthor.Description = authorUpdateRequest.Biography;
 
             var success = await _authorRepository.UpdateAsync(existingAuthor);
             if (!success)

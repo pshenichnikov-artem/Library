@@ -14,7 +14,9 @@
             <div class="form-errors" id="form-errors">
                 @foreach (var error in ViewBag.Errors)
                 {
-                    <p>@error</p>
+
+                        <p>@error</p>
+
                 }
             </div>
         }
@@ -39,7 +41,7 @@
         <!-- Date of Birth -->
         <div class="form-group">
             <label for="DateOfBirth">Date of Birth</label>
-            <input type="date" id="DateOfBirth" name="DateOfBirth" value="@Model?.DateOfBirth" class="form-control" />
+            <input type="date" id="DateOfBirth" name="DateOfBirth" value="@(Model != null && Model.DateOfBirth.HasValue ? Model?.DateOfBirth.Value.ToString("yyyy-MM-dd") : "")" class="form-control" />
         </div>
 
         <!-- Image Upload -->

@@ -29,30 +29,47 @@
                     }
                 </p>
                 <p><strong>Дата публикации:</strong> @Model.PublicationDate.ToString("yyyy-MM-dd")</p>
+                <p><strong>Рейтинг:</strong> @(Model.Rating != null ? Model.Rating.Value : "0.0")</p>
+                <div class="rating-form">
+                    <label for="rating">Оцените книгу (0-5):</label>
+                    @{
+                        float ratingValue = 0;
+                        if(Model.Rating != null && Model.Rating.UsersRaiting.ContainsKey(ViewBag.CurrentUserGuid))
+                        {
+                            var userRating = Model.Rating.UsersRaiting[ViewBag.CurrentUserGuid];
+
+                            if (userRating >= 0 && userRating <= 5)
+                            {
+                                ratingValue = userRating;
+                            }
+                        }   
+                    }
+                    <input type="number" id="rating-input" name="rating" min="0" max="5" step="0.1" value="@ratingValue" required />
+                    <button type="button" onclick="submitRating()">Оценить</button>
+                </div>
             </div>
 
             @if (ViewBag.IsOwner)
             {
                 <div class="book-actions">
-                    <a class="update-button" href="@(Model.BookID + "/update")">Изменить</a>
                     <a class="delete-button" href="@(Model.BookID + "/delete")">Удалить</a>
                 </div>
             }
             <div class="book-image">
-                <img src="@(Model?.BookImages?.First().FilePath + "/" + Model?.BookImages?.First().FileName)">
+                <img src="@(Model?.BookImages?.FirstOrDefault()?.FilePath + "/" + Model?.BookImages?.FirstOrDefault()?.FileName)">
             </div>
-        </div>
+        </div
 
         <div class="book-description">
             <p><strong>Описание:</strong></p>
-            <p>@Model.Description</p>
+            <p>@Model?.Description</p>
         </div>
 
         <div class="download-links">
             <p><strong>Скачать:</strong></p>
             @{
-                BookFileResponse? docxFile = Model.BookFiles?.FirstOrDefault(x => x.FileType == "docx");
-                BookFileResponse? pdfFile = Model.BookFiles?.FirstOrDefault(x => x.FileType == "pdf");
+                BookFileResponse? docxFile = Model?.BookFiles?.FirstOrDefault(x => x.FileType == "docx");
+                BookFileResponse? pdfFile = Model?.BookFiles?.FirstOrDefault(x => x.FileType == "pdf");
             }
             @if (docxFile != null)
             {
@@ -65,14 +82,35 @@
         </div>
 
         <section class="comments">
+
             <h2>Комментарии</h2>
+
+            <div id="error-message" style="display: none; color: red;"></div>
+            <div class="add-comment">
+                <h3>Добавить комментарий</h3>
+                <textarea id="new-comment-content" rows="4" placeholder="Ваш комментарий"></textarea>
+                <button onclick="addComment()">Добавить</button>
+            </div>
+
             @if (Model.Comments != null)
             {
                 @foreach (var comment in Model.Comments)
                 {
-                    <div class="comment">
-                        <p><strong>@comment.UserFirstName</strong>  <strong>@comment.CommentDate.ToString("yyyy-MM-dd")</strong></p>
-                        <p>@comment.Content</p>
+                    <div class="comment" id="comment-@comment.CommentID">
+                        <div class="comment-header">
+                            <strong class="user-name">@comment.UserName</strong>
+                            <span class="date">@comment.CreatedAt.ToString("yyyy-MM-dd")</span>
+                            @if (ViewBag.IsOwner)
+                            {
+                                <div class="comment-actions">
+                                    <button class="edit-button" onclick="editComment('@(comment.CommentID)', '@(comment.Content)')">Изменить</button>
+                                    <button class="delete-button" onclick="deleteComment('@(comment.CommentID)')">Удалить</button>
+                                </div>
+                            }
+                        </div>
+                        <div class="comment-content">
+                            <p>@comment.Content</p>
+                        </div>
                     </div>
                 }
             }
@@ -82,4 +120,135 @@
 else
 {
     <p class="not-found-message">Упс, ничего не найдено</p>
+}
+
+@section Script {
+    <script>
+        async function addComment() {
+            const content = document.getElementById('new-comment-content').value;
+            const errorMessage = document.getElementById('error-message');
+
+            if (!content.trim()) {
+                errorMessage.textContent = 'Комментарий не может быть пустым.';
+                errorMessage.style.display = 'block';
+                return;
+            }
+
+            try {
+                const url = new URL(window.location.href);
+
+                const path = url.pathname;
+
+                const match = path.match(/\/books\/([a-fA-F0-9\-]{36})$/);
+                const bookId = match ? match[1] : null;
+
+                const response = await fetch('/api/comments/add', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ Content: content, BookId: bookId })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Ошибка при добавлении комментария.');
+                }
+
+                errorMessage.style.display = 'none';
+
+                location.reload();
+            } catch (error) {
+                errorMessage.textContent = error.message;
+                errorMessage.style.display = 'block';
+            }
+        }
+
+        function editComment(commentId, currentContent) {
+            const newContent = prompt('Измените ваш комментарий:', currentContent);
+
+            if (newContent !== null && newContent.trim()) {
+                fetch(`/api/comments/${commentId}/update`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ Content: newContent })
+                }).then(response => {
+                    if (response.ok) {
+                        if (response.status === 204) {
+                            const commentElement = document.getElementById(`comment-${commentId}`);
+                            if (commentElement) {
+                                commentElement.querySelector('.comment-content p').textContent = newContent;
+                            }
+                        } else {
+                            return response.json();
+                        }
+                    } else {
+                        throw new Error('Ошибка при обновлении комментария.');
+                    }
+                }).catch(error => {
+                    alert(error.message);
+                });
+            }
+        }
+
+        function deleteComment(commentId) {
+            if (confirm('Вы уверены, что хотите удалить этот комментарий?')) {
+                fetch(`/api/comments/${commentId}/delete`, {
+                    method: 'POST'
+                }).then(response => {
+                    if (!response.ok) {
+                        alert('Ошибка при удалении комментария.');
+                    } else {
+                        location.reload(); // Reloads the page to see the updated comments
+                    }
+                }).catch(error => {
+                    alert('Ошибка при удалении комментария.');
+                });
+            }
+                    }
+          
+        const userId = '@ViewBag.CurrentUserGuid';
+
+        async function submitRating() {
+            const ratingValue = document.querySelector('#rating-input').value;
+            const url = new URL(window.location.href);
+            const path = url.pathname;
+            const match = path.match(/\/books\/([a-fA-F0-9\-]{36})$/);
+            const bookId = match ? match[1] : null;
+
+            if (!bookId || !userId) {
+                console.error('Book ID or User ID is missing.');
+                return;
+            }
+
+            const rating = parseFloat(ratingValue);
+
+            if (isNaN(rating) || rating < 0 || rating > 5) {
+                console.error('Rating must be a number between 0 and 5.');
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/rate/update', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        BookID: bookId,
+                        UserID: userId,
+                        Value: rating
+                    })
+                });
+                if (response.ok) {
+                    console.log('Rating submitted successfully.');
+                } else {
+                    console.error('Error submitting rating:', response.statusText);
+                }
+            } catch (error) {
+                console.error('Network error:', error);
+            }
+        }     
+    </script>
 }

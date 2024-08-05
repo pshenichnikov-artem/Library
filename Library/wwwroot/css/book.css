@@ -57,10 +57,16 @@
 /* Book title */
 .book-title {
     font-size: 24px;
-    margin: 5px 0;
+    margin: 10px 0 10px 0; /* Отступы сверху и снизу 10px, слева и справа 0 */
+    color: #333; /* Черный цвет текста */
+    text-decoration: none; /* Убрать подчеркивание у ссылки */
+    transition: color 0.3s ease; /* Плавное изменение цвета при наведении */
 }
 
-/* Book author */
+    .book-title:hover {
+        color: #007bff; /* Цвет текста при наведении */
+    }
+
 .book-author {
     color: #555;
     font-size: 16px;
@@ -68,13 +74,58 @@
     margin-bottom: 5px;
 }
 
-/* Book info (rating and comments) */
+    .book-author a {
+        color: #555; /* Цвет ссылок авторов */
+        text-decoration: none; /* Убрать подчеркивание у ссылок */
+        transition: color 0.3s ease; /* Плавное изменение цвета при наведении */
+    }
+
+        .book-author a:hover {
+            color: #007bff; /* Цвет ссылок при наведении */
+        }
+
+    .book-author span {
+        margin-right: 0; /* Нет дополнительного отступа */
+    }
+
 .book-info {
     display: flex;
     justify-content: space-between;
     font-size: 14px;
-    color: #777;
+    color: #333;
+    margin-top: 10px;
+    padding: 0px;
+    background-color: #f4f4f4;
+    border-radius: 5px;
 }
+
+    .book-info span {
+        display: flex;
+        align-items: center;
+        font-size: 16px;
+        color: #000;
+    }
+
+    .book-info .book-rating {
+        color: #ff9800;
+    }
+
+    .book-info .book-comments {
+        color: #555;
+    }
+
+    /* Добавлены иконки для рейтинга и комментариев */
+    .book-info .book-rating::before {
+        content: '★';
+        color: #ff9800;
+        margin-right: 5px;
+    }
+
+    .book-info .book-comments::before {
+        content: '💬';
+        margin-right: 5px;
+        color: #555;
+    }
 
 /* "Not found" message */
 .not-found-message {

@@ -7,11 +7,9 @@ namespace Library.Core.Domain.Entities
         [Key]
         public Guid BookAuthorID { get; set; }
 
-        [Required]
         public Guid BookID { get; set; }
         public Book Book { get; set; } = default!;
 
-        [Required]
         public Guid AuthorID { get; set; }
         public Author Author { get; set; } = default!;
     }

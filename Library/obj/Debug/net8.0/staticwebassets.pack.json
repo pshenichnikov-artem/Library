@@ -1,8 +1,16 @@
 {
   "Files": [
     {
+      "Id": "C:\\studies\\Asp.Net_Core\\Library\\Library\\wwwroot\\bookImages\\0756f1ea-4752-497b-893b-6a98e4119045_Снимок экрана 2024-07-17 110129.png",
+      "PackagePath": "staticwebassets\\bookImages\\0756f1ea-4752-497b-893b-6a98e4119045_Снимок экрана 2024-07-17 110129.png"
+    },
+    {
       "Id": "C:\\studies\\Asp.Net_Core\\Library\\Library\\wwwroot\\css\\author\\authorAddForm.css",
       "PackagePath": "staticwebassets\\css\\author\\authorAddForm.css"
+    },
+    {
+      "Id": "C:\\studies\\Asp.Net_Core\\Library\\Library\\wwwroot\\css\\author\\authorCatalog.css",
+      "PackagePath": "staticwebassets\\css\\author\\authorCatalog.css"
     },
     {
       "Id": "C:\\studies\\Asp.Net_Core\\Library\\Library\\wwwroot\\css\\author\\authorPage.css",

@@ -1,6 +1,4 @@
-﻿
-
-using Library.Core.Domain.IdentityEntities;
+﻿using Library.Core.Domain.IdentityEntities;
 using System.ComponentModel.DataAnnotations;
 
 namespace Library.Core.Domain.Entities
@@ -31,6 +29,6 @@ namespace Library.Core.Domain.Entities
         public ICollection<BookFile> BookFiles { get; set; } = new List<BookFile>();
         public ICollection<Comment> Comments { get; set; } = new List<Comment>();
         public ICollection<UserBookView> UserViews { get; set; }
-        public Rating? Rating { get; set; }
+        public IEnumerable<Rating> Rating { get; set; }
     }
 }

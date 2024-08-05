@@ -33,8 +33,8 @@ namespace Library.Infrastructure.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -218,13 +218,12 @@ namespace Library.Infrastructure.Migrations
                     b.Property<Guid>("UserID")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("Value")
-                        .HasColumnType("int");
+                    b.Property<float>("Value")
+                        .HasColumnType("real");
 
                     b.HasKey("RatingID");
 
-                    b.HasIndex("BookID")
-                        .IsUnique();
+                    b.HasIndex("BookID");
 
                     b.HasIndex("UserID");
 
@@ -555,7 +554,7 @@ namespace Library.Infrastructure.Migrations
                     b.HasOne("Library.Core.Domain.Entities.Book", "Book")
                         .WithMany("Comments")
                         .HasForeignKey("BookID")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Library.Core.Domain.IdentityEntities.ApplicationUser", "User")
@@ -572,9 +571,9 @@ namespace Library.Infrastructure.Migrations
             modelBuilder.Entity("Library.Core.Domain.Entities.Rating", b =>
                 {
                     b.HasOne("Library.Core.Domain.Entities.Book", "Book")
-                        .WithOne("Rating")
-                        .HasForeignKey("Library.Core.Domain.Entities.Rating", "BookID")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .WithMany("Rating")
+                        .HasForeignKey("BookID")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Library.Core.Domain.IdentityEntities.ApplicationUser", "User")

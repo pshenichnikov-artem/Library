@@ -96,42 +96,6 @@
             color: #fff;
         }
 
-.comments {
-    border-top: 1px solid #ccc;
-    padding-top: 20px;
-    margin-top: 20px;
-    background-color: #fff; /* Белый фон для комментариев */
-    border-radius: 8px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-    overflow-wrap: break-word; /* Перенос текста */
-}
-
-    .comments h2 {
-        font-size: 1.5em;
-        margin-bottom: 10px;
-        margin-top: 0px;
-        color: #333; /* Цвет текста заголовка */
-        margin-left: 5px;
-    }
-
-.comment {
-    margin-bottom: 10px;
-    margin-left: 5px;
-    margin-right: 5px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    background-color: #f9f9f9; /* Светлый фон для комментария */
-}
-
-    .comment p {
-        margin: 5px 0;
-    }
-
-    .comment strong {
-        font-weight: bold;
-    }
-
 .not-found-message {
     text-align: center; /* Выравнивание текста по центру */
     margin-top: 50px; /* Верхний отступ от header */
@@ -171,3 +135,161 @@
     float: left;
     margin-right: 20px;
 }
+
+
+
+
+.comments {
+    border-top: 1px solid #ccc;
+    padding-top: 20px;
+    margin-top: 20px;
+    background-color: #fff; /* Белый фон для комментариев */
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    overflow-wrap: break-word; /* Перенос текста */
+}
+
+    .comments h2 {
+        font-size: 1.5em;
+        margin-bottom: 10px;
+        margin-top: 0px;
+        color: #333; /* Цвет текста заголовка */
+        margin-left: 5px;
+    }
+
+.add-comment {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    background-color: #f9f9f9; /* Светлый фон для формы добавления комментария */
+    margin-bottom: 20px;
+}
+
+    .add-comment h3 {
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+
+    .add-comment textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        resize: vertical;
+        margin-bottom: 10px;
+    }
+
+    .add-comment button {
+        padding: 10px 15px;
+        border: none;
+        border-radius: 4px;
+        background-color: #007bff;
+        color: #fff;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+        .add-comment button:hover {
+            background-color: #0056b3;
+        }
+
+.comment {
+    margin-bottom: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f9f9f9; /* Светлый фон для комментария */
+}
+
+.comment-header {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Отступы между элементами в заголовке */
+    margin-bottom: 10px;
+}
+
+.user-name {
+    font-weight: bold;
+}
+
+.date {
+    font-size: 0.9em;
+    color: #666;
+}
+
+.comment-actions {
+    display: flex;
+    align-items: center;
+    gap: 5px; /* Отступы между кнопками */
+}
+
+.comment-content {
+    padding: 10px;
+    border-top: 1px solid #ccc;
+    background-color: #fff;
+}
+
+.comment-actions button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-bottom: 0; /* Удаление нижнего отступа */
+}
+
+.edit-button {
+    background-color: #ffc107;
+    color: #212529;
+}
+
+    .edit-button:hover {
+        background-color: #e0a800;
+    }
+
+.delete-button {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+    .delete-button:hover {
+        background-color: #c82333;
+    }
+
+#error-message {
+    display: none;
+    color: red;
+    margin-bottom: 10px;
+}
+
+
+.rating-form label {
+    font-weight: bold;
+    margin: 15px 0;
+    line-height: 1.5;
+}
+
+    .rating-form input[type="number"] {
+        padding: 8px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        width: 100px; /* Ширина поля ввода */
+        font-size: 1em;
+    }
+
+    .rating-form button {
+        padding: 10px 15px;
+        border: none;
+        border-radius: 4px;
+        background-color: #007bff;
+        color: #fff;
+        font-size: 16px;
+        cursor: pointer;
+        margin-top: 10px; /* Отступ сверху */
+        transition: background-color 0.3s ease;
+    }
+
+        .rating-form button:hover {
+            background-color: #0056b3;
+        }

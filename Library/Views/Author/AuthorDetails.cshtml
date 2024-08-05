@@ -13,15 +13,20 @@
         </div>
 
         <div class="author-actions">
-        <a class="update-button" href="/author/@Model.AuthorID/update">Update</a>
-        <a class="delete-button" href="/author/@Model.AuthorID/delete">Delete</a>
+            <a class="update-button" href="/authors/@Model.AuthorID/update">Update</a>
+            <a class="delete-button" href="/authors/@Model.AuthorID/delete">Delete</a>
         </div>
 
         <div class="author-image">
             <img src="/image/authorImages/@(Model.AuthorImages != null && Model.AuthorImages.Any() ? Model.AuthorImages.First() : "")">
         </div>
     </div>
-
+    <div class="author-details">
+        <div class="author-description">
+            <p><strong>Biography:</strong></p>
+            <p>@Model.Biography</p>
+        </div>
+    </div>
     <div class="books-container">
         <h2>Books by @Model.FirstName @Model.LastName</h2>
         @if (Model.Books != null && Model.Books.Any())

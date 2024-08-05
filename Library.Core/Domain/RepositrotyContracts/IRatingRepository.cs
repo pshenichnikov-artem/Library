@@ -4,10 +4,12 @@ namespace Library.Core.Domain.RepositrotyContracts
 {
     public interface IRatingRepository
     {
-        Task<Rating?> GetByIdAsync(Guid ratingId);
+        Task<List<Rating>> GetByUserIdAsync(Guid userID);
+        Task<List<Rating>> GetByBookIdAsync(Guid bookID);
+        Task<Rating?> GetByUserIdAndBookIdAsync(Guid userID, Guid bookID);
         Task<IEnumerable<Rating>> GetAllAsync();
         Task<bool> AddAsync(Rating rating);
         Task<bool> UpdateAsync(Rating rating);
-        Task<bool> DeleteAsync(Guid ratingId);
+        Task<bool> DeleteAsync(Rating rating);
     }
 }

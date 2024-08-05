@@ -4,8 +4,7 @@ using Library.Core.Domain.RepositrotyContracts;
 using Library.Core.DTO.Book;
 using Library.Core.Enums;
 using Library.Core.ServiceContracts;
-using System;
-using System.Collections.Generic;
+using System.Linq;
 
 namespace Library.Core.Services
 {
@@ -45,7 +44,7 @@ namespace Library.Core.Services
                 Description = request.Description,
                 Genre = request.Genre != null && request.Genre.Count != 0 ? string.Join(", ", request.Genre) : null,
                 PublicationDate = request.PublicationDate,
-                OwnerID = ownerGuid.Value
+                OwnerID = ownerGuid.Value,
             };
 
             var successAddBook = await _bookRepository.AddAsync(book);
@@ -120,7 +119,7 @@ namespace Library.Core.Services
 
             if (filter.MinRating.HasValue)
             {
-                books = books.Where(b => b.Rating != null ? b.Rating.Value >= filter.MinRating.Value : false);
+                books = books.Where(b => b.Rating != null ? b.Rating.Average(r => r.Value) >= filter.MinRating.Value : false);
             }
 
             var filteredBooks = books.AsEnumerable();

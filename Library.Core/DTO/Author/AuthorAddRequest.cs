@@ -26,6 +26,7 @@ namespace Library.Core.DTO.Author
         public string? Biography { get; set; }
 
         [DateValidation(ErrorMessage = "Date of birth must be a valid date.")]
+        [Required]
         public DateTime? DateOfBirth { get; set; }
 
         [ImageValidation(ErrorMessage = "The provided image is not valid.")]
