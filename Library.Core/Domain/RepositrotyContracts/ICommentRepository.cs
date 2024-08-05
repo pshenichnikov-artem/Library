@@ -8,6 +8,6 @@ namespace Library.Core.Domain.RepositrotyContracts
         Task<IEnumerable<Comment>> GetAllAsync();
         Task<bool> AddAsync(Comment comment);
         Task<bool> UpdateAsync(Comment comment);
-        Task<bool> DeleteAsync(Guid commentId);
+        Task<bool> DeleteAsync(Comment commentId);
     }
 }

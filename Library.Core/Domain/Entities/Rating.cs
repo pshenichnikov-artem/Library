@@ -16,7 +16,7 @@ namespace Library.Core.Domain.Entities
         public Guid UserID { get; set; }
         public ApplicationUser User { get; set; } = default!;
 
-        [Range(1, 5)]
-        public int Value { get; set; }
+        [Range(0, 5)]
+        public float Value { get; set; }
     }
 }

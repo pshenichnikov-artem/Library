@@ -1,17 +1,12 @@
 ﻿using AutoMapper.Configuration.Annotations;
 using Library.Core.Domain.IdentityEntities;
-using Library.Core.DTO.Author;
 using Library.Core.DTO.Book;
 using Library.Core.Enums;
 using Library.Core.ServiceContracts;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-using System.Net;
-using System.Reflection.Metadata.Ecma335;
 using System.Security.Claims;
 
 namespace Library.UI.Controllers
@@ -44,7 +39,7 @@ namespace Library.UI.Controllers
                 ViewData["Genre"] = filter.Genre;
                 ViewData["PublicationDateTo"] = filter.PublicationDateTo?.ToString("yyyy-MM-dd");
                 ViewData["PublicationDateFrom"] = filter.PublicationDateFrom?.ToString("yyyy-MM-dd");
-                ViewData["MinRating"] = filter.MinRating;
+                ViewData["MinRating"] = filter.MinRating != null ? filter.MinRating?.ToString().Replace(",", ".") : "0";
             }
 
             ViewData["SortBy"] = sortBy;
@@ -82,6 +77,15 @@ namespace Library.UI.Controllers
                 return NotFound();
 
             ViewBag.IsOwner = User.FindFirstValue(ClaimTypes.Email) == book.OwnerEmail;
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (Guid.TryParse(userId, out Guid userGuid))
+            {
+                ViewBag.CurrentUserGuid = userGuid;
+            }
+            else
+            {
+                ViewBag.CurrentUserGuid = Guid.Empty;
+            }
 
             return View(book);
         }

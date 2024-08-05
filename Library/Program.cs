@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
@@ -19,6 +20,20 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
         ?? throw new InvalidOperationException("Connection string 'WebApiContext' not found."));
 });
 
+builder.Services.AddControllers()
+        .AddJsonOptions(options =>
+        {
+            options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+            options.JsonSerializerOptions.IgnoreNullValues = true;
+        });
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll",
+        builder => builder.AllowAnyOrigin()
+                          .AllowAnyMethod()
+                          .AllowAnyHeader());
+});
 
 #region RepositoryServices
 builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
@@ -31,6 +46,7 @@ builder.Services.AddScoped<IUserImageRepository, UserImageRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserBookViewRepository, UserBookViewRepository>();
 builder.Services.AddScoped<IBookAuthorRepository, BookAuthorRepository>();
+builder.Services.AddScoped<IRatingRepository, RatingRepository>();
 #endregion
 
 #region Service
@@ -38,6 +54,8 @@ builder.Services.AddScoped<IBookFileService, BookFileService>();
 builder.Services.AddScoped<IBookService, BookService>();
 builder.Services.AddScoped<IBookImageService, BookImageService>();
 builder.Services.AddScoped<IAuthorService, AuthorService>();
+builder.Services.AddScoped<ICommentService, CommentService>();
+builder.Services.AddScoped<IRatingService, RatingService>();
 #endregion
 
 #region Identity
@@ -92,6 +110,7 @@ app.UseHsts();
 app.UseHttpsRedirection();
 
 app.UseStaticFiles();
+app.UseCors("AllowAll");
 app.UseRouting();
 
 app.UseAuthentication();

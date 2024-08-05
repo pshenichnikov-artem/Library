@@ -1,0 +1,79 @@
+﻿html, body {
+    height: 100%;
+    margin: 0;
+}
+
+.author-catalog-container {
+    padding: 20px;
+    background-color: #f9f9f9; /* Светлый серый фон */
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%; /* Контейнер занимает всю ширину родительского элемента */
+    height: 100%; /* Контейнер занимает всю высоту родительского элемента */
+    box-sizing: border-box; /* Включение отступов и границ в размеры элемента */
+    display: flex;
+    flex-direction: column;
+}
+
+.author-cards {
+    display: flex;
+    flex-wrap: wrap; /* Разрешает перенос элементов на новую строку */
+    gap: 20px;
+    justify-content: flex-start; /* Выравнивание карточек по левому краю */
+    max-width: 100%; /* Максимальная ширина контейнера карточек */
+    max-height: calc(100% - 40px); /* Высота с учетом отступов */
+    overflow-y: auto; /* Добавление прокрутки, если карточки не помещаются */
+}
+
+.author-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 200px; /* Фиксированная ширина карточки */
+    height: 250px; /* Фиксированная высота карточки */
+    padding: 10px;
+    background-color: #fff; /* Белый фон для карточек */
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.author-image {
+    margin-bottom: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+    .author-image img {
+        width: 150px; /* Фиксированная ширина изображения */
+        height: 150px; /* Фиксированная высота изображения */
+        object-fit: cover;
+        border-radius: 50%;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        /* Убедиться, что изображение не меняет размер карточки */
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+.author-info {
+    /* Оставлено пустым для обеспечения центрирования текста */
+}
+
+    .author-info a {
+        text-decoration: none;
+        color: #007bff;
+        font-size: 1.2em;
+        font-weight: bold;
+    }
+
+        .author-info a:hover {
+            color: #0056b3;
+        }
+
+.not-found-message {
+    text-align: center;
+    font-size: 1.5em;
+    color: #333;
+    margin-top: 50px;
+}

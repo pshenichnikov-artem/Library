@@ -30,8 +30,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aG9yXEFkZEF1dGhvci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/studies/Asp.Net_Core/Library/Library/Views/Author/AuthorCatalog.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aG9yXEF1dGhvckNhdGFsb2cuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/studies/Asp.Net_Core/Library/Library/Views/Author/AuthorDetails.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aG9yXEF1dGhvckRldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/studies/Asp.Net_Core/Library/Library/Views/Author/UpdateAuthor.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aG9yXFVwZGF0ZUF1dGhvci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/studies/Asp.Net_Core/Library/Library/Views/Book/AddBook.cshtml]

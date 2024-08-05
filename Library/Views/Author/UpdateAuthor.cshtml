@@ -1,0 +1,35 @@
+﻿@section Head {
+    <link rel="stylesheet" href="~/css/author/authorAddForm.css" />
+}
+
+<div class="form-wrapper">
+    <form class="author-form" method="post" enctype="multipart/form-data" action="update">
+        <h2>Update Author</h2>
+
+        @if (ViewBag.Errors != null)
+        {
+            <div class="form-errors" id="form-errors">
+                @foreach (var error in ViewBag.Errors)
+                {
+                    <p>@error</p>
+                }
+            </div>
+        }
+
+        <!-- Biography -->
+        <div class="form-group">
+            <label for="Biography">Biography</label>
+            <textarea id="Biography" name="Biography" class="form-control">@ViewBag.Biography</textarea>
+        </div>
+
+        <!-- Image Upload -->
+        <div class="form-group">
+            <label for="Image">Image</label>
+            <input type="file" id="Image" name="Image"
+                   class="form-control" value="@ViewBag.Image"/>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit">Update</button>
+    </form>
+</div>

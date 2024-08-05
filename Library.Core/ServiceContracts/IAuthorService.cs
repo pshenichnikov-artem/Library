@@ -8,7 +8,7 @@ namespace Library.Core.ServiceContracts
         Task<AuthorResponse?> GetAuthorByIdAsync(Guid? authorId);
         Task<AuthorResponse?> GetAuthorByNameAsync(string? firstName, string? lastName);
         Task<AuthorResponse> AddAuthorAsync(AuthorAddRequest? authorAddRequest);
-        Task<AuthorResponse?> UpdateAuthorAsync(AuthorUpdateRequest? authorUpdateRequest);
+        Task<AuthorResponse?> UpdateAuthorAsync(AuthorUpdateRequest? authorUpdateRequest, Guid? authorID);
         Task<bool> DeleteAuthorAsync(Guid? authorId);
     }
 }

@@ -1,4 +1,5 @@
 ﻿@using Library.Core.Enums
+@using System.Globalization
 @model IEnumerable<BookResponse>
 
 @section Head {
@@ -16,16 +17,21 @@
                         <div class="book-image-container">
                             @if (book.BookImages != null && book.BookImages.Any())
                             {
-                                <img src="@book.BookImages.First().FilePath" class="book-image" alt="Book Image">
+                                <img src="@(book.BookImages.First().FilePath + "/" + book.BookImages.First().FileName)" class="book-image" href="books/@book.BookID" alt="Book Image">
                             }
                         </div>
                         <a href="books/@book.BookID">
                             <h2 class="book-title">@book.Title</h2>
                         </a>
                         <p class="book-author">
-                            @foreach (var author in book.Authors)
+                            @if (book.Authors != null && book.Authors.Any())
                             {
-                                <a href="/authors/@author.AuthorID"><span>@author.FirstName @author.LastName</span></a>
+                                var authors = book.Authors.ToList();
+                                for (var i = 0; i < authors.Count; i++)
+                                {
+                                    var author = authors[i];
+                                    <a href="/authors/@author.AuthorID"><span>@author.FirstName @author.LastName</span>@(i < authors.Count - 1 == true ? "," : "")&nbsp;</a>
+                                }
                             }
                         </p>
                         <div class="book-info">
@@ -83,7 +89,7 @@
                 </div>
 
                 <label for="MinRating">Minimum Rating:</label>
-                <input type="number" id="MinRating" name="MinRating" min="0" max="5" step="0.1" value="@ViewData["MinRating"]">
+                <input type="number" id="MinRating" name="MinRating" min="0" max="5" step="0.1" value="@(ViewData["MinRating"])">
 
                 <label for="sortBy">Sort by:</label>
                 <select name="sortBy" id="sortBy">

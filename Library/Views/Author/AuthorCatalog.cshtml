@@ -1,0 +1,29 @@
+﻿@using Library.Core.DTO.Author
+@model IEnumerable<AuthorResponse>
+
+@section Head {
+    <link rel="stylesheet" href="~/css/author/authorCatalog.css" />
+}
+
+<div class="author-catalog-container">
+    @if (Model != null && Model.Any())
+    {
+        <div class="author-cards">
+            @foreach (var author in Model)
+            {
+                <div class="author-card">
+                    <div class="author-image">
+                        <img src="/image/authorImages/@(author.AuthorImages != null && author.AuthorImages.Any() ? author.AuthorImages.First() : "")">
+                    </div>
+                    <div class="author-info">
+                        <a href="/authors/@author.AuthorID">@author.LastName @author.FirstName</a>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <p class="not-found-message">Упс, ничего не найдено</p>
+    }
+</div>

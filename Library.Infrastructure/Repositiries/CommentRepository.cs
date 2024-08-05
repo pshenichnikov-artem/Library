@@ -17,14 +17,14 @@ namespace Library.Infrastructure.Repositiries
         public async Task<Comment?> GetByIdAsync(Guid commentId)
         {
             return await _db.Comments
-                .Include(c => c.Book) // Include book to retrieve related book information
+                .Include(c => c.User)
                 .FirstOrDefaultAsync(c => c.CommentID == commentId);
         }
 
         public async Task<IEnumerable<Comment>> GetAllAsync()
         {
             return await _db.Comments
-                .Include(c => c.Book) // Include book to retrieve related book information
+                .Include(c => c.User)
                 .ToListAsync();
         }
 
@@ -40,11 +40,8 @@ namespace Library.Infrastructure.Repositiries
             return await SaveChangesAsync();
         }
 
-        public async Task<bool> DeleteAsync(Guid commentId)
+        public async Task<bool> DeleteAsync(Comment comment)
         {
-            var comment = await _db.Comments
-                .FirstOrDefaultAsync(c => c.CommentID == commentId);
-
             if (comment == null)
             {
                 return false;
