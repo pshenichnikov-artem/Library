@@ -1,120 +1,135 @@
-﻿
+﻿/* Main page container */
 .books-page {
     display: flex;
     justify-content: center;
-    align-items: flex-start; /* Разрешаем перенос элементов на новую строку */
-    padding-top: 20px; /* Верхний отступ от header */
+    align-items: flex-start;
+    padding-top: 20px;
 }
 
+/* Content area */
 .books-content {
-    flex: 1; /* Элемент занимает всю доступную область */
+    flex: 1;
     padding: 20px;
 }
 
-/* Общие стили для контейнера карточек книг */
+/* Container for book cards */
 .book-container {
-    display: flex; /* Используем Flexbox для контейнера */
-    flex-wrap: wrap; /* Разрешаем перенос элементов на новую строку */
-    justify-content: flex-start; /* Выравнивание элементов в начале строки */
-    gap: 20px; /* Расстояние между элементами */
-    padding: 20px; /* Внутренние отступы контейнера */
-    font-family: Arial, sans-serif; /* Шрифт текста */
-    color: black; /* Цвет текста для всех дочерних элементов */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 20px;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    color: black;
 }
 
-/* Стили для отдельной карточки книги */
+/* Individual book card */
 .book {
-    background-color: #f9f9f9; /* Фоновый цвет карточки */
-    border: 1px solid #ddd; /* Граница карточки */
-    border-radius: 5px; /* Закругленные углы карточки */
-    overflow: hidden; /* Скрываем переполнение */
-    width: 250px; /* Ширина карточки */
-    height: 350px; /* Высота карточки */
-    text-align: center; /* Выравнивание текста по центру */
-    padding: 15px; /* Внутренние отступы карточки */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Тень карточки */
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+    width: 250px;
+    height: 350px;
+    text-align: center;
+    padding: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Стили для контейнера изображения книги */
+/* Book image container */
 .book-image-container {
-    position: relative; /* Для абсолютного позиционирования изображения */
-    width: 100%; /* Ширина контейнера изображения */
-    padding-bottom: 100%; /* Соотношение сторон 1:1 (квадратное изображение) */
-    overflow: hidden; /* Скрываем переполнение */
+    position: relative;
+    width: 100%;
+    padding-bottom: 100%;
+    overflow: hidden;
 }
 
-/* Стили для изображения книги */
+/* Book image */
 .book-image {
-    position: absolute; /* Абсолютное позиционирование изображения */
-    top: 0; /* Привязываем к верхнему краю */
-    left: 0; /* Привязываем к левому краю */
-    width: 100%; /* Ширина изображения */
-    height: 100%; /* Высота изображения */
-    object-fit: cover; /* Масштабируем изображение, сохраняя соотношение сторон */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
-/* Стили для заголовка книги */
+/* Book title */
 .book-title {
-    font-size: 24px; /* Размер шрифта заголовка */
-    margin: 5px 0; /* Отступы заголовка */
+    font-size: 24px;
+    margin: 5px 0;
 }
 
-/* Стили для автора книги */
+/* Book author */
 .book-author {
-    color: #555; /* Цвет текста автора */
-    font-size: 16px; /* Размер шрифта автора */
-    margin-block-start: 10px; /* Верхний отступ автора */
-    margin-bottom: 5px; /* Нижний отступ автора */
+    color: #555;
+    font-size: 16px;
+    margin-block-start: 10px;
+    margin-bottom: 5px;
 }
 
-/* Стили для информации о книге (рейтинг и количество комментариев) */
+/* Book info (rating and comments) */
 .book-info {
-    display: flex; /* Используем Flexbox для контейнера информации о книге */
-    justify-content: space-between; /* Размещаем элементы по краям контейнера */
-    font-size: 14px; /* Размер шрифта информации о книге */
-    color: #777; /* Цвет текста информации о книге */
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    color: #777;
 }
 
-/* Стили для сообщения "Упс, ничего не найдено" */
+/* "Not found" message */
 .not-found-message {
-    text-align: center; /* Выравнивание текста по центру */
-    margin-top: 50px; /* Верхний отступ от header */
-    font-size: 32px; /* Размер шрифта */
-    color: #555; /* Цвет текста */
+    text-align: center;
+    margin-top: 50px;
+    font-size: 32px;
+    color: #555;
 }
 
-/* Стили для блока поиска и фильтров */
+/* Sidebar for search and filters */
 .books-sidebar {
-    width: 300px; /* Ширина блока поиска и фильтров */
-    height: 250px; /* Высота блока поиска и фильтров */
+    width: 380px; /* Increased width */
     padding: 20px;
     background-color: #f2f2f2;
     border-left: 1px solid #ddd;
     position: sticky;
     top: 0;
-    right: 0; /* Прижимаем блок к правому краю */
 }
 
+/* Search filter section */
 .search-filter {
     margin-bottom: 20px;
 }
 
     .search-filter h3 {
-        font-size: 18px;
+        font-size: 24px;
+        margin-top: 0px;
         margin-bottom: 10px;
     }
 
     .search-filter label {
         display: block;
-        margin-bottom: 5px;
+        margin-bottom: 3px; /* Reduced margin */
+        font-size: 20px; /* Reduced font size */
     }
 
-    .search-filter select {
+    .search-filter select,
+    .search-filter input[type="text"],
+    .search-filter input[type="number"],
+    .search-filter input[type="date"] {
         width: 100%;
-        padding: 8px;
+        padding: 10px;
         margin-bottom: 10px;
-        font-size: 14px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        color: #333;
     }
+
+        .search-filter input[type="text"]::placeholder,
+        .search-filter input[type="number"]::placeholder,
+        .search-filter input[type="date"]::placeholder {
+            color: #aaa;
+        }
 
     .search-filter button {
         display: block;
@@ -131,17 +146,46 @@
             background-color: #0056b3;
         }
 
-    .search-filter input[type="text"] {
-        width: 100%; /* Ширина поля ввода 100% от ширины контейнера */
-        padding: 10px; /* Внутренние отступы */
-        margin-bottom: 15px; /* Отступ снизу */
-        border: 1px solid #ccc; /* Цвет границы */
-        border-radius: 4px; /* Закругленные углы */
-        box-sizing: border-box; /* Учет границ и отступов в ширине элемента */
-        font-size: 16px; /* Размер шрифта */
-        color: #333; /* Цвет текста */
+/* Date range inputs */
+.date-range {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+    .date-range div {
+        flex: 1;
     }
 
-        .search-filter input[type="text"]::placeholder {
-            color: #aaa;
-        }
+    .date-range span {
+        font-size: 14px;
+        color: #555;
+    }
+
+/* Minimum rating input */
+#MinRating {
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    color: #333;
+}
+
+.error-container {
+    border: 1px solid #f5c6cb;
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+}
+
+.error-message {
+    margin: 0;
+    padding: 0;
+    font-size: 18px;
+}
+

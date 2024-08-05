@@ -7,10 +7,20 @@
 
 <div class="registration-form" id="regist-form">
     <h2>Регистрация</h2>
+    @if (ViewBag.Errors != null)
+    {
+        <div class="error-container">
+
+            @foreach (var error in ViewBag.Errors)
+            {
+                <p class="error-message">@error</p>
+            }
+
+        </div>
+    }
     <form asp-action="Registration" method="post">
         <label for="first-name">Имя:</label>
         <input type="text" id="first-name" name="FirstName" value="@Model?.FirstName" required>
-        <span asp-validation-for="FirstName" class="text-red"></span>
 
         <label for="last-name">Фамилия:</label>
         <input type="text" id="last-name" name="LastName" value="@Model?.LastName" required>
@@ -26,14 +36,4 @@
 
         <button type="submit">Зарегистрироваться</button>
     </form>
-
-    <div class="text-danger">
-        @if (ViewBag.Errors != null)
-        {
-            foreach (var error in ViewBag.Errors)
-            {
-                <p>@error</p>
-            }
-        }
-    </div>
 </div>

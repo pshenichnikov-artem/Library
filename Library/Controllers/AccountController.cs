@@ -1,5 +1,6 @@
 ﻿using Library.Core.Domain.IdentityEntities;
 using Library.Core.DTO;
+using Library.Core.DTO.Account;
 using Library.Core.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -52,18 +53,18 @@ namespace Library.UI.Controllers
 
             if (result.Succeeded)
             {
-                if (registerDTO.UserType == UserTypeOptions.Admin)
-                {
-                    if (await _roleManager.FindByNameAsync(UserTypeOptions.Admin.ToString()) is null)
-                    {
-                        ApplicationRole applicationRole = new ApplicationRole() { Name = UserTypeOptions.Admin.ToString() };
-                        await _roleManager.CreateAsync(applicationRole);
-                    }
+                //if (registerDTO.UserType == UserTypeOptions.Admin)
+                //{
+                //    if (await _roleManager.FindByNameAsync(UserTypeOptions.Admin.ToString()) is null)
+                //    {
+                //        ApplicationRole applicationRole = new ApplicationRole() { Name = UserTypeOptions.Admin.ToString() };
+                //        await _roleManager.CreateAsync(applicationRole);
+                //    }
 
-                    await _userManager.AddToRoleAsync(user, UserTypeOptions.Admin.ToString());
-                }
-                else
-                {
+                //    await _userManager.AddToRoleAsync(user, UserTypeOptions.Admin.ToString());
+                //}
+                //else
+                //{
                     if (await _roleManager.FindByNameAsync(UserTypeOptions.User.ToString()) is null)
                     {
                         ApplicationRole applicationRole = new ApplicationRole() { Name = UserTypeOptions.User.ToString() };
@@ -71,7 +72,7 @@ namespace Library.UI.Controllers
                     }
 
                     await _userManager.AddToRoleAsync(user, UserTypeOptions.User.ToString());
-                }
+                //}
 
                 await _signInManager.SignInAsync(user, isPersistent: false);
 

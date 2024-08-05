@@ -38,7 +38,8 @@
     .book-form input[type="password"],
     .book-form textarea,
     .book-form input[type="file"],
-    .book-form input[type="date"] {
+    .book-form input[type="date"],
+    .book-form select{
         width: 100%;
         padding: 12px;
         margin-bottom: 10px;

@@ -22,85 +22,112 @@ namespace Library.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("Library.Core.Domain.Entities.Author", b =>
+                {
+                    b.Property<Guid>("AuthorID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("DateOfBirth")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("AuthorID");
+
+                    b.ToTable("Authors");
+                });
+
+            modelBuilder.Entity("Library.Core.Domain.Entities.AuthorImage", b =>
+                {
+                    b.Property<Guid>("AuthorImageID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("AuthorID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("FileName")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.HasKey("AuthorImageID");
+
+                    b.HasIndex("AuthorID");
+
+                    b.ToTable("AuthorImages");
+                });
+
             modelBuilder.Entity("Library.Core.Domain.Entities.Book", b =>
                 {
                     b.Property<Guid>("BookID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Author")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid?>("CoverImageID")
+                    b.Property<Guid?>("AuthorID")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
 
                     b.Property<string>("Genre")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("OwnerBookEmail")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid>("OwnerID")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("PublicationDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("BookID");
 
-                    b.HasIndex("CoverImageID");
+                    b.HasIndex("AuthorID");
 
-                    b.ToTable("Books", (string)null);
+                    b.HasIndex("OwnerID");
 
-                    b.HasData(
-                        new
-                        {
-                            BookID = new Guid("2a3a2e4f-94be-4d5e-935a-e24e45bc08e5"),
-                            CoverImageID = new Guid("b6bb833a-3eec-4df1-9784-fd9d621d5f5c"),
-                            Description = "A comprehensive guide to C# programming.",
-                            Genre = "Programming",
-                            PublicationDate = new DateTime(2020, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Title = "Learning C#"
-                        },
-                        new
-                        {
-                            BookID = new Guid("5a2e08e1-2c3a-4a2b-a8de-4e4a2d2b7b6c"),
-                            CoverImageID = new Guid("fb1e6b58-4b34-4c4c-878b-0f4b83f3d8b7"),
-                            Description = "Deep dive into ASP.NET Core framework.",
-                            Genre = "Programming",
-                            PublicationDate = new DateTime(2021, 8, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Title = "Advanced ASP.NET Core"
-                        },
-                        new
-                        {
-                            BookID = new Guid("6a7b9c1e-9c7b-4e4d-9a8b-2d2b8c4a6c2e"),
-                            CoverImageID = new Guid("6a7c7d5f-4c8e-4a4d-878b-2d2b7e8f5b7e"),
-                            Description = "An extensive resource on algorithms and data structures.",
-                            Genre = "Computer Science",
-                            PublicationDate = new DateTime(2019, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Title = "Introduction to Algorithms"
-                        },
-                        new
-                        {
-                            BookID = new Guid("4c5d3e7f-9b8d-4a4d-9a6c-3e4a2b7b5d4c"),
-                            CoverImageID = new Guid("7b8c7d5e-5c6d-4c4c-878a-3f3d7e6e4c3d"),
-                            Description = "Understanding the fundamentals of machine learning.",
-                            Genre = "Artificial Intelligence",
-                            PublicationDate = new DateTime(2022, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Title = "Machine Learning Basics"
-                        },
-                        new
-                        {
-                            BookID = new Guid("9a8b7c6d-4a4d-4e4c-9b6c-2d3e4b6b5d4e"),
-                            CoverImageID = new Guid("8a7b7d5e-6c5d-4c4d-878b-3e3b7e5e4b6d"),
-                            Description = "An introduction to the field of data science.",
-                            Genre = "Data Science",
-                            PublicationDate = new DateTime(2018, 11, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Title = "Data Science for Beginners"
-                        });
+                    b.ToTable("Books");
+                });
+
+            modelBuilder.Entity("Library.Core.Domain.Entities.BookAuthor", b =>
+                {
+                    b.Property<Guid>("BookAuthorID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("AuthorID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("BookID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("BookAuthorID");
+
+                    b.HasIndex("AuthorID");
+
+                    b.HasIndex("BookID");
+
+                    b.ToTable("BookAuthors");
                 });
 
             modelBuilder.Entity("Library.Core.Domain.Entities.BookFile", b =>
@@ -112,166 +139,141 @@ namespace Library.Infrastructure.Migrations
                     b.Property<Guid>("BookID")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("FilePath")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<string>("FileName")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("FileType")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.HasKey("BookFileID");
 
                     b.HasIndex("BookID");
 
-                    b.ToTable("BookFiles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            BookFileID = new Guid("f74e6a4b-b8d1-4b8a-9a4d-e4e5e2e1d6b3"),
-                            BookID = new Guid("2a3a2e4f-94be-4d5e-935a-e24e45bc08e5"),
-                            FilePath = "files/learning_csharp.pdf",
-                            FileType = "pdf"
-                        },
-                        new
-                        {
-                            BookFileID = new Guid("f5d4e6b7-9a8c-4b7b-9e2d-d2e1d5f6c7a3"),
-                            BookID = new Guid("2a3a2e4f-94be-4d5e-935a-e24e45bc08e5"),
-                            FilePath = "files/learning_csharp.docx",
-                            FileType = "docx"
-                        },
-                        new
-                        {
-                            BookFileID = new Guid("e6b4a7c8-9b7d-4e4d-9a6c-d4e1e2d3b5a2"),
-                            BookID = new Guid("5a2e08e1-2c3a-4a2b-a8de-4e4a2d2b7b6c"),
-                            FilePath = "files/advanced_aspnet_core.pdf",
-                            FileType = "pdf"
-                        },
-                        new
-                        {
-                            BookFileID = new Guid("d4e5b6c7-8a9d-4e4d-9b6c-e2d1e4a3b5c7"),
-                            BookID = new Guid("5a2e08e1-2c3a-4a2b-a8de-4e4a2d2b7b6c"),
-                            FilePath = "files/advanced_aspnet_core.docx",
-                            FileType = "docx"
-                        },
-                        new
-                        {
-                            BookFileID = new Guid("c7b6a5d8-9c7d-4e4d-9a6c-d2e4d1b3a5e7"),
-                            BookID = new Guid("6a7b9c1e-9c7b-4e4d-9a8b-2d2b8c4a6c2e"),
-                            FilePath = "files/introduction_to_algorithms.pdf",
-                            FileType = "pdf"
-                        },
-                        new
-                        {
-                            BookFileID = new Guid("b5a6d7c8-8c7d-4e4d-9a6c-d1e4e2a3b5c7"),
-                            BookID = new Guid("6a7b9c1e-9c7b-4e4d-9a8b-2d2b8c4a6c2e"),
-                            FilePath = "files/introduction_to_algorithms.docx",
-                            FileType = "docx"
-                        },
-                        new
-                        {
-                            BookFileID = new Guid("a7c6b5d8-9d7e-4e4d-9a6c-d3e2d1b4a5e7"),
-                            BookID = new Guid("4c5d3e7f-9b8d-4a4d-9a6c-3e4a2b7b5d4c"),
-                            FilePath = "files/machine_learning_basics.pdf",
-                            FileType = "pdf"
-                        },
-                        new
-                        {
-                            BookFileID = new Guid("b6d5a7c8-8e7d-4e4d-9a6c-d4e2e1b3a5c7"),
-                            BookID = new Guid("4c5d3e7f-9b8d-4a4d-9a6c-3e4a2b7b5d4c"),
-                            FilePath = "files/machine_learning_basics.docx",
-                            FileType = "docx"
-                        },
-                        new
-                        {
-                            BookFileID = new Guid("d7a6b5c8-8e7d-4e4d-9a6c-d2e1d3b4a5c7"),
-                            BookID = new Guid("9a8b7c6d-4a4d-4e4c-9b6c-2d3e4b6b5d4e"),
-                            FilePath = "files/data_science_for_beginners.pdf",
-                            FileType = "pdf"
-                        },
-                        new
-                        {
-                            BookFileID = new Guid("b7a6c5d8-9e7d-4e4d-9a6c-d3e2d4b1a5c7"),
-                            BookID = new Guid("9a8b7c6d-4a4d-4e4c-9b6c-2d3e4b6b5d4e"),
-                            FilePath = "files/data_science_for_beginners.docx",
-                            FileType = "docx"
-                        });
+                    b.ToTable("BookFiles");
                 });
 
-            modelBuilder.Entity("Library.Core.Domain.Entities.Image", b =>
+            modelBuilder.Entity("Library.Core.Domain.Entities.BookImage", b =>
                 {
-                    b.Property<Guid>("ImageID")
+                    b.Property<Guid>("BookImageID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("ImagePath")
+                    b.Property<Guid>("BookID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("FileName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
-                    b.HasKey("ImageID");
+                    b.HasKey("BookImageID");
 
-                    b.ToTable("Images", (string)null);
+                    b.HasIndex("BookID");
 
-                    b.HasData(
-                        new
-                        {
-                            ImageID = new Guid("6b35adff-bdb4-4b69-b935-08d5dfd2d64c"),
-                            ImagePath = "images/john_doe_avatar.jpg"
-                        },
-                        new
-                        {
-                            ImageID = new Guid("26a64d72-91e0-44fa-8e1a-7f55570d1168"),
-                            ImagePath = "images/jane_smith_avatar.jpg"
-                        },
-                        new
-                        {
-                            ImageID = new Guid("7f3c63f2-7cc7-4c7b-85b7-44b1c70f6262"),
-                            ImagePath = "images/emily_jones_avatar.jpg"
-                        },
-                        new
-                        {
-                            ImageID = new Guid("d16d704b-9a29-4a0b-9c70-bcd9b2c26f37"),
-                            ImagePath = "images/michael_brown_avatar.jpg"
-                        },
-                        new
-                        {
-                            ImageID = new Guid("bd44fabc-e840-4e3b-81da-2a3cb3b6e4d8"),
-                            ImagePath = "images/sarah_johnson_avatar.jpg"
-                        },
-                        new
-                        {
-                            ImageID = new Guid("8ab07e4c-5af6-4f59-8c3f-233b23c1ff13"),
-                            ImagePath = "images/david_wilson_avatar.jpg"
-                        },
-                        new
-                        {
-                            ImageID = new Guid("c9e4c891-909e-43a2-9a75-8973b907b4d7"),
-                            ImagePath = "images/linda_taylor_avatar.jpg"
-                        },
-                        new
-                        {
-                            ImageID = new Guid("b6bb833a-3eec-4df1-9784-fd9d621d5f5c"),
-                            ImagePath = "images/learning_csharp_cover.jpg"
-                        },
-                        new
-                        {
-                            ImageID = new Guid("fb1e6b58-4b34-4c4c-878b-0f4b83f3d8b7"),
-                            ImagePath = "images/advanced_aspnet_core_cover.jpg"
-                        },
-                        new
-                        {
-                            ImageID = new Guid("6a7c7d5f-4c8e-4a4d-878b-2d2b7e8f5b7e"),
-                            ImagePath = "images/introduction_to_algorithms_cover.jpg"
-                        },
-                        new
-                        {
-                            ImageID = new Guid("7b8c7d5e-5c6d-4c4c-878a-3f3d7e6e4c3d"),
-                            ImagePath = "images/machine_learning_basics_cover.jpg"
-                        },
-                        new
-                        {
-                            ImageID = new Guid("8a7b7d5e-6c5d-4c4d-878b-3e3b7e5e4b6d"),
-                            ImagePath = "images/data_science_for_beginners_cover.jpg"
-                        });
+                    b.ToTable("BookImages");
+                });
+
+            modelBuilder.Entity("Library.Core.Domain.Entities.Comment", b =>
+                {
+                    b.Property<Guid>("CommentID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("BookID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("UserID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("CommentID");
+
+                    b.HasIndex("BookID");
+
+                    b.HasIndex("UserID");
+
+                    b.ToTable("Comments");
+                });
+
+            modelBuilder.Entity("Library.Core.Domain.Entities.Rating", b =>
+                {
+                    b.Property<Guid>("RatingID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("BookID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("UserID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Value")
+                        .HasColumnType("int");
+
+                    b.HasKey("RatingID");
+
+                    b.HasIndex("BookID")
+                        .IsUnique();
+
+                    b.HasIndex("UserID");
+
+                    b.ToTable("Ratings");
+                });
+
+            modelBuilder.Entity("Library.Core.Domain.Entities.UserBookView", b =>
+                {
+                    b.Property<Guid>("UserBookViewID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("BookID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("UserID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("ViewDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("UserBookViewID");
+
+                    b.HasIndex("BookID");
+
+                    b.HasIndex("UserID");
+
+                    b.ToTable("UserBookViews");
+                });
+
+            modelBuilder.Entity("Library.Core.Domain.Entities.UserImage", b =>
+                {
+                    b.Property<Guid>("UserImageID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("FileName")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<Guid>("UserID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("UserImageID");
+
+                    b.HasIndex("UserID");
+
+                    b.ToTable("UserImages");
                 });
 
             modelBuilder.Entity("Library.Core.Domain.IdentityEntities.ApplicationRole", b =>
@@ -323,10 +325,14 @@ namespace Library.Infrastructure.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -477,25 +483,139 @@ namespace Library.Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Library.Core.Domain.Entities.AuthorImage", b =>
+                {
+                    b.HasOne("Library.Core.Domain.Entities.Author", "Author")
+                        .WithMany("AuthorImages")
+                        .HasForeignKey("AuthorID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Author");
+                });
+
             modelBuilder.Entity("Library.Core.Domain.Entities.Book", b =>
                 {
-                    b.HasOne("Library.Core.Domain.Entities.Image", "Cover")
-                        .WithMany()
-                        .HasForeignKey("CoverImageID")
-                        .OnDelete(DeleteBehavior.SetNull);
+                    b.HasOne("Library.Core.Domain.Entities.Author", null)
+                        .WithMany("Books")
+                        .HasForeignKey("AuthorID");
 
-                    b.Navigation("Cover");
+                    b.HasOne("Library.Core.Domain.IdentityEntities.ApplicationUser", "Owner")
+                        .WithMany("Books")
+                        .HasForeignKey("OwnerID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Owner");
+                });
+
+            modelBuilder.Entity("Library.Core.Domain.Entities.BookAuthor", b =>
+                {
+                    b.HasOne("Library.Core.Domain.Entities.Author", "Author")
+                        .WithMany("BookAuthors")
+                        .HasForeignKey("AuthorID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Library.Core.Domain.Entities.Book", "Book")
+                        .WithMany("BookAuthors")
+                        .HasForeignKey("BookID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Author");
+
+                    b.Navigation("Book");
                 });
 
             modelBuilder.Entity("Library.Core.Domain.Entities.BookFile", b =>
                 {
                     b.HasOne("Library.Core.Domain.Entities.Book", "Book")
-                        .WithMany("BookFile")
+                        .WithMany("BookFiles")
                         .HasForeignKey("BookID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Book");
+                });
+
+            modelBuilder.Entity("Library.Core.Domain.Entities.BookImage", b =>
+                {
+                    b.HasOne("Library.Core.Domain.Entities.Book", "Book")
+                        .WithMany("BookImages")
+                        .HasForeignKey("BookID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Book");
+                });
+
+            modelBuilder.Entity("Library.Core.Domain.Entities.Comment", b =>
+                {
+                    b.HasOne("Library.Core.Domain.Entities.Book", "Book")
+                        .WithMany("Comments")
+                        .HasForeignKey("BookID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Library.Core.Domain.IdentityEntities.ApplicationUser", "User")
+                        .WithMany("Comments")
+                        .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Book");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Library.Core.Domain.Entities.Rating", b =>
+                {
+                    b.HasOne("Library.Core.Domain.Entities.Book", "Book")
+                        .WithOne("Rating")
+                        .HasForeignKey("Library.Core.Domain.Entities.Rating", "BookID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Library.Core.Domain.IdentityEntities.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Book");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Library.Core.Domain.Entities.UserBookView", b =>
+                {
+                    b.HasOne("Library.Core.Domain.Entities.Book", "Book")
+                        .WithMany("UserViews")
+                        .HasForeignKey("BookID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Library.Core.Domain.IdentityEntities.ApplicationUser", "User")
+                        .WithMany("UserBookViews")
+                        .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Book");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Library.Core.Domain.Entities.UserImage", b =>
+                {
+                    b.HasOne("Library.Core.Domain.IdentityEntities.ApplicationUser", "User")
+                        .WithMany("UserImages")
+                        .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -549,9 +669,39 @@ namespace Library.Infrastructure.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Library.Core.Domain.Entities.Author", b =>
+                {
+                    b.Navigation("AuthorImages");
+
+                    b.Navigation("BookAuthors");
+
+                    b.Navigation("Books");
+                });
+
             modelBuilder.Entity("Library.Core.Domain.Entities.Book", b =>
                 {
-                    b.Navigation("BookFile");
+                    b.Navigation("BookAuthors");
+
+                    b.Navigation("BookFiles");
+
+                    b.Navigation("BookImages");
+
+                    b.Navigation("Comments");
+
+                    b.Navigation("Rating");
+
+                    b.Navigation("UserViews");
+                });
+
+            modelBuilder.Entity("Library.Core.Domain.IdentityEntities.ApplicationUser", b =>
+                {
+                    b.Navigation("Books");
+
+                    b.Navigation("Comments");
+
+                    b.Navigation("UserBookViews");
+
+                    b.Navigation("UserImages");
                 });
 #pragma warning restore 612, 618
         }

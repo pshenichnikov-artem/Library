@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "uTDZ2cP/+4Ri7PxMnjpb1ny3Zv+g+qhXp/SAPSttwqQ=",
+  "Hash": "ke2GaxLeG+1tr+ol4VbOjrAASZbziYsvZ+ACDPpzJQA=",
   "Source": "Library.UI",
   "BasePath": "_content/Library.UI",
   "Mode": "Default",
@@ -16,6 +16,44 @@
     }
   ],
   "Assets": [
+    {
+      "Identity": "C:\\studies\\Asp.Net_Core\\Library\\Library\\wwwroot\\css\\author\\authorAddForm.css",
+      "SourceId": "Library.UI",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\studies\\Asp.Net_Core\\Library\\Library\\wwwroot\\",
+      "BasePath": "_content/Library.UI",
+      "RelativePath": "css/author/authorAddForm.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\author\\authorAddForm.css"
+    },
+    {
+      "Identity": "C:\\studies\\Asp.Net_Core\\Library\\Library\\wwwroot\\css\\author\\authorPage.css",
+      "SourceId": "Library.UI",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\studies\\Asp.Net_Core\\Library\\Library\\wwwroot\\",
+      "BasePath": "_content/Library.UI",
+      "RelativePath": "css/author/authorPage.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\author\\authorPage.css"
+    },
     {
       "Identity": "C:\\studies\\Asp.Net_Core\\Library\\Library\\wwwroot\\css\\book.css",
       "SourceId": "Library.UI",
@@ -91,6 +129,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\header.css"
+    },
+    {
+      "Identity": "C:\\studies\\Asp.Net_Core\\Library\\Library\\wwwroot\\css\\home.css",
+      "SourceId": "Library.UI",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\studies\\Asp.Net_Core\\Library\\Library\\wwwroot\\",
+      "BasePath": "_content/Library.UI",
+      "RelativePath": "css/home.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\home.css"
     },
     {
       "Identity": "C:\\studies\\Asp.Net_Core\\Library\\Library\\wwwroot\\css\\login.css",

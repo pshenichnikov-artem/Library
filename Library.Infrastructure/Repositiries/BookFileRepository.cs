@@ -2,12 +2,6 @@
 using Library.Core.Domain.RepositrotyContracts;
 using Library.Infrastructure.DbContext;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Library.Infrastructure.Repositiries
 {
@@ -20,41 +14,51 @@ namespace Library.Infrastructure.Repositiries
             _db = db;
         }
 
-        public async Task<bool> AddBookFileAsync(BookFile bookFile)
+        public async Task<BookFile?> GetByIdAsync(Guid fileId)
         {
-            await _db.BookFiles.AddAsync(bookFile);
-            return (await _db.SaveChangesAsync()) > 0;
+            return await _db.BookFiles.FindAsync(fileId);
         }
 
-        public async Task<bool> AddImageAsync(Image bookFile)
+        public async Task<IEnumerable<BookFile>> GetAllAsync()
         {
-            await _db.Images.AddAsync(bookFile);
-            return (await _db.SaveChangesAsync()) > 0;
+            return await _db.BookFiles.ToListAsync();
         }
 
-        public async Task<bool> DeleteBookFileByID(BookFile[] bookFiles)
+        public async Task<bool> AddAsync(BookFile file)
         {
-            _db.BookFiles.RemoveRange(bookFiles);
-            return await _db.SaveChangesAsync() > 0;
+            _db.BookFiles.Add(file);
+            return await SaveChangesAsync();
         }
 
-        public async Task<List<BookFile>> GetFileByBookID(Guid bookID)
+        public async Task<bool> UpdateAsync(BookFile file)
         {
-            return await _db.BookFiles
-                .Where(f => f.BookID == bookID)
-                .ToListAsync();
+            _db.BookFiles.Update(file);
+            return await SaveChangesAsync();
         }
 
-        public async Task<BookFile?> GetFileByID(Guid id)
+        public async Task<bool> DeleteAsync(Guid fileId)
         {
-            return await _db.BookFiles
-                .FirstOrDefaultAsync(f => f.BookFileID == id);
+            var file = await _db.BookFiles.FindAsync(fileId);
+            if (file == null)
+            {
+                return false;
+            }
+
+            _db.BookFiles.Remove(file);
+            return await SaveChangesAsync();
         }
 
-        public async Task<Image?> GetImageByID(Guid id)
+        private async Task<bool> SaveChangesAsync()
         {
-            return await _db.Images
-                .FirstOrDefaultAsync(i => i.ImageID == id);
+            try
+            {
+                await _db.SaveChangesAsync();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

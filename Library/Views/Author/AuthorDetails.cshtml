@@ -1,0 +1,49 @@
+﻿@using Library.Core.DTO.Author
+@model AuthorResponse
+
+@section Head {
+    <link rel="stylesheet" href="~/css/author/authorPage.css" />
+}
+
+<div class="author-container">
+    <div class="author-details">
+        <div class="author-info">
+            <h1>@Model.FirstName @Model.LastName</h1>
+            <p><strong>Date of Birth:</strong> @Model.DateOfBirth?.ToString("yyyy-MM-dd")</p>
+        </div>
+
+        <div class="author-actions">
+        <a class="update-button" href="/author/@Model.AuthorID/update">Update</a>
+        <a class="delete-button" href="/author/@Model.AuthorID/delete">Delete</a>
+        </div>
+
+        <div class="author-image">
+            <img src="/image/authorImages/@(Model.AuthorImages != null && Model.AuthorImages.Any() ? Model.AuthorImages.First() : "")">
+        </div>
+    </div>
+
+    <div class="books-container">
+        <h2>Books by @Model.FirstName @Model.LastName</h2>
+        @if (Model.Books != null && Model.Books.Any())
+        {
+            @foreach (var book in Model.Books)
+            {
+                <div class="book-card">
+                    <div class="book-image-container">
+                        @if (book.BookImages != null && book.BookImages.Any())
+                        {
+                            <img src="@book.BookImages.First().FilePath" class="book-image" alt="Book Image">
+                        }
+                    </div>
+                    <a href="/books/@book.BookID">
+                        <h3 class="book-title">@book.Title</h3>
+                    </a>
+                </div>
+            }
+        }
+        else
+        {
+            <p class="not-found-message">No books found for this author.</p>
+        }
+    </div>
+</div>

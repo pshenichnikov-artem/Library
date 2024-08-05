@@ -26,20 +26,24 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxSZWdpc3RyYXRpb24uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/studies/Asp.Net_Core/Library/Library/Views/Book/Add.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQm9va1xBZGQuY3NodG1s
+[C:/studies/Asp.Net_Core/Library/Library/Views/Author/AddAuthor.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aG9yXEFkZEF1dGhvci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/studies/Asp.Net_Core/Library/Library/Views/Book/Book.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQm9va1xCb29rLmNzaHRtbA==
+[C:/studies/Asp.Net_Core/Library/Library/Views/Author/AuthorDetails.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aG9yXEF1dGhvckRldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/studies/Asp.Net_Core/Library/Library/Views/Book/BooksCatalog.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQm9va1xCb29rc0NhdGFsb2cuY3NodG1s
+[C:/studies/Asp.Net_Core/Library/Library/Views/Book/AddBook.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQm9va1xBZGRCb29rLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/studies/Asp.Net_Core/Library/Library/Views/Book/Update.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQm9va1xVcGRhdGUuY3NodG1s
+[C:/studies/Asp.Net_Core/Library/Library/Views/Book/BookDetails.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQm9va1xCb29rRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/studies/Asp.Net_Core/Library/Library/Views/Book/Catalog.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQm9va1xDYXRhbG9nLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/studies/Asp.Net_Core/Library/Library/Views/Home/Home.cshtml]

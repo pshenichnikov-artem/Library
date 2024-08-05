@@ -8,8 +8,7 @@
 
   <ItemGroup>
     <Folder Include="Content\files\" />
-    <Folder Include="Content\Images\" />
-    <Folder Include="Views\Home\" />
+    <Folder Include="wwwroot\bookImages\" />
   </ItemGroup>
 
   <ItemGroup>

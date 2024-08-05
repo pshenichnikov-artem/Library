@@ -1,0 +1,56 @@
+﻿@using Library.Core.DTO.Author
+@model AuthorAddRequest
+
+@section Head {
+    <link rel="stylesheet" href="~/css/author/authorAddForm.css" />
+}
+
+<div class="form-wrapper">
+    <form class="author-form" method="post" enctype="multipart/form-data">
+        <h2>Add Author</h2>
+
+        @if (ViewBag.Errors != null)
+        {
+            <div class="form-errors" id="form-errors">
+                @foreach (var error in ViewBag.Errors)
+                {
+                    <p>@error</p>
+                }
+            </div>
+        }
+
+        <!-- First Name -->
+        <div class="form-group">
+            <label for="FirstName">First Name</label>
+            <input type="text" id="FirstName" name="FirstName" value="@Model?.FirstName" required minlength="3" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label for="LastName">Last Name</label>
+            <input type="text" id="LastName" name="LastName" value="@Model?.LastName" required minlength="3" class="form-control" />
+        </div>
+
+        <!-- Biography -->
+        <div class="form-group">
+            <label for="Biography">Biography</label>
+            <textarea id="Biography" name="Biography" class="form-control">@Model?.Biography</textarea>
+        </div>
+
+        <!-- Date of Birth -->
+        <div class="form-group">
+            <label for="DateOfBirth">Date of Birth</label>
+            <input type="date" id="DateOfBirth" name="DateOfBirth" value="@Model?.DateOfBirth" class="form-control" />
+        </div>
+
+        <!-- Image Upload -->
+        <div class="form-group">
+            <label for="Image">Image</label>
+            <input type="file" id="Image" name="Image"
+                   class="form-control" />
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit">Add Author</button>
+    </form>
+</div>
+

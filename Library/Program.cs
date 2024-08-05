@@ -19,11 +19,26 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
         ?? throw new InvalidOperationException("Connection string 'WebApiContext' not found."));
 });
 
-builder.Services.AddScoped<IBookRepository, BookRepository>();
-builder.Services.AddScoped<IBookFileRepository, BookFileRepository>();
 
-builder.Services.AddScoped<IBookServices, BookServices>();
-builder.Services.AddTransient<IBookFileServices, BookFileServices>();
+#region RepositoryServices
+builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
+builder.Services.AddScoped<IBookFileRepository, BookFileRepository>();
+builder.Services.AddScoped<IBookImageRepository, BookImageRepository>();
+builder.Services.AddScoped<IBookRepository, BookRepository>();
+builder.Services.AddScoped<ICommentRepository, CommentRepository>();
+builder.Services.AddScoped<IRatingRepository, RatingRepository>();
+builder.Services.AddScoped<IUserImageRepository, UserImageRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IUserBookViewRepository, UserBookViewRepository>();
+builder.Services.AddScoped<IBookAuthorRepository, BookAuthorRepository>();
+#endregion
+
+#region Service
+builder.Services.AddScoped<IBookFileService, BookFileService>();
+builder.Services.AddScoped<IBookService, BookService>();
+builder.Services.AddScoped<IBookImageService, BookImageService>();
+builder.Services.AddScoped<IAuthorService, AuthorService>();
+#endregion
 
 #region Identity
 builder.Services.AddIdentity<ApplicationUser, ApplicationRole>(options => {
@@ -59,7 +74,7 @@ builder.Services.ConfigureApplicationCookie(options => {
 
 builder.Services.AddAutoMapper(cfg =>
 {
-    cfg.AddProfile<BookProfile>();
+    cfg.AddProfile<AutomapperProfile>();
 });
 
 var app = builder.Build();

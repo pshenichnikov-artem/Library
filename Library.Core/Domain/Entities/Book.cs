@@ -1,5 +1,6 @@
 ﻿
 
+using Library.Core.Domain.IdentityEntities;
 using System.ComponentModel.DataAnnotations;
 
 namespace Library.Core.Domain.Entities
@@ -8,14 +9,28 @@ namespace Library.Core.Domain.Entities
     {
         [Key]
         public Guid BookID { get; set; }
-        public string? Title { get; set; }
+
+        [Required]
+        [StringLength(100)]
+        public string Title { get; set; } = string.Empty;
+
+        [StringLength(1000)]
         public string? Description { get; set; }
+
+        [StringLength(100)]
         public string? Genre { get; set; }
+
         public DateTime? PublicationDate { get; set; }
-        public string? Author { get; set; }
-        public IEnumerable<BookFile> BookFile { get; set; }
-        public Guid? CoverImageID { get; set; }
-        public Image Cover {  get; set; }
-        public string? OwnerBookEmail { get; set; }
+
+        [Required]
+        public Guid OwnerID { get; set; }
+        public ApplicationUser Owner { get; set; } = default!;
+
+        public ICollection<BookAuthor> BookAuthors { get; set; } = new List<BookAuthor>();
+        public ICollection<BookImage> BookImages { get; set; } = new List<BookImage>();
+        public ICollection<BookFile> BookFiles { get; set; } = new List<BookFile>();
+        public ICollection<Comment> Comments { get; set; } = new List<Comment>();
+        public ICollection<UserBookView> UserViews { get; set; }
+        public Rating? Rating { get; set; }
     }
 }
