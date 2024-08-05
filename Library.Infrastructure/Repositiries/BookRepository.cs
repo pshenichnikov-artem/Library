@@ -2,7 +2,6 @@
 using Library.Core.Domain.RepositrotyContracts;
 using Library.Infrastructure.DbContext;
 using Microsoft.EntityFrameworkCore;
-using System.Linq.Expressions;
 
 namespace Library.Infrastructure.Repositiries
 {
@@ -15,51 +14,61 @@ namespace Library.Infrastructure.Repositiries
             _db = db;
         }
 
-        public async Task<Book> AddBookAsync(Book book)
+        public async Task<Book?> GetByIdAsync(Guid bookId)
+        {
+            return await _db.Books
+                .Include(b => b.BookImages)
+                .Include(b => b.BookFiles)
+                .Include(b => b.Comments)
+                .Include(b => b.Rating)
+                .Include(b => b.BookAuthors)
+                .ThenInclude(ba => ba.Author)
+                .Include(ba => ba.Owner)
+                .FirstOrDefaultAsync(b => b.BookID == bookId);
+        }
+
+        public async Task<IEnumerable<Book>> GetAllAsync()
+        {
+            return await _db.Books
+                .Include(b => b.BookImages)
+                .Include(b => b.Comments)
+                .Include(b => b.Rating)
+                .Include(b => b.BookAuthors)
+                .ThenInclude(ba => ba.Author)
+                .ToListAsync();
+        }
+
+        public async Task<bool> AddAsync(Book book)
         {
             _db.Books.Add(book);
-            await _db.SaveChangesAsync();
+            return await SaveChangesAsync();
+        }
+
+        public async Task<bool> UpdateAsync(Book book)
+        {
+            _db.Books.Update(book);
+            return await SaveChangesAsync();
+        }
+
+        public async Task<Book> DeleteAsync(Book book)
+        {
+            _db.Books.Remove(book);
+            await SaveChangesAsync();
             return book;
         }
 
-        public async Task<List<Book>> GetAllBookAsync()
+        private async Task<bool> SaveChangesAsync()
         {
-            return await _db.Books
-                .ToListAsync();
-        }
-
-        public async Task<Book?> GetBookByIDAsync(Guid bookID)
-        {
-            return await _db.Books
-                .SingleOrDefaultAsync(b => b.BookID == bookID);
-        }
-
-        public async Task<List<Book>> GetFilteredBookAsync(Expression<Func<Book, bool>> predicate)
-        {
-            return await _db.Books
-                .Where(predicate)
-                .ToListAsync();
-        }
-
-        public async Task<bool> DeleteBookByIDAsync(Guid bookID)
-        {
-            _db.Books.RemoveRange(_db.Books.Where(a => a.BookID == bookID));
-            return (await _db.SaveChangesAsync()) > 0;
-        }
-
-        public async Task<Book> UpdateBookAsync(Book book)
-        {
-            Book? matchingBook = await _db.Books.FirstOrDefaultAsync(a => a.BookID == book.BookID);
-            if (matchingBook == null)
-                return book;
-
-            matchingBook.Title = book.Title;
-            matchingBook.Description = book.Description;
-            matchingBook.Genre = book.Genre;
-            matchingBook.PublicationDate = book.PublicationDate;
-            matchingBook.Author = book.Author;
-
-            return book;
+            try
+            {
+                await _db.SaveChangesAsync();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
+
 }

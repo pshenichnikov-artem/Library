@@ -43,3 +43,17 @@
         .registration-form button:hover {
             background-color: #0056b3;     
         }
+.error-container {
+    border: 1px solid #f5c6cb;
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+}
+
+.error-message {
+    margin: 0;
+    padding: 0;
+    font-size: 18px;
+}

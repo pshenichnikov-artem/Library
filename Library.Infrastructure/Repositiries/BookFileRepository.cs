@@ -2,12 +2,6 @@
 using Library.Core.Domain.RepositrotyContracts;
 using Library.Infrastructure.DbContext;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Library.Infrastructure.Repositiries
 {
@@ -20,23 +14,51 @@ namespace Library.Infrastructure.Repositiries
             _db = db;
         }
 
-        public async Task<List<BookFile>> GetFileByBookID(Guid bookID)
+        public async Task<BookFile?> GetByIdAsync(Guid fileId)
         {
-            return await _db.BookFiles
-                .Where(f => f.BookID == bookID)
-                .ToListAsync();
+            return await _db.BookFiles.FindAsync(fileId);
         }
 
-        public async Task<BookFile?> GetFileByID(Guid id)
+        public async Task<IEnumerable<BookFile>> GetAllAsync()
         {
-            return await _db.BookFiles
-                .FirstOrDefaultAsync(f => f.BookFileID == id);
+            return await _db.BookFiles.ToListAsync();
         }
 
-        public async Task<Image?> GetImageByID(Guid id)
+        public async Task<bool> AddAsync(BookFile file)
         {
-            return await _db.Images
-                .FirstOrDefaultAsync(i => i.ImageID == id);
+            _db.BookFiles.Add(file);
+            return await SaveChangesAsync();
+        }
+
+        public async Task<bool> UpdateAsync(BookFile file)
+        {
+            _db.BookFiles.Update(file);
+            return await SaveChangesAsync();
+        }
+
+        public async Task<bool> DeleteAsync(Guid fileId)
+        {
+            var file = await _db.BookFiles.FindAsync(fileId);
+            if (file == null)
+            {
+                return false;
+            }
+
+            _db.BookFiles.Remove(file);
+            return await SaveChangesAsync();
+        }
+
+        private async Task<bool> SaveChangesAsync()
+        {
+            try
+            {
+                await _db.SaveChangesAsync();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

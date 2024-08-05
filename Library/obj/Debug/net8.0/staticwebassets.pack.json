@@ -1,6 +1,14 @@
 {
   "Files": [
     {
+      "Id": "C:\\studies\\Asp.Net_Core\\Library\\Library\\wwwroot\\css\\author\\authorAddForm.css",
+      "PackagePath": "staticwebassets\\css\\author\\authorAddForm.css"
+    },
+    {
+      "Id": "C:\\studies\\Asp.Net_Core\\Library\\Library\\wwwroot\\css\\author\\authorPage.css",
+      "PackagePath": "staticwebassets\\css\\author\\authorPage.css"
+    },
+    {
       "Id": "C:\\studies\\Asp.Net_Core\\Library\\Library\\wwwroot\\css\\book.css",
       "PackagePath": "staticwebassets\\css\\book.css"
     },
@@ -9,8 +17,16 @@
       "PackagePath": "staticwebassets\\css\\bookDetails.css"
     },
     {
+      "Id": "C:\\studies\\Asp.Net_Core\\Library\\Library\\wwwroot\\css\\bookForm.css",
+      "PackagePath": "staticwebassets\\css\\bookForm.css"
+    },
+    {
       "Id": "C:\\studies\\Asp.Net_Core\\Library\\Library\\wwwroot\\css\\header.css",
       "PackagePath": "staticwebassets\\css\\header.css"
+    },
+    {
+      "Id": "C:\\studies\\Asp.Net_Core\\Library\\Library\\wwwroot\\css\\home.css",
+      "PackagePath": "staticwebassets\\css\\home.css"
     },
     {
       "Id": "C:\\studies\\Asp.Net_Core\\Library\\Library\\wwwroot\\css\\login.css",

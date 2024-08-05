@@ -138,3 +138,36 @@
     font-size: 32px; /* Размер шрифта */
     color: #000; /* Цвет текста */
 }
+
+/*Кнопки*/
+.update-button,
+.delete-button {
+    display: block;
+    margin-bottom: 10px;
+    padding: 8px 12px;
+    color: #fff;
+    text-decoration: none;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.update-button {
+    background-color: #28a745;
+}
+
+    .update-button:hover {
+        background-color: #218838;
+    }
+
+.delete-button {
+    background-color: #dc3545; /* Красный цвет для кнопки "Удалить" */
+}
+
+    .delete-button:hover {
+        background-color: #c82333;
+    }
+
+.book-actions {
+    float: left;
+    margin-right: 20px;
+}

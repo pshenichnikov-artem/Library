@@ -1,0 +1,106 @@
+﻿@using Library.Core.Enums
+@model IEnumerable<BookResponse>
+
+@section Head {
+    <link rel="stylesheet" href="~/css/book.css" />
+}
+
+<div class="books-page">
+    <div class="books-content">
+        @if (Model != null && Model.Any())
+        {
+            <div class="book-container">
+                @foreach (var book in Model)
+                {
+                    <div class="book">
+                        <div class="book-image-container">
+                            @if (book.BookImages != null && book.BookImages.Any())
+                            {
+                                <img src="@book.BookImages.First().FilePath" class="book-image" alt="Book Image">
+                            }
+                        </div>
+                        <a href="books/@book.BookID">
+                            <h2 class="book-title">@book.Title</h2>
+                        </a>
+                        <p class="book-author">
+                            @foreach (var author in book.Authors)
+                            {
+                                <a href="/authors/@author.AuthorID"><span>@author.FirstName @author.LastName</span></a>
+                            }
+                        </p>
+                        <div class="book-info">
+                            <span class="book-rating">Rating: @(book.Rating != null ? book.Rating.Value.ToString("0.0") : "N/A")</span>
+                            <span class="book-comments">Comments: @(book.Comments != null ? book.Comments.Count() : 0)</span>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            @if (ViewBag.Errors != null)
+            {
+                <div class="error-container">
+
+                    @foreach (var error in ViewBag.Errors)
+                    {
+                        <p class="error-message">@error</p>
+                    }
+
+                </div>
+            }
+            else
+            {
+                <p class="not-found-message">Oops, no books found</p>
+            }
+        }
+    </div>
+    <div class="books-sidebar">
+        <div class="search-filter">
+            <h3>Search and Filter</h3>
+            <form method="get" action="books">
+                <label for="TitleOrAuthor">Search by Title or Author:</label>
+                <input type="text" id="TitleOrAuthor" name="TitleOrAuthor" placeholder="Enter title or author" value="@ViewData["TitleOrAuthor"]">
+
+                <label for="Genre">Genre:</label>
+                <select multiple name="Genre" id="Genre">
+                    @foreach (GenreEnum genre in Enum.GetValues(typeof(GenreEnum)))
+                    {
+                        <option value="@genre" @(ViewData["Genre"] != null && ((List<string?>)ViewData["Genre"]).Contains(genre.ToString()) ? "selected" : "")>@genre.ToString().Replace("_", " ")</option>
+                    }
+                </select>
+
+                <label for="PublicationDateFrom">Publication Date:</label>
+                <div class="date-range">
+                    <div>
+                        <span>From:</span>
+                        <input type="date" id="PublicationDateFrom" name="PublicationDateFrom" value="@ViewData["PublicationDateFrom"]">
+                    </div>
+                    <div>
+                        <span>To:</span>
+                        <input type="date" id="PublicationDateTo" name="PublicationDateTo" value="@ViewData["PublicationDateTo"]">
+                    </div>
+                </div>
+
+                <label for="MinRating">Minimum Rating:</label>
+                <input type="number" id="MinRating" name="MinRating" min="0" max="5" step="0.1" value="@ViewData["MinRating"]">
+
+                <label for="sortBy">Sort by:</label>
+                <select name="sortBy" id="sortBy">
+                    <option value="Title" @(ViewData["SortBy"]?.ToString() == "Title" ? "selected" : "")>Title</option>
+                    <option value="Genre" @(ViewData["SortBy"]?.ToString() == "Genre" ? "selected" : "")>Genre</option>
+                    <option value="PublicationDate" @(ViewData["SortBy"]?.ToString() == "PublicationDate" ? "selected" : "")>Publication Date</option>
+                    <option value="Rating" @(ViewData["SortBy"]?.ToString() == "Rating" ? "selected" : "")>Rating</option>
+                </select>
+
+                <label for="sortOrder">Sort order:</label>
+                <select name="orderBy" id="sortOrder">
+                    <option value="ASC" @(ViewData["SortOrder"]?.ToString() == "ASC" ? "selected" : "")>Ascending</option>
+                    <option value="DESC" @(ViewData["SortOrder"]?.ToString() == "DESC" ? "selected" : "")>Descending</option>
+                </select>
+
+                <button type="submit">Apply Filters</button>
+            </form>
+        </div>
+    </div>
+</div>

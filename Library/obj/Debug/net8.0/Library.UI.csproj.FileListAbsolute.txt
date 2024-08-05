@@ -428,8 +428,6 @@ C:\studies\Asp.Net_Core\Library\Library\obj\Debug\net8.0\Library.UI.AssemblyInfo
 C:\studies\Asp.Net_Core\Library\Library\obj\Debug\net8.0\Library.UI.csproj.CoreCompileInputs.cache
 C:\studies\Asp.Net_Core\Library\Library\obj\Debug\net8.0\Library.UI.MvcApplicationPartsAssemblyInfo.cs
 C:\studies\Asp.Net_Core\Library\Library\obj\Debug\net8.0\Library.UI.MvcApplicationPartsAssemblyInfo.cache
-C:\studies\Asp.Net_Core\Library\Library\obj\Debug\net8.0\Library.UI.RazorAssemblyInfo.cache
-C:\studies\Asp.Net_Core\Library\Library\obj\Debug\net8.0\Library.UI.RazorAssemblyInfo.cs
 C:\studies\Asp.Net_Core\Library\Library\obj\Debug\net8.0\staticwebassets.build.json
 C:\studies\Asp.Net_Core\Library\Library\obj\Debug\net8.0\staticwebassets.development.json
 C:\studies\Asp.Net_Core\Library\Library\obj\Debug\net8.0\staticwebassets\msbuild.Library.UI.Microsoft.AspNetCore.StaticWebAssets.props
@@ -445,3 +443,6 @@ C:\studies\Asp.Net_Core\Library\Library\obj\Debug\net8.0\Library.UI.pdb
 C:\studies\Asp.Net_Core\Library\Library\obj\Debug\net8.0\Library.UI.genruntimeconfig.cache
 C:\studies\Asp.Net_Core\Library\Library\obj\Debug\net8.0\ref\Library.UI.dll
 C:\studies\Asp.Net_Core\Library\Library\bin\Debug\net8.0\Rotativa.AspNetCore.dll
+C:\studies\Asp.Net_Core\Library\Library\obj\Debug\net8.0\Library.UI.sourcelink.json
+C:\studies\Asp.Net_Core\Library\Library\obj\Debug\net8.0\Library.UI.RazorAssemblyInfo.cache
+C:\studies\Asp.Net_Core\Library\Library\obj\Debug\net8.0\Library.UI.RazorAssemblyInfo.cs

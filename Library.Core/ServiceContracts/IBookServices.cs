@@ -1,16 +1,18 @@
-﻿using Library.Core.DTO;
+﻿using Library.Core.Domain.Entities;
+using Library.Core.DTO;
+using Library.Core.DTO.Book;
 using Library.Core.Enums;
 
 namespace Library.Core.ServiceContracts
 {
-    public interface IBookServices
+    public interface IBookService
     {
-        Task<BookResponse> AddBook(BookAddRequest bookAddRequest, Guid? imageID = null);
-        Task<List<BookResponse>> GetAllBooks();
-        Task<BookResponse?> GetBookByBookID(Guid? bookID);
-        Task<List<BookResponse>> GetFilteredBook(string? searchBy, string? searchString);
-        Task<bool> DeleteBookByID(Guid? bookID);
-       // Task<BookResponse> UpdateBook(BookAddRequest? bookRequest);//todo заменить bookAddRequest
-        Task<List<BookResponse>> GetSortedBook(List<BookResponse> books, string sortBy, SortOrderOptions sortOrder);
+        Task<BookResponse?> GetByIdAsync(Guid? bookId);
+        Task<IEnumerable<BookResponse>> GetAllAsync();
+        Task<Book?> AddAsync(BookAddRequest? request,IEnumerable<Guid> authorID , Guid? ownerID);
+        Task<bool> UpdateAsync(BookUpdateRequest? request);
+        Task<BookResponse?> DeleteAsync(Guid? bookId);
+        IEnumerable<BookResponse> GetSortedBooks(IEnumerable<BookResponse>? books, string? sortField, SortOrderOptions sortOrder);
+        Task<IEnumerable<BookResponse>> GetFilteredBooksAsync(BookFilter? filter);
     }
 }

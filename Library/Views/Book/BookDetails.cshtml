@@ -1,0 +1,85 @@
+﻿@using Library.Core.DTO.Book.BookFile
+@model BookResponse
+
+@section Head {
+    <link rel="stylesheet" href="~/css/bookDetails.css" />
+}
+
+@if (Model != null)
+{
+    <div class="book-container">
+        <div class="book-details">
+            <div class="book-info">
+                <h1>@Model.Title</h1>
+                <p><strong>Жанр:</strong> @Model.Genre?.Replace("_", " ")</p>
+                <p>
+                    <strong>Авторы:</strong>
+                    @if (Model.Authors != null)
+                    {
+                        var authorsCount = Model.Authors.Count();
+                        for (var i = 0; i < authorsCount; i++)
+                        {
+                            var author = Model.Authors.ElementAt(i);
+                            <a href="/authors/@author.AuthorID">@(author.FirstName + " " + author.LastName)</a>
+                            @if (i < authorsCount - 1)
+                            {
+                                @: &nbsp;|&nbsp;
+                            }
+                        }
+                    }
+                </p>
+                <p><strong>Дата публикации:</strong> @Model.PublicationDate.ToString("yyyy-MM-dd")</p>
+            </div>
+
+            @if (ViewBag.IsOwner)
+            {
+                <div class="book-actions">
+                    <a class="update-button" href="@(Model.BookID + "/update")">Изменить</a>
+                    <a class="delete-button" href="@(Model.BookID + "/delete")">Удалить</a>
+                </div>
+            }
+            <div class="book-image">
+                <img src="@(Model?.BookImages?.First().FilePath + "/" + Model?.BookImages?.First().FileName)">
+            </div>
+        </div>
+
+        <div class="book-description">
+            <p><strong>Описание:</strong></p>
+            <p>@Model.Description</p>
+        </div>
+
+        <div class="download-links">
+            <p><strong>Скачать:</strong></p>
+            @{
+                BookFileResponse? docxFile = Model.BookFiles?.FirstOrDefault(x => x.FileType == "docx");
+                BookFileResponse? pdfFile = Model.BookFiles?.FirstOrDefault(x => x.FileType == "pdf");
+            }
+            @if (docxFile != null)
+            {
+                <a href="download/@docxFile.BookFileID" download>Скачать DOCX</a>
+            }
+            @if (pdfFile != null)
+            {
+                <a href="download/@pdfFile.BookFileID" download>Скачать PDF</a>
+            }
+        </div>
+
+        <section class="comments">
+            <h2>Комментарии</h2>
+            @if (Model.Comments != null)
+            {
+                @foreach (var comment in Model.Comments)
+                {
+                    <div class="comment">
+                        <p><strong>@comment.UserFirstName</strong>  <strong>@comment.CommentDate.ToString("yyyy-MM-dd")</strong></p>
+                        <p>@comment.Content</p>
+                    </div>
+                }
+            }
+        </section>
+    </div>
+}
+else
+{
+    <p class="not-found-message">Упс, ничего не найдено</p>
+}
