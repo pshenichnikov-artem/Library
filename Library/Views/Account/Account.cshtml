@@ -1,0 +1,62 @@
+﻿@using Library.Core.DTO
+@model UserBookViewResponse
+
+@section Head {
+    <link rel="stylesheet" href="~/css/account/account.css" />
+}
+
+<div class="user-container">
+    <div class="user-details">
+        <div class="user-info">
+            <h1>@Model.User.FirstName @Model.User.LastName</h1>
+            <h1>@Model.User.Email</h1>
+            <div class="user-actions">
+                <button class="user-action-button" onclick="location.href='/updateData'">Изменить профиль</button>
+                <button class="user-action-button" onclick="location.href='/updatePassword'">Изменить пароль</button>
+            </div>
+        </div>
+
+        <div class="user-image">
+            <img src="/image/userImages/@(Model.User.UserImages != null && Model.User.UserImages.Any() ? Model.User.UserImages.First().FileName : "")">
+        </div>
+    </div>
+
+    <h2>Recently Viewed</h2>
+    <div class="books-container">
+        
+        @if (Model.Books != null && Model.Books.Any())
+        {
+            @foreach (var dateGroup in Model.Books.OrderByDescending(d => d.Key))
+            {
+                @foreach (var book in dateGroup.Value)
+                {
+                    <div class="book-card">
+                        <div class="book-date">
+                            <span>@dateGroup.Key.ToString("dd-MM-yyyy")</span>
+                        </div>
+                        <div class="book-image-container">
+                            @if (book.BookImages != null && book.BookImages.Any())
+                            {
+                                <img src="@(book.BookImages.First().FilePath + "/" + book.BookImages.First().FileName)" class="book-image" alt="Book Image">
+                            }
+                        </div>
+                        <a href="/books/@book.BookID">
+                            <h2 class="book-title">@book.Title</h2>
+                        </a>
+                        <p class="book-author">
+                            @if (book.Authors != null && book.Authors.Any())
+                            {
+                                var authors = book.Authors.ToList();
+                                for (var i = 0; i < authors.Count; i++)
+                                {
+                                    var author = authors[i];
+                                    <a href="/authors/@author.AuthorID"><span>@author.FirstName @author.LastName</span>@(i < authors.Count - 1 ? "," : "")&nbsp;</a>
+                                }
+                            }
+                        </p>
+                    </div>
+                }
+            }
+        }
+    </div>
+</div>

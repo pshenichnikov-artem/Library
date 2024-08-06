@@ -17,42 +17,17 @@ namespace Library.Infrastructure.Repositiries
         public async Task<ApplicationUser?> GetByIdAsync(Guid userId)
         {
             return await _db.Users
-                .Include(u => u.UserImages) // Include related user images
+                .Include(u => u.UserImages)
+                .Include(u => u.UserBookViews)
                 .FirstOrDefaultAsync(u => u.Id == userId);
         }
 
         public async Task<IEnumerable<ApplicationUser>> GetAllAsync()
         {
             return await _db.Users
-                .Include(u => u.UserImages) // Include related user images
-                .ToListAsync();
-        }
-
-        public async Task<bool> AddAsync(ApplicationUser user)
-        {
-            _db.Users.Add(user);
-            return await SaveChangesAsync();
-        }
-
-        public async Task<bool> UpdateAsync(ApplicationUser user)
-        {
-            _db.Users.Update(user);
-            return await SaveChangesAsync();
-        }
-
-        public async Task<bool> DeleteAsync(Guid userId)
-        {
-            var user = await _db.Users
                 .Include(u => u.UserImages)
-                .FirstOrDefaultAsync(u => u.Id == userId);
-
-            if (user == null)
-            {
-                return false;
-            }
-
-            _db.Users.Remove(user);
-            return await SaveChangesAsync();
+                .Include(u => u.UserBookViews)
+                .ToListAsync();
         }
 
         private async Task<bool> SaveChangesAsync()
@@ -68,5 +43,4 @@ namespace Library.Infrastructure.Repositiries
             }
         }
     }
-
 }

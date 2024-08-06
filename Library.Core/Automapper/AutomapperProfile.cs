@@ -1,5 +1,8 @@
 ﻿using AutoMapper;
 using Library.Core.Domain.Entities;
+using Library.Core.Domain.IdentityEntities;
+using Library.Core.DTO;
+using Library.Core.DTO.Account;
 using Library.Core.DTO.Author;
 using Library.Core.DTO.Book;
 using Library.Core.DTO.Book.BookFile;
@@ -29,6 +32,10 @@ namespace Library.Core.Automapper
             CreateMap<IEnumerable<Rating>, RatingResponse>()
                 .ConvertUsing(new RatingToRatingResponseConverter());
 
+            //ViewBook
+            CreateMap<IEnumerable<UserBookView>, UserBookViewResponse>()
+            .ConvertUsing<ViewBookToViewBookResponseConverter>();
+
             CreateMap<Rating, RatingResponse>()
                 .ForMember(dest => dest.BookID, opt => opt.MapFrom(src => src.BookID))
                 .ForMember(dest => dest.Value, opt => opt.MapFrom(src => src.Value))
@@ -43,7 +50,7 @@ namespace Library.Core.Automapper
 
             //Comment
             CreateMap<Comment, CommentResponse>()
-               .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.User.UserName));
+               .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.User != null ? src.User.FirstName + " " + src.User.LastName : ""));
             CreateMap<CommentAddRequest, Comment>();
             CreateMap<CommentUpdateRequest, Comment>()
                 .ForMember(dest => dest.Content, opt => opt.MapFrom(src => src.Content));
@@ -67,6 +74,16 @@ namespace Library.Core.Automapper
 
             //BookImage
             CreateMap<BookImage, BookImageResponse>();
-        }
+
+            //User
+            CreateMap<ApplicationUser, ApplicationUserResponse>()
+            .ForMember(dest => dest.UserImages, opt => opt.MapFrom(src => src.UserImages))
+            .ForMember(dest => dest.RecentlyViewedBooks, opt => opt.MapFrom(src => src.UserBookViews));
+
+            CreateMap<ApplicationUserUpdateRequest, ApplicationUser>()
+                .ForMember(dest => dest.FirstName, opt => opt.MapFrom(src => src.FirstName))
+                .ForMember(dest => dest.LastName, opt => opt.MapFrom(src => src.LastName))
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.UserId));
+		}
     }
 }

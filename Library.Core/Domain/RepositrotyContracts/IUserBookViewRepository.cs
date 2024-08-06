@@ -4,7 +4,7 @@ namespace Library.Core.Domain.RepositrotyContracts
 {
     public interface IUserBookViewRepository
     {
-        Task<UserBookView?> GetByIdAsync(Guid userBookViewId);
+        Task<UserBookView?> GetByUserIdAsync(Guid userId);
         Task<IEnumerable<UserBookView>> GetAllAsync();
         Task<bool> AddAsync(UserBookView userBookView);
         Task<bool> UpdateAsync(UserBookView userBookView);

@@ -14,14 +14,27 @@ namespace Library.Infrastructure.Repositiries
             _db = db;
         }
 
-        public async Task<UserBookView?> GetByIdAsync(Guid userBookViewId)
+        public async Task<UserBookView?> GetByUserIdAsync(Guid userId)
         {
-            return await _db.UserBookViews.FindAsync(userBookViewId);
+            return await _db.UserBookViews
+                .Include(u => u.User)
+                .ThenInclude(u => u.UserImages)
+                .Include(u => u.Book)
+                .ThenInclude(u => u.BookAuthors)
+                .ThenInclude(u => u.Author)
+                .Include(U=>U.Book.BookImages)
+                .FirstOrDefaultAsync(u => u.UserID == userId);
         }
 
         public async Task<IEnumerable<UserBookView>> GetAllAsync()
         {
-            return await _db.UserBookViews.ToListAsync();
+            return await _db.UserBookViews
+                .Include(u => u.User)
+                .ThenInclude(u => u.UserImages)
+                .Include(u => u.Book)
+                .ThenInclude(u => u.BookAuthors)
+                .ThenInclude(u => u.Author)
+                .ToListAsync();
         }
 
         public async Task<bool> AddAsync(UserBookView userBookView)

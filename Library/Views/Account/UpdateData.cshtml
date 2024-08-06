@@ -1,0 +1,29 @@
+﻿
+@section Head {
+    <link rel="stylesheet" href="~/css/account/updateData.css" />
+}
+
+<div class="update-data-form" id="update-data-form">
+    <h2>Обновить данные</h2>
+    @if (ViewBag.Errors != null)
+    {
+        <div class="error-container">
+            @foreach (var error in ViewBag.Errors)
+            {
+                <p class="error-message">@error</p>
+            }
+        </div>
+    }
+    <form asp-action="UpdateData" method="post">
+        <label for="first-name">Имя:</label>
+        <input type="text" id="first-name" name="FirstName" value="@ViewBag.FirstName" required>
+
+        <label for="last-name">Фамилия:</label>
+        <input type="text" id="last-name" name="LastName" value="@ViewBag.LastName" required>
+        
+        <label for="new-image">Выберите новое изображение:</label>
+        <input type="file" id="new-image" name="newImage" accept="image/jpeg, image/png" required>
+
+        <button type="submit">Обновить</button>
+    </form>
+</div>

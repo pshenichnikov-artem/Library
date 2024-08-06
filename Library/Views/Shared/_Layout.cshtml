@@ -22,6 +22,7 @@
 				</form>
 				@if (User.Identity.IsAuthenticated)
 				{
+					<a href="/account">Профиль</a>
 					<a href="/account/logout">Выйти</a>
 				}
 				else

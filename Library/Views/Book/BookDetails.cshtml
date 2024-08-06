@@ -100,7 +100,7 @@
                         <div class="comment-header">
                             <strong class="user-name">@comment.UserName</strong>
                             <span class="date">@comment.CreatedAt.ToString("yyyy-MM-dd")</span>
-                            @if (ViewBag.IsOwner)
+                            @if (ViewBag.CurrentUserGuid == comment.UserID)
                             {
                                 <div class="comment-actions">
                                     <button class="edit-button" onclick="editComment('@(comment.CommentID)', '@(comment.Content)')">Изменить</button>
