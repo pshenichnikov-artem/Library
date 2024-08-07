@@ -6,7 +6,7 @@ namespace Library.Core.ServiceContracts
     {
         Task<IEnumerable<AuthorResponse>> GetAllAuthorsAsync();
         Task<AuthorResponse?> GetAuthorByIdAsync(Guid? authorId);
-        Task<AuthorResponse?> GetAuthorByNameAsync(string? firstName, string? lastName);
+        Task<IEnumerable<AuthorResponse>> GetAuthorByNameAsync(string? firstName, string? lastName);
         Task<AuthorResponse> AddAuthorAsync(AuthorAddRequest? authorAddRequest);
         Task<AuthorResponse?> UpdateAuthorAsync(AuthorUpdateRequest? authorUpdateRequest, Guid? authorID);
         Task<bool> DeleteAuthorAsync(Guid? authorId);

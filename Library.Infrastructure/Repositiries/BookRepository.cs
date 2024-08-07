@@ -20,6 +20,7 @@ namespace Library.Infrastructure.Repositiries
                 .Include(b => b.BookImages)
                 .Include(b => b.BookFiles)
                 .Include(b => b.Comments)
+                .ThenInclude(b => b.User)
                 .Include(b => b.Rating)
                 .Include(b => b.BookAuthors)
                 .ThenInclude(ba => ba.Author)

@@ -32,32 +32,32 @@ namespace Library.Infrastructure.DbContext
                 .HasMany(b => b.BookAuthors)
                 .WithOne(ba => ba.Book)
                 .HasForeignKey(ba => ba.BookID)
-                .OnDelete(DeleteBehavior.Cascade); // Prevent deletion of books if there are related book authors
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Book>()
                 .HasMany(b => b.BookImages)
                 .WithOne(bi => bi.Book)
                 .HasForeignKey(bi => bi.BookID)
-                .OnDelete(DeleteBehavior.Cascade); // Delete images associated with book when book is deleted
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Book>()
                 .HasMany(b => b.BookFiles)
                 .WithOne(bf => bf.Book)
                 .HasForeignKey(bf => bf.BookID)
-                .OnDelete(DeleteBehavior.Cascade); // Delete files associated with book when book is deleted
+                .OnDelete(DeleteBehavior.Cascade);
 
             // Configure Author entity
             modelBuilder.Entity<Author>()
                 .HasMany(a => a.BookAuthors)
                 .WithOne(ba => ba.Author)
                 .HasForeignKey(ba => ba.AuthorID)
-                .OnDelete(DeleteBehavior.Cascade); // Prevent deletion of authors if there are related book authors
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Author>()
                 .HasMany(a => a.AuthorImages)
                 .WithOne(ai => ai.Author)
                 .HasForeignKey(ai => ai.AuthorID)
-                .OnDelete(DeleteBehavior.Cascade); // Delete author images when author is deleted
+                .OnDelete(DeleteBehavior.Cascade);
 
             // Configure Rating entity
             modelBuilder.Entity<Rating>()
@@ -70,7 +70,7 @@ namespace Library.Infrastructure.DbContext
                 .HasOne(r => r.User)
                 .WithMany()
                 .HasForeignKey(r => r.UserID)
-                .OnDelete(DeleteBehavior.Cascade);// Prevent deletion of books if there are related ratings
+                .OnDelete(DeleteBehavior.Cascade);
 
             // Configure Comment entity
             modelBuilder.Entity<Comment>()
@@ -90,14 +90,14 @@ namespace Library.Infrastructure.DbContext
                 .HasOne(bi => bi.Book)
                 .WithMany(b => b.BookImages)
                 .HasForeignKey(bi => bi.BookID)
-                .OnDelete(DeleteBehavior.Cascade); // Delete book images when book is deleted
+                .OnDelete(DeleteBehavior.Cascade);
 
             // Configure AuthorImage entity
             modelBuilder.Entity<AuthorImage>()
                 .HasOne(ai => ai.Author)
                 .WithMany(a => a.AuthorImages)
                 .HasForeignKey(ai => ai.AuthorID)
-                .OnDelete(DeleteBehavior.Cascade); // Delete author images when author is deleted
+                .OnDelete(DeleteBehavior.Cascade);
 
             // Configure ApplicationUser entity
             modelBuilder.Entity<ApplicationUser>()
@@ -117,13 +117,13 @@ namespace Library.Infrastructure.DbContext
                 .HasOne(ubv => ubv.User)
                 .WithMany(u => u.UserBookViews)
                 .HasForeignKey(ubv => ubv.UserID)
-                .OnDelete(DeleteBehavior.Cascade); // Delete user book views when user is deleted
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<UserBookView>()
                 .HasOne(ubv => ubv.Book)
                 .WithMany(b => b.UserViews)
                 .HasForeignKey(ubv => ubv.BookID)
-                .OnDelete(DeleteBehavior.Cascade); // Delete user book views when book is deleted
+                .OnDelete(DeleteBehavior.Cascade);
         }
 
     }

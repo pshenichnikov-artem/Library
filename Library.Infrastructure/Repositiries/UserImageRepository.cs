@@ -14,11 +14,11 @@ namespace Library.Infrastructure.Repositiries
             _db = db;
         }
 
-        public async Task<UserImage?> GetByIdAsync(Guid imageId)
+        public async Task<UserImage?> GetByUserIdAsync(Guid userId)
         {
             return await _db.UserImages
                 .Include(ui => ui.User) // Include user to retrieve related user information
-                .FirstOrDefaultAsync(ui => ui.UserImageID == imageId);
+                .FirstOrDefaultAsync(ui => ui.UserID == userId);
         }
 
         public async Task<IEnumerable<UserImage>> GetAllAsync()

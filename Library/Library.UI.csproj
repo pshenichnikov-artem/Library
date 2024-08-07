@@ -9,6 +9,8 @@
   <ItemGroup>
     <Folder Include="Content\files\" />
     <Folder Include="wwwroot\bookImages\" />
+    <Folder Include="wwwroot\userImages\" />
+    <Folder Include="wwwroot\authorImages\" />
   </ItemGroup>
 
   <ItemGroup>

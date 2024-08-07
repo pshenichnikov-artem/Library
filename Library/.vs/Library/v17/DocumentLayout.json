@@ -3,16 +3,8 @@
   "WorkspaceRootPath": "C:\\studies\\Asp.Net_Core\\Library\\Library\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{5A5158F3-5060-4FEE-B914-B56C864C2A8E}|Library.UI.csproj|c:\\studies\\asp.net_core\\library\\library\\views\\book\\catalog.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{5A5158F3-5060-4FEE-B914-B56C864C2A8E}|Library.UI.csproj|solutionrelative:views\\book\\catalog.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5A5158F3-5060-4FEE-B914-B56C864C2A8E}|Library.UI.csproj|c:\\studies\\asp.net_core\\library\\library\\controllers\\authorcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5A5158F3-5060-4FEE-B914-B56C864C2A8E}|Library.UI.csproj|solutionrelative:controllers\\authorcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5A5158F3-5060-4FEE-B914-B56C864C2A8E}|Library.UI.csproj|c:\\studies\\asp.net_core\\library\\library\\views\\author\\addauthor.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{5A5158F3-5060-4FEE-B914-B56C864C2A8E}|Library.UI.csproj|solutionrelative:views\\author\\addauthor.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{5A5158F3-5060-4FEE-B914-B56C864C2A8E}|Library.UI.csproj|c:\\studies\\asp.net_core\\library\\library\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{5A5158F3-5060-4FEE-B914-B56C864C2A8E}|Library.UI.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,7 +14,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 213,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -30,41 +22,15 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "AuthorController.cs",
-              "DocumentMoniker": "C:\\studies\\Asp.Net_Core\\Library\\Library\\Controllers\\AuthorController.cs",
-              "RelativeDocumentMoniker": "Controllers\\AuthorController.cs",
-              "ToolTip": "C:\\studies\\Asp.Net_Core\\Library\\Library\\Controllers\\AuthorController.cs",
-              "RelativeToolTip": "Controllers\\AuthorController.cs",
-              "ViewState": "AQIAAAsAAAAAAAAAAAAQwBoAAAAJAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-05T22:27:28.185Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "AddAuthor.cshtml",
-              "DocumentMoniker": "C:\\studies\\Asp.Net_Core\\Library\\Library\\Views\\Author\\AddAuthor.cshtml",
-              "RelativeDocumentMoniker": "Views\\Author\\AddAuthor.cshtml",
-              "ToolTip": "C:\\studies\\Asp.Net_Core\\Library\\Library\\Views\\Author\\AddAuthor.cshtml",
-              "RelativeToolTip": "Views\\Author\\AddAuthor.cshtml",
-              "ViewState": "AQIAABUAAAAAAAAAAAAAADAAAAAsAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-08-05T22:23:49.806Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Catalog.cshtml",
-              "DocumentMoniker": "C:\\studies\\Asp.Net_Core\\Library\\Library\\Views\\Book\\Catalog.cshtml",
-              "RelativeDocumentMoniker": "Views\\Book\\Catalog.cshtml",
-              "ToolTip": "C:\\studies\\Asp.Net_Core\\Library\\Library\\Views\\Book\\Catalog.cshtml",
-              "RelativeToolTip": "Views\\Book\\Catalog.cshtml",
-              "ViewState": "AQIAAEYAAAAAAAAAAAAAAFAAAAAZAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-08-05T22:09:30.838Z",
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\studies\\Asp.Net_Core\\Library\\Library\\appsettings.json",
+              "RelativeDocumentMoniker": "appsettings.json",
+              "ToolTip": "C:\\studies\\Asp.Net_Core\\Library\\Library\\appsettings.json",
+              "RelativeToolTip": "appsettings.json",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-08-07T09:33:34.536Z",
               "EditorCaption": ""
             }
           ]

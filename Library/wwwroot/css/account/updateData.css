@@ -1,0 +1,73 @@
+﻿.update-data-form {
+    width: 30%;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    margin: auto;
+    font-size: 18px;
+}
+
+    .update-data-form h2 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .update-data-form label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+
+    .update-data-form input[type="text"],
+    .update-data-form input[type="password"],
+    .update-data-form input[type="file"] {
+        width: calc(100% - 20px); /* Ширина с учетом внутренних отступов */
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 18px;
+    }
+
+    .update-data-form button {
+        width: 100%;
+        padding: 10px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 18px;
+    }
+
+        .update-data-form button:hover {
+            background-color: #0056b3;
+        }
+
+.error-container {
+    border: 1px solid #f5c6cb;
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+}
+
+.error-message {
+    margin: 0;
+    padding: 0;
+    font-size: 18px;
+}
+
+#current-image {
+    text-align: center; /* Выравнивание изображения по центру */
+    margin-bottom: 15px;
+}
+
+    #current-image img {
+        max-width: 100%; /* Ограничение максимальной ширины картинки */
+        height: auto; /* Поддержка пропорций картинки */
+        border-radius: 4px; /* Радиус скругления углов, если нужно */
+    }

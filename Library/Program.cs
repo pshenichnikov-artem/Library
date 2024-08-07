@@ -42,11 +42,14 @@ builder.Services.AddScoped<IBookImageRepository, BookImageRepository>();
 builder.Services.AddScoped<IBookRepository, BookRepository>();
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 builder.Services.AddScoped<IRatingRepository, RatingRepository>();
-builder.Services.AddScoped<IUserImageRepository, UserImageRepository>();
+builder.Services.AddScoped<IAuthorImageRepository, AuthorImageRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserBookViewRepository, UserBookViewRepository>();
 builder.Services.AddScoped<IBookAuthorRepository, BookAuthorRepository>();
 builder.Services.AddScoped<IRatingRepository, RatingRepository>();
+builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
+builder.Services.AddScoped<IUserBookViewRepository, UserBookViewRepository>();
+builder.Services.AddScoped<IUserImageRepository, UserImageRepository>();
 #endregion
 
 #region Service
@@ -56,6 +59,9 @@ builder.Services.AddScoped<IBookImageService, BookImageService>();
 builder.Services.AddScoped<IAuthorService, AuthorService>();
 builder.Services.AddScoped<ICommentService, CommentService>();
 builder.Services.AddScoped<IRatingService, RatingService>();
+builder.Services.AddScoped<IApplicationUserService, ApplicationUserService>();
+builder.Services.AddScoped<IUserImageService, UserImageService>();
+builder.Services.AddScoped<IAuthorImageService, AuthorImageService>();
 #endregion
 
 #region Identity
@@ -94,6 +100,8 @@ builder.Services.AddAutoMapper(cfg =>
 {
     cfg.AddProfile<AutomapperProfile>();
 });
+
+builder.Services.AddTransient<ViewBookToViewBookResponseConverter>();
 
 var app = builder.Build();
 

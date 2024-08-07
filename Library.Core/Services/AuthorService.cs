@@ -40,7 +40,7 @@ namespace Library.Core.Services
             return _mapper.Map<AuthorResponse>(author);
         }
 
-        public async Task<AuthorResponse?> GetAuthorByNameAsync(string? firstName, string? lastName)
+        public async Task<IEnumerable<AuthorResponse>> GetAuthorByNameAsync(string? firstName, string? lastName)
         {
             if (string.IsNullOrWhiteSpace(firstName) || string.IsNullOrWhiteSpace(lastName))
             {
@@ -53,7 +53,7 @@ namespace Library.Core.Services
 
             var authorsFilterByName = author.Where(x => x.FirstName.Contains(firstName) || x.LastName.Contains(lastName));
 
-            return _mapper.Map<AuthorResponse>(authorsFilterByName);
+            return _mapper.Map<IEnumerable<AuthorResponse>>(authorsFilterByName);
         }
 
         public async Task<AuthorResponse> AddAuthorAsync(AuthorAddRequest? authorAddRequest)

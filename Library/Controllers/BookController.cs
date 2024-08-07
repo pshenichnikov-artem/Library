@@ -1,5 +1,7 @@
 ﻿using AutoMapper.Configuration.Annotations;
+using Library.Core.Domain.Entities;
 using Library.Core.Domain.IdentityEntities;
+using Library.Core.Domain.RepositrotyContracts;
 using Library.Core.DTO.Book;
 using Library.Core.Enums;
 using Library.Core.ServiceContracts;
@@ -18,15 +20,22 @@ namespace Library.UI.Controllers
         private readonly IBookImageService _bookImageService;
         private readonly IBookFileService _bookFileService;
         private readonly IAuthorService _authorService;
+        private readonly IUserBookViewRepository _userBookViewRepository;
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public BookController(IBookService bookService, IBookImageService bookImageService, IBookFileService bookFileService, IAuthorService authorService, UserManager<ApplicationUser> userManager)
+        public BookController(IBookService bookService, 
+            IBookImageService bookImageService, 
+            IBookFileService bookFileService, 
+            IAuthorService authorService,
+            IUserBookViewRepository userBookViewRepository,
+            UserManager<ApplicationUser> userManager)
         {
             _bookService = bookService;
             _bookImageService = bookImageService;
             _bookFileService = bookFileService;
             _authorService = authorService;
             _userManager = userManager;
+            _userBookViewRepository = userBookViewRepository;
         }
 
         [HttpGet]
@@ -81,6 +90,8 @@ namespace Library.UI.Controllers
             if (Guid.TryParse(userId, out Guid userGuid))
             {
                 ViewBag.CurrentUserGuid = userGuid;
+                var viewBook = new UserBookView() { UserBookViewID = Guid.NewGuid(), BookID = bookID.Value, UserID = userGuid, ViewDate = DateTime.Now };
+                await _userBookViewRepository.AddAsync(viewBook);
             }
             else
             {

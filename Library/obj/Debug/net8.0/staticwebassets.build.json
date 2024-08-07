@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "FNB0b07ICiKEXVwCNihltLHKod/d+EHAmhyJQgbU3as=",
+  "Hash": "SAPGrJhQxuA5jLsHoU/obfOiWpEazlvcACaZrc4Rzfk=",
   "Source": "Library.UI",
   "BasePath": "_content/Library.UI",
   "Mode": "Default",
@@ -17,12 +17,12 @@
   ],
   "Assets": [
     {
-      "Identity": "C:\\studies\\Asp.Net_Core\\Library\\Library\\wwwroot\\bookImages\\0756f1ea-4752-497b-893b-6a98e4119045_Снимок экрана 2024-07-17 110129.png",
+      "Identity": "C:\\studies\\Asp.Net_Core\\Library\\Library\\wwwroot\\css\\account\\account.css",
       "SourceId": "Library.UI",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\studies\\Asp.Net_Core\\Library\\Library\\wwwroot\\",
       "BasePath": "_content/Library.UI",
-      "RelativePath": "bookImages/0756f1ea-4752-497b-893b-6a98e4119045_Снимок экрана 2024-07-17 110129.png",
+      "RelativePath": "css/account/account.css",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -33,7 +33,26 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\bookImages\\0756f1ea-4752-497b-893b-6a98e4119045_Снимок экрана 2024-07-17 110129.png"
+      "OriginalItemSpec": "wwwroot\\css\\account\\account.css"
+    },
+    {
+      "Identity": "C:\\studies\\Asp.Net_Core\\Library\\Library\\wwwroot\\css\\account\\updateData.css",
+      "SourceId": "Library.UI",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\studies\\Asp.Net_Core\\Library\\Library\\wwwroot\\",
+      "BasePath": "_content/Library.UI",
+      "RelativePath": "css/account/updateData.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\account\\updateData.css"
     },
     {
       "Identity": "C:\\studies\\Asp.Net_Core\\Library\\Library\\wwwroot\\css\\author\\authorAddForm.css",
