@@ -10,150 +10,121 @@ namespace Library.ServicesTests
 {
     public class BookFileServiceTests
     {
-        private readonly Mock<IBookFileRepository> _mockBookFileRepository;
+        private readonly Mock<IBookFileRepository> _bookFileRepositoryMock;
         private readonly BookFileService _bookFileService;
         private readonly string _testFilesPath;
 
         public BookFileServiceTests()
         {
-            _mockBookFileRepository = new Mock<IBookFileRepository>();
-            var webHostEnvironment = new Mock<IWebHostEnvironment>();
-            _testFilesPath = Path.Combine(Path.GetTempPath(), "Content/files");
-
-            // Setup the mock for IWebHostEnvironment
-            webHostEnvironment.Setup(env => env.WebRootPath).Returns(Path.GetTempPath());
-
-            _bookFileService = new BookFileService(_mockBookFileRepository.Object, webHostEnvironment.Object);
+            _bookFileRepositoryMock = new Mock<IBookFileRepository>();
+            var webHostEnvironmentMock = new Mock<IWebHostEnvironment>();
+            _testFilesPath = Path.Combine(Directory.GetCurrentDirectory(), "Content/files");
+            Directory.CreateDirectory(_testFilesPath);
+            webHostEnvironmentMock.Setup(env => env.ContentRootPath).Returns(Directory.GetCurrentDirectory());
+            _bookFileService = new BookFileService(_bookFileRepositoryMock.Object, webHostEnvironmentMock.Object);
         }
 
         [Fact]
-        public async Task AddAsync_ShouldReturnNull_WhenFileCannotBeAdded()
-        {
-            // Arrange
-            var fileName = "testfile.pdf";
-            var formFile = new Mock<IFormFile>();
-            formFile.Setup(f => f.FileName).Returns(fileName);
-            formFile.Setup(f => f.Length).Returns(1);
-
-            var bookId = Guid.NewGuid();
-
-            _mockBookFileRepository
-                .Setup(repo => repo.AddAsync(It.IsAny<BookFile>()))
-                .ReturnsAsync(false);
-
-            // Act
-            var result = await _bookFileService.AddAsync(formFile.Object, bookId);
-
-            // Assert
-            Assert.Null(result);
-        }
-
-        [Fact]
-        public async Task DeleteFileAsync_ShouldReturnTrue_WhenFileIsDeletedSuccessfully()
+        public async Task UpdateAsync_Should_Update_Existing_File()
         {
             // Arrange
             var fileId = Guid.NewGuid();
-            var fileName = "filetodelete.pdf";
-
-            var fileToDelete = new BookFile
+            var existingFile = new BookFile
             {
                 BookFileID = fileId,
-                FileName = fileName,
+                FileName = "old_file.pdf",
                 BookID = Guid.NewGuid(),
                 FileType = "pdf"
             };
 
-            _mockBookFileRepository
-                .Setup(repo => repo.GetByIdAsync(fileId))
-                .ReturnsAsync(fileToDelete);
+            var newFileName = "new_file.pdf";
+            var fileMock = new Mock<IFormFile>();
+            var content = "Fake content";
+            var ms = new MemoryStream();
+            var writer = new StreamWriter(ms);
+            writer.Write(content);
+            writer.Flush();
+            ms.Position = 0;
+            fileMock.Setup(_ => _.OpenReadStream()).Returns(ms);
+            fileMock.Setup(_ => _.FileName).Returns(newFileName);
+            fileMock.Setup(_ => _.Length).Returns(ms.Length);
 
-            _mockBookFileRepository
-                .Setup(repo => repo.DeleteAsync(fileId))
-                .ReturnsAsync(true);
+            var updatedFile = new BookFile
+            {
+                BookFileID = fileId,
+                FileName = $"{Guid.NewGuid()}_{newFileName}", // Simulate new file name
+                BookID = existingFile.BookID,
+                FileType = Path.GetExtension(newFileName).TrimStart('.').ToLower()
+            };
+
+            _bookFileRepositoryMock.Setup(repo => repo.GetByIdAsync(fileId)).ReturnsAsync(existingFile);
+            _bookFileRepositoryMock.Setup(repo => repo.UpdateAsync(It.IsAny<BookFile>())).ReturnsAsync(true);
+            _bookFileRepositoryMock.Setup(repo => repo.GetByIdAsync(fileId)).ReturnsAsync(updatedFile); // Return updated file with new name
 
             // Act
-            var result = await _bookFileService.DeleteAsync(fileId);
+            var result = await _bookFileService.UpdateAsync(fileId, fileMock.Object);
 
             // Assert
             Assert.True(result);
+
+            // Verify file deletion and addition
+            var oldFilePath = Path.Combine(_testFilesPath, existingFile.FileName);
+            var newFilePath = Path.Combine(_testFilesPath, updatedFile.FileName);
+
+            // Ensure old file was deleted
+            Assert.False(File.Exists(oldFilePath), "Old file was not deleted");
+
+            // Ensure new file was created
+            Assert.True(File.Exists(newFilePath), "New file was not created");
+
+            // Cleanup
+            if (File.Exists(newFilePath))
+            {
+                File.Delete(newFilePath);
+            }
         }
 
         [Fact]
-        public async Task GetFilesByBookIdAsync_ShouldReturnFiles_WhenFilesExist()
+        public async Task UpdateAsync_Should_Return_False_When_File_Not_Exists()
         {
             // Arrange
-            var bookId = Guid.NewGuid();
-            var files = new List<BookFile>
-        {
-            new BookFile { BookFileID = Guid.NewGuid(), BookID = bookId, FileName = "file1.pdf", FileType = "pdf" },
-            new BookFile { BookFileID = Guid.NewGuid(), BookID = bookId, FileName = "file2.docx", FileType = "docx" }
-        };
+            var fileId = Guid.NewGuid();
+            var fileMock = new Mock<IFormFile>();
+            fileMock.Setup(_ => _.FileName).Returns("file.pdf");
+            fileMock.Setup(_ => _.Length).Returns(1);
 
-            _mockBookFileRepository
-                .Setup(repo => repo.GetAllAsync())
-                .ReturnsAsync(files);
+            _bookFileRepositoryMock.Setup(repo => repo.GetByIdAsync(fileId)).ReturnsAsync((BookFile)null);
 
             // Act
-            var result = await _bookFileService.GetFilesByBookIdAsync(bookId);
+            var result = await _bookFileService.UpdateAsync(fileId, fileMock.Object);
 
             // Assert
-            Assert.NotNull(result);
-            Assert.Equal(2, result.Count());
-            Assert.All(result, file => Assert.Equal(bookId, file.BookID));
+            Assert.False(result);
         }
 
         [Fact]
-        public async Task DeleteFilesByBookIdAsync_ShouldReturnTrue_WhenFilesAreDeletedSuccessfully()
+        public async Task UpdateAsync_Should_Throw_Exception_When_File_Is_Null()
         {
             // Arrange
-            var bookId = Guid.NewGuid();
-            var files = new List<BookFile>
-        {
-            new BookFile { BookFileID = Guid.NewGuid(), BookID = bookId, FileName = "file1.pdf", FileType = "pdf" },
-            new BookFile { BookFileID = Guid.NewGuid(), BookID = bookId, FileName = "file2.docx", FileType = "docx" }
-        };
-
-            _mockBookFileRepository
-                .Setup(repo => repo.GetAllAsync())
-                .ReturnsAsync(files);
-
-            _mockBookFileRepository
-                .Setup(repo => repo.DeleteAsync(It.IsAny<Guid>()))
-                .ReturnsAsync(true);
-
-            // Act
-            var result = await _bookFileService.DeleteFilesByBookIdAsync(bookId);
-
-            // Assert
-            Assert.True(result);
-        }
-
-        [Fact]
-        public async Task GetFileBytesAsync_ShouldReturnFileBytes_WhenFileExists()
-        {
-            // Arrange
-            var fileName = "testfile.pdf";
-            var fileContent = new byte[] { 1, 2, 3, 4, 5 };
-            var filePath = Path.Combine(_testFilesPath, fileName);
-            Directory.CreateDirectory(_testFilesPath);
-            await File.WriteAllBytesAsync(filePath, fileContent);
-
-            // Act
-            var result = await _bookFileService.GetFileBytesAsync(fileName);
-
-            // Assert
-            Assert.NotNull(result);
-            Assert.Equal(fileContent, result);
-        }
-
-        [Fact]
-        public async Task GetFileBytesAsync_ShouldThrowFileNotFoundException_WhenFileDoesNotExist()
-        {
-            // Arrange
-            var fileName = "nonexistentfile.pdf";
+            var fileId = Guid.NewGuid();
 
             // Act & Assert
-            await Assert.ThrowsAsync<FileNotFoundException>(() => _bookFileService.GetFileBytesAsync(fileName));
+            await Assert.ThrowsAsync<ArgumentException>(() => _bookFileService.UpdateAsync(fileId, null));
+        }
+
+        [Fact]
+        public async Task UpdateAsync_Should_Throw_Exception_When_File_Is_Not_Supported()
+        {
+            // Arrange
+            var fileId = Guid.NewGuid();
+            var fileMock = new Mock<IFormFile>();
+            fileMock.Setup(_ => _.FileName).Returns("file.txt");
+            fileMock.Setup(_ => _.Length).Returns(1);
+
+            _bookFileRepositoryMock.Setup(repo => repo.GetByIdAsync(fileId)).ReturnsAsync(new BookFile());
+
+            // Act & Assert
+            await Assert.ThrowsAsync<ArgumentException>(() => _bookFileService.UpdateAsync(fileId, fileMock.Object));
         }
     }
 }

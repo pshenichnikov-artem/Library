@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "rlq74G2fW6JQjXTG+mHdlEB/KeDnTCTINrUaAuGf2m8=",
+  "Hash": "SAPGrJhQxuA5jLsHoU/obfOiWpEazlvcACaZrc4Rzfk=",
   "Source": "Library.UI",
   "BasePath": "_content/Library.UI",
   "Mode": "Default",
@@ -16,25 +16,6 @@
     }
   ],
   "Assets": [
-    {
-      "Identity": "C:\\studies\\Asp.Net_Core\\Library\\Library\\wwwroot\\bookImages\\0756f1ea-4752-497b-893b-6a98e4119045_Снимок экрана 2024-07-17 110129.png",
-      "SourceId": "Library.UI",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\studies\\Asp.Net_Core\\Library\\Library\\wwwroot\\",
-      "BasePath": "_content/Library.UI",
-      "RelativePath": "bookImages/0756f1ea-4752-497b-893b-6a98e4119045_Снимок экрана 2024-07-17 110129.png",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\bookImages\\0756f1ea-4752-497b-893b-6a98e4119045_Снимок экрана 2024-07-17 110129.png"
-    },
     {
       "Identity": "C:\\studies\\Asp.Net_Core\\Library\\Library\\wwwroot\\css\\account\\account.css",
       "SourceId": "Library.UI",

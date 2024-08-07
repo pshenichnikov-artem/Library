@@ -25,7 +25,6 @@ namespace Library.UI.Controllers
                 return BadRequest("Request body cannot be null.");
             }
 
-            // Get UserID from claims
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (string.IsNullOrEmpty(userId) || !Guid.TryParse(userId, out var parsedUserId))
             {
@@ -60,7 +59,6 @@ namespace Library.UI.Controllers
                 return BadRequest("Request body cannot be null.");
             }
 
-            // Get UserID from claims
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (string.IsNullOrEmpty(userId) || !Guid.TryParse(userId, out var parsedUserId))
             {
@@ -98,7 +96,6 @@ namespace Library.UI.Controllers
                 return BadRequest("Comment ID cannot be null or empty.");
             }
 
-            // Get UserID from claims
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (string.IsNullOrEmpty(userId) || !Guid.TryParse(userId, out var parsedUserId))
             {

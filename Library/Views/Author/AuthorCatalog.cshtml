@@ -1,4 +1,4 @@
-﻿@using Library.Core.DTO.Author
+﻿
 @model IEnumerable<AuthorResponse>
 
 @section Head {
@@ -13,7 +13,7 @@
             {
                 <div class="author-card">
                     <div class="author-image">
-                        <img src="/image/authorImages/@(author.AuthorImages != null && author.AuthorImages.Any() ? author.AuthorImages.First() : "")">
+                        <img src="/authorImages/@(author.AuthorImages != null && author.AuthorImages.Any() ? author.AuthorImages.First().ImageName : "")">
                     </div>
                     <div class="author-info">
                         <a href="/authors/@author.AuthorID">@author.LastName @author.FirstName</a>
@@ -24,6 +24,6 @@
     }
     else
     {
-        <p class="not-found-message">Упс, ничего не найдено</p>
+        <p class="not-found-message">Oops, no books found</p>
     }
 </div>

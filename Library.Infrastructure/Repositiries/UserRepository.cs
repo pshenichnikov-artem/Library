@@ -30,6 +30,18 @@ namespace Library.Infrastructure.Repositiries
                 .ToListAsync();
         }
 
+        public async Task<bool> Update(ApplicationUser user)
+        {
+            var userInDb = await _db.Users.FirstOrDefaultAsync(u => u.Id == user.Id);
+            if(userInDb == null)
+                return false;
+
+            userInDb.FirstName = user.FirstName;
+            userInDb.LastName = user.LastName;
+            
+            return await SaveChangesAsync();
+        }
+
         private async Task<bool> SaveChangesAsync()
         {
             try

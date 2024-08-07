@@ -1,5 +1,4 @@
-﻿@using Library.Core.DTO.Author
-@using Library.Core.Enums
+﻿
 @model BookAddRequest
 
 @section Head {
@@ -8,7 +7,7 @@
 
 <div class="form-wrapper">
     <form method="post" enctype="multipart/form-data" class="book-form">
-        <h2>Добавить книгу</h2>
+        <h2>Add Book</h2>
         @if (ViewBag.Errors != null)
         {
             <div class="form-errors">
@@ -21,11 +20,11 @@
             </div>
         }
         <div class="form-group">
-            <label for="title">Название книги:</label>
+            <label for="title">Book Title:</label>
             <input type="text" class="form-control" id="title" value="@Model?.Title" name="Title">
         </div>
         <div class="form-group">
-            <label for="authors">Авторы:</label>
+            <label for="authors">Authors:</label>
             <select multiple name="Authors" id="authors">
                 @if (ViewBag?.Authors != null)
                 {
@@ -41,7 +40,7 @@
             </select>
         </div>
         <div class="form-group">
-            <label for="genre">Жанр:</label>
+            <label for="genre">Genre:</label>
             <select multiple name="Genre" id="Genre">
                 @foreach (GenreEnum genre in Enum.GetValues(typeof(GenreEnum)))
                 {
@@ -50,26 +49,26 @@
             </select>
         </div>
         <div class="form-group">
-            <label for="publicationDate">Дата публикации:</label>
+            <label for="publicationDate">Publication Date:</label>
             <input type="date" class="form-control" id="publicationDate" value="@Model?.PublicationDate?.ToString("yyyy-MM-dd")" name="PublicationDate">
         </div>
         <div class="form-group">
-            <label for="description">Описание:</label>
+            <label for="description">Description:</label>
             <textarea class="form-control" id="description" name="Description">@Model?.Description</textarea>
         </div>
         <div class="form-group">
-            <label for="picture">Картинка:</label>
+            <label for="picture">Image:</label>
             <input type="file" class="form-control-file" id="picture" name="Image">
         </div>
         <div class="form-group">
-            <label for="files">Файл PDF:</label>
+            <label for="files">PDF File:</label>
             <input type="file" class="form-control-file" id="pdfFiles" name="FilePdf" multiple>
         </div>
         <div class="form-group">
-            
-            <label for="files">Файл DOCX:</label>
+
+            <label for="files">DOCX File:</label>
             <input type="file" class="form-control-file" id="docxFiles" name="FileDocx" multiple>
         </div>
-        <button type="submit" class="btn btn-primary">Добавить книгу</button>
+        <button type="submit" class="btn btn-primary">Add Book</button>
     </form>
 </div>

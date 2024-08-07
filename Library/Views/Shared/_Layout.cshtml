@@ -14,21 +14,21 @@
 				<a href="/" class="logo">Library</a>
 			</div>
 			<div class="header-right">
-				<a href="/">Главная</a>
-				<a href="/books">Каталог книг</a>
+				<a href="/">Home</a>
+				<a href="/books">Book Catalog</a>
 				<form action="/books" method="get" class="search-form-header">
-					<input type="text" name="bookTitle" placeholder="Найти книгу">
-					<button type="submit">Поиск</button>
+					<input type="text" name="bookTitle" placeholder="Find a book">
+					<button type="submit">Search</button>
 				</form>
 				@if (User.Identity.IsAuthenticated)
 				{
-					<a href="/account">Профиль</a>
-					<a href="/account/logout">Выйти</a>
+					<a href="/account">Profile</a>
+					<a href="/account/logout">Logout</a>
 				}
 				else
 				{
-					<a href="/account/login" id="login-link">Войти</a>
-					<a href="/account/registration">Зарегистрироваться</a>
+					<a href="/account/login" id="login-link">Login</a>
+					<a href="/account/registration">Register</a>
 				}
 			</div>
 		</div>
@@ -41,26 +41,26 @@
 	<footer>
 		<div class="footer-container">
 			<div class="footer-column">
-				<p class="footer-title">Контакты:</p>
+				<p class="footer-title">Contacts:</p>
 				<ul>
-					<li>Email: <a href="mailto:info@library.com">info@library.com</a></li>
-					<li>Телеграмм: <a href="https://t.me/library">t.me/</a></li>
-					<li>ВКонтакте: <a href="https://vk.com/library">vk.com/library</a></li>
-					<li>Телефон: <a href="tel:+123456789">+1 (234) 567-89</a></li>
+					<li>Email: <a >info@library.com</a></li>
+					<li>Telegram: <a >t.me/</a></li>
+					<li>VK: <a >vk.com/</a></li>
+					<li>Phone: <a href="tel:+123456789">+1 (234) 567-89</a></li>
 				</ul>
 			</div>
 			<div class="footer-column">
-				<p class="footer-title">Информация о сайте:</p>
+				<p class="footer-title">Site Information:</p>
 				<ul>
-					<li><a href="/about">О сайте</a></li>
-					<li><a href="/rules">Правила сайта</a></li>
-					<li><a href="/privacy">Политика конфиденциальности</a></li>
+					<li><a href="/about">About</a></li>
+					<li><a href="/rules">Site Rules</a></li>
+					<li><a href="/privacy">Privacy Policy</a></li>
 				</ul>
 			</div>
 			<div class="footer-column">
-				<p class="footer-title">Техническая поддержка:</p>
+				<p class="footer-title">Technical Support:</p>
 				<ul>
-					<li>Почта поддержки для пользователей:</li>
+					<li>Support email for users:</li>
 					<li><a href="mailto:support@library.com">support@library.com</a></li>
 				</ul>
 			</div>

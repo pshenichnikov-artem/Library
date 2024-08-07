@@ -1,13 +1,15 @@
 ﻿using Library.Core.Domain.Entities;
+using Library.Core.DTO;
+using Microsoft.AspNetCore.Http;
 
 namespace Library.Core.ServiceContracts
 {
     public interface IUserImageService
     {
-        Task<UserImage?> GetByIdAsync(Guid userImageId);
-        Task<IEnumerable<UserImage>> GetByUserIdAsync(Guid userId);
-        Task<UserImage> AddAsync(UserImage userImage);
-        Task<UserImage> UpdateAsync(UserImage userImage);
-        Task<bool> DeleteAsync(Guid userImageId);
+        Task<IEnumerable<UserImageResponse>> GetImagesByUserIdAsync(Guid? userId);
+        Task<UserImageResponse?> AddImageAsync(IFormFile file, Guid? userId);
+        Task<bool> UpdateImageAsync(Guid? imageId, IFormFile file);
+        Task<bool> DeleteImageAsync(Guid? imageId);
+        Task<bool> DeleteImagesByUserIdAsync(Guid? userId);
     }
 }

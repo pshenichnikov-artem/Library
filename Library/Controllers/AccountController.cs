@@ -20,16 +20,19 @@ namespace Library.UI.Controllers
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly RoleManager<ApplicationRole> _roleManager;
         private readonly IApplicationUserService _applicationUserService;
+        private readonly IUserImageService _userImageService;
 
         public AccountController(UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             RoleManager<ApplicationRole> roleManager,
-            IApplicationUserService applicationUserService)
+            IApplicationUserService applicationUserService,
+            IUserImageService userImageService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
             _applicationUserService = applicationUserService;
+            _userImageService = userImageService;
         }
 
         [HttpGet]
@@ -71,11 +74,10 @@ namespace Library.UI.Controllers
                 return BadRequest("Invalid user ID");
             }
 
-            // TODO изменить сервис
             var user = await _applicationUserService.GetByIdAsync(userGuid);
             if (user == null)
             {
-                return NotFound(); // Пользователь не найден
+                return NotFound();
             }
 
             ViewBag.FirstName = user.User.FirstName;
@@ -88,7 +90,7 @@ namespace Library.UI.Controllers
 
         [Route("/updateData")]
         [HttpPost]
-        public IActionResult UpdateData(
+        public async Task<IActionResult> UpdateData(
             [Required(ErrorMessage = "First name is required")]
             [StringLength(50, ErrorMessage = "Last name cannot exceed 50 characters")]
             string? firstName,
@@ -96,7 +98,7 @@ namespace Library.UI.Controllers
             [StringLength(50, ErrorMessage = "Last name cannot exceed 50 characters")]
             string? lastName,
             [ImageValidation]
-            IFormFile? file)
+            IFormFile? newImage)
         {
             if (ModelState.IsValid == false)
             {
@@ -113,7 +115,32 @@ namespace Library.UI.Controllers
                 return NotFound();
             }
 
-            //Сохранить данные и файл
+            bool sassesSaveImage = false;
+
+            if (newImage == null)
+            {
+                sassesSaveImage = await _userImageService.DeleteImagesByUserIdAsync(Guid.Parse(userId));
+            }
+            else
+            {
+                var image = await _userImageService.GetImagesByUserIdAsync(Guid.Parse(userId));
+                if (image == null || image.Count() == 0)
+                {
+                    var updatedImage = await _userImageService.AddImageAsync(newImage, Guid.Parse(userId));
+                    if (updatedImage != null)
+                        sassesSaveImage = true;
+                }
+                else
+                {
+                    sassesSaveImage = await _userImageService.UpdateImageAsync(Guid.Parse(userId), newImage);
+                }
+            }
+
+            bool sassesSaveUser = await _applicationUserService.UpdateNameAsync(Guid.Parse(userId), firstName, lastName);
+
+            if (!sassesSaveImage || !sassesSaveUser)
+                return StatusCode(500);
+
             return Redirect("/account");
         }
 
@@ -161,6 +188,7 @@ namespace Library.UI.Controllers
                 ViewBag.Errors = result.Errors.Select(e => e.Description);
             }
 
+
             return Redirect("/account");
         }
 
@@ -175,7 +203,7 @@ namespace Library.UI.Controllers
         [Route("{action}")]
         [HttpPost]
         [Authorize("NotAuthorized")]
-        public async Task<IActionResult> Registration(RegisterDTO registerDTO)
+        public async Task<IActionResult> Registration(RegisterDTO registerDTO, [ImageValidation] IFormFile? newImage)
         {
             if (ModelState.IsValid == false)
             {

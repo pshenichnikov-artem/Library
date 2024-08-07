@@ -18,7 +18,7 @@
         </div>
 
         <div class="author-image">
-            <img src="/image/authorImages/@(Model.AuthorImages != null && Model.AuthorImages.Any() ? Model.AuthorImages.First() : "")">
+            <img src="/authorImages/@(Model.AuthorImages != null && Model.AuthorImages.Any() ? Model.AuthorImages.First().ImageName : "")">
         </div>
     </div>
     <div class="author-details">

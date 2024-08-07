@@ -1,10 +1,6 @@
 {
   "Files": [
     {
-      "Id": "C:\\studies\\Asp.Net_Core\\Library\\Library\\wwwroot\\bookImages\\0756f1ea-4752-497b-893b-6a98e4119045_Снимок экрана 2024-07-17 110129.png",
-      "PackagePath": "staticwebassets\\bookImages\\0756f1ea-4752-497b-893b-6a98e4119045_Снимок экрана 2024-07-17 110129.png"
-    },
-    {
       "Id": "C:\\studies\\Asp.Net_Core\\Library\\Library\\wwwroot\\css\\account\\account.css",
       "PackagePath": "staticwebassets\\css\\account\\account.css"
     },

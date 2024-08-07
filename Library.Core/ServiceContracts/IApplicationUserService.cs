@@ -9,6 +9,7 @@ namespace Library.Core.ServiceContracts
         Task<UserBookViewResponse?> GetByIdAsync(Guid? id);
         Task<ApplicationUserResponse?> AddAsync(ApplicationUserUpdateRequest? userRequest);
         Task<bool> UpdateAsync(ApplicationUserUpdateRequest? updateRequest);
+        Task<bool> UpdateNameAsync(Guid? userId, string? firstName, string? lastName);
         Task<bool> DeleteByIdAsync(Guid? id);
     }
 }

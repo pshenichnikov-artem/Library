@@ -18,7 +18,7 @@
 
         </div>
     }
-    <form asp-action="Registration" method="post">
+    <form asp-action="Registration" method="post" enctype="multipart/form-data">
         <label for="first-name">Имя:</label>
         <input type="text" id="first-name" name="FirstName" value="@Model?.FirstName" required>
 

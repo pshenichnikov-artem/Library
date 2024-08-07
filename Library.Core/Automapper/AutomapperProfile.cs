@@ -4,6 +4,7 @@ using Library.Core.Domain.IdentityEntities;
 using Library.Core.DTO;
 using Library.Core.DTO.Account;
 using Library.Core.DTO.Author;
+using Library.Core.DTO.Author.AuthorImage;
 using Library.Core.DTO.Book;
 using Library.Core.DTO.Book.BookFile;
 using Library.Core.DTO.Book.BookImage;
@@ -28,6 +29,8 @@ namespace Library.Core.Automapper
             CreateMap<AuthorUpdateRequest, Author>()
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Biography));
 
+            CreateMap<AuthorImage, AuthorImageResponse>()
+                .ForMember(dest => dest.ImageName, opt => opt.MapFrom(src => src.FileName));
             //Rating
             CreateMap<IEnumerable<Rating>, RatingResponse>()
                 .ConvertUsing(new RatingToRatingResponseConverter());

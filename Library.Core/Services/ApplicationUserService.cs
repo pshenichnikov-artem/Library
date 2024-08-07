@@ -116,6 +116,26 @@ namespace Library.Core.Services
             var result = await _userViewRepository.DeleteAsync(id.Value);
             return result;
         }
+
+        public async Task<bool> UpdateNameAsync(Guid? id, string? firstName, string? lastName)
+        {
+            if(string.IsNullOrEmpty(firstName) || string.IsNullOrEmpty(lastName) || id == null)
+            {
+                throw new ArgumentNullException(nameof(firstName) + " " + nameof(lastName));
+            }
+
+            if (firstName.Length < 3 || lastName.Length < 3 || !char.IsUpper(firstName[0]) || !char.IsUpper(lastName[0]))
+                throw new ArgumentException();
+
+            var user = await _userRepository.GetByIdAsync(id.Value);
+            if(user == null)
+                return false;
+
+            user.FirstName = firstName;
+            user.LastName = lastName;
+
+            return await _userRepository.Update(user);
+        }
     }
 
 }

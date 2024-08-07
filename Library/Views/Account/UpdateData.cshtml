@@ -14,7 +14,7 @@
             }
         </div>
     }
-    <form asp-action="UpdateData" method="post">
+    <form asp-action="UpdateData" method="post" enctype="multipart/form-data">
         <label for="first-name">Имя:</label>
         <input type="text" id="first-name" name="FirstName" value="@ViewBag.FirstName" required>
 
@@ -22,7 +22,7 @@
         <input type="text" id="last-name" name="LastName" value="@ViewBag.LastName" required>
         
         <label for="new-image">Выберите новое изображение:</label>
-        <input type="file" id="new-image" name="newImage" accept="image/jpeg, image/png" required>
+        <input type="file" id="new-image" name="NewImage">
 
         <button type="submit">Обновить</button>
     </form>

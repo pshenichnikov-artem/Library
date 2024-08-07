@@ -2,7 +2,7 @@
 {
     public class AuthorImageResponse
     {
-        public Guid AuthorImageID { get; set; }
-        public string FileName { get; set; }
+        public string ImageName;
+        public string ImagePath = "authorImages";
     }
 }

@@ -1,4 +1,4 @@
-﻿@using Library.Core.DTO.Book.BookFile
+﻿
 @model BookResponse
 
 @section Head {
@@ -200,7 +200,7 @@ else
                     if (!response.ok) {
                         alert('Ошибка при удалении комментария.');
                     } else {
-                        location.reload(); // Reloads the page to see the updated comments
+                        location.reload();
                     }
                 }).catch(error => {
                     alert('Ошибка при удалении комментария.');
